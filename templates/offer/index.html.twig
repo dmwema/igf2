@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inspection Générale de Finance
+{% endblock %}
+
+{% block body %}
+	<div class="main">
+		<div class="jumbotron small">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 texts">
+						<h3>EMPOIS</h3>
+						<p>Bienvenu(e) sur l’espace réserver pour les offres d’emplois à l’Inspection Géneral des Finaces, IGF en sigle.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container posts">
+			{% if offers|length > 0 %}
+				{% for offer in offers %}
+					<div class="postcontainer">
+						<a href="{{ path('offer_detail', {title: offer.title, id: offer.id}) }}" class="post">
+							<div class="post-img" style="background-image: url('images/post1.jpg');"></div>
+							<div class="post-text">
+								<h3 class="title">{{ offer.title }}</h3>
+								<p>
+									{{ offer.description }}
+								</p>
+								<hr/>
+								<small>{{ offer.getCreatedAt()|date('Y-m-d') }}</small>
+
+							</div>
+						</a>
+					</div>
+				{% endfor %}
+			{% else %}
+				<p>Aucune offre d'emploie n'est disponible pour le moment</p>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

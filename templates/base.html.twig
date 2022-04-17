@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			{% block title %}Bienvenue
+			{% endblock %}
+		</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+		<link rel="stylesheet" href="{{ asset('styles/index.css') }}">
+		<link rel="stylesheet" href="{{ asset('styles/form.css') }}">
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
+		<link
+		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+	</head>
+	<body>
+		<div class="topnav">
+			<div class="container">
+				<img src="{{ asset('images/logo.png') }}" alt="logo">
+				<h3 class="toptitle">
+					<span>INSPECTION GENERALE DE FINANCE</span>
+					| REPUBLIQUE DEMOCRATIQUE DU CONGO</h3>
+				<img src="{{ asset('images/Logo_Presidence.png') }}" alt="logo presidence">
+			</div>
+		</div>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: relative;">
+			<div class="container">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarScroll">
+					<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+						<li class="nav-item {% if app.request.get('_route') == 'home' %} active{% endif %}">
+							<a class="nav-link" aria-current="page" href="{{ url('home') }}">Accueil</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#" role="button">
+								Apropos
+								<i class="fa-solid fa-chevron-down" style="margin-left: .5rem;"></i>
+							</a>
+							<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: absolute;">
+								<div class="container">
+									<div class="collapse navbar-collapse" id="navbarScroll">
+										<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+											<li class="nav-item {% if app.request.get('_route') == 'attributions' %} active{% endif %}">
+												<a class="nav-link" href="{{ url('attributions') }}">Attributions</a>
+											</li>
+											<li class="nav-item {% if app.request.get('_route') == 'historique' %} active{% endif %}">
+												<a class="nav-link" href="{{ url('historique') }}">Historique</a>
+											</li>
+											<li class="nav-item {% if app.request.get('_route') == 'mission' %} active{% endif %}">
+												<a class="nav-link" href="{{ url('mission') }}">Mission</a>
+											</li>
+											<li class="nav-item {% if app.request.get('_route') == 'structuration' %} active{% endif %}">
+												<a class="nav-link" href="{{ url('structuration') }}">Structuration</a>
+											</li>
+											<li class="nav-item {% if app.request.get('_route') == 'emplois' %} active{% endif %}">
+												<a class="nav-link" href="{{ url('emplois') }}">Emplois</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</nav>
+						</li>
+						<li class="nav-item {% if app.request.get('_route') == 'actualites' %} active{% endif %}">
+							<a class="nav-link" href="{{ url('actualites') }}">Actualités</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#" role="button">
+								Medias
+								<i class="fa-solid fa-chevron-down" style="margin-left: .5rem;"></i>
+							</a>
+							<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: absolute;">
+								<div class="container">
+									<div class="collapse navbar-collapse" id="navbarScroll">
+										<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+											<li class="nav-item {% if app.request.get('_route') == 'photos' %} active{% endif %}">
+												<a class="nav-link" aria-current="page" href="{{ url('photos') }}">Photos</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="historique.html">Videos</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</nav>
+						</li>
+						<li class="nav-item {% if app.request.get('_route') == 'rapports' %} active{% endif %}">
+							<a class="nav-link" href="{{ url('rapports') }}">Rapports</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="denoncer.html">Dénoncer</a>
+						</li>
+						<li class="nav-item {% if app.request.get('_route') == 'contact' %} active{% endif %}">
+							<a class="nav-link" href="{{ url('contact') }}">Contact</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">
+								<i class="fas fa-search"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+
+		{% block body %}{% endblock %}
+
+		<button onclick="topFunction()" id="myBtn" title="Go to top">
+			<i class="fa-solid fa-chevron-up"></i>
+		</button>
+
+		<!-- Footer Start -->
+		<div class="footer">
+			<div class="container">
+				<div
+					class="row">
+
+					<!--Footer About-->
+					<div class="col-md-6 col-lg-3">
+						<div class="footer-about">
+							<h3>A propos</h3>
+							<p>
+								Lorem ipsum dolor sit amet elit. Quisque eu lectus a leo dictum nec non quam. Tortor eu placerat rhoncus, lorem quam iaculis felis, sed lacus neque id eros
+							</p>
+							<div class="footer-social">
+								<a href="">
+									<i class="fab fa-twitter"></i>
+								</a>
+								<a href="">
+									<i class="fab fa-facebook-f"></i>
+								</a>
+								<a href="">
+									<i class="fab fa-youtube"></i>
+								</a>
+								<a href="">
+									<i class="fab fa-instagram"></i>
+								</a>
+								<a href="">
+									<i class="fab fa-linkedin-in"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<!--Contact Us-->
+					<div class="col-md-6 col-lg-3">
+						<div class="footer-contact">
+							<h3>Prendre contact</h3>
+							<p>
+								<i class="fa fa-map-marker-alt"></i>30 avenue des Forces Armées Gombe</p>
+							<p>
+								<i class="fa fa-phone-alt"></i>+243 818 101 008</p>
+							<p>
+								<i class="fa fa-envelope"></i>info@igf.gouv.cd</p>
+							<p>
+								<i class="far fa-clock"></i>Lun - Ven, 9h - 18h</p>
+						</div>
+					</div>
+					<!--Footer Link-->
+					<div class="col-md-6 col-lg-3">
+						<div class="footer-links">
+							<h3>Liens utiles
+							</h3>
+							<a href="">Présidence de la République</a>
+							<a href="">Senat</a>
+							<a href="">Assemblée Nationale</a>
+							<a href="">Primature</a>
+							<a href="">Banque centrale du Congo</a>
+							<a href="">Ministère du budget</a>
+							<a href="">Ministère des Finances</a>
+							<a href="">DGI</a>
+							<a href="">DGDA</a>
+							<a href="">ANAPI</a>
+							<a href="">GUCE</a>
+						</div>
+					</div>
+					<!--project Image-->
+
+					<div class="col-md-6 col-lg-3">
+						<div class="footer-project">
+							<h3>Dernières publications</h3>
+							<a href=""><img src="{{ asset('images/bottom1.jpeg') }}" alt="Image"></a>
+							<a href=""><img src="{{ asset('images/bottom2.jpg') }}" alt="Image"></a>
+							<a href=""><img src="{{ asset('images/bottom2.jpg') }}" alt="Image"></a>
+							<a href=""><img src="{{ asset('images/bottom3.jpg') }}" alt="Image"></a>
+							<a href=""><img src="{{ asset('images/bottom4.jpg') }}" alt="Image"></a>
+							<a href=""><img src="{{ asset('images/bottom4.jpg') }}" alt="Image"></a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- Newswletter -->
+
+			<div class="copyright">
+				<div class="container">
+					<div
+						class="row align-items-center">
+
+						<!--Copy Right-->
+						<div class="col-md-6">
+							<div class="copy-text">
+								<p>&copy;
+									<a href="#">INSPECTION GENERALE DE FINANCE</a>. Tout droit reservé</p>
+							</div>
+						</div>
+						<!--Footer Menu-->
+
+						<div class="col-md-6">
+							<div class="copy-menu">
+								<a href="">A propos</a>
+								<a href="">Acttualités</a>
+								<a href="">Dénoncer</a>
+								<a href="">Contact</a>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		<script src="{{ asset('js/slide.js') }}"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
+		<script src="{{ asset('js/reveal.js') }}"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+		<script>
+			baguetteBox.run('.tz-gallery');
+		</script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v13.0" nonce="ICWil1lx"></script>
+	</body>
+</html>

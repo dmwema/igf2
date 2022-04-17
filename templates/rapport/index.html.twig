@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inspection Générale de Finance
+{% endblock %}
+
+{% block body %}
+	<div class="main">
+		<div class="jumbotron small">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 texts">
+						<h3>RAPPORTS</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container" style="padding: 40px 0">
+			<div class="row">
+				{% if rapports|length > 0 %}
+					{% for rapport in rapports %}
+						<div class="col-lg-3 col-md-6 col-xs-12 pl-1 pr-1">
+							<div class="card rapport">
+								<img alt="pdf" src="images/pdf.jpg">
+								<h3 class="rapport-title">{{ rapport.title }}</h3>
+								<p>{{ rapport.description }}</p>
+								<p class="date">{{ rapport.getCreatedAt()|date('d-m-Y') }}</p>
+
+								<a class="btn btn-primary" href={{ path('rapport', { 'id': rapport.id, 'title': rapport.title,} ) }}>Télécharger</a>
+							</div>
+						</div>
+					{% endfor %}
+				{% else %}
+					<p>Aucun rapport disponible</p>
+				{% endif %}
+			</li>
+		</ul>
+	</div>
+</div></div></div></div>{% endblock %}

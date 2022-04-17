@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inspection Générale de Finance
+{% endblock %}
+
+{% block body %}
+
+	<div class="main">
+		<div class="jumbotron">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 texts">
+						<h3>INSPECTION GENERALE DE FINANCE</h3>
+						<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et saepe nihil possimus est veniam quo, soluta deserunt hic a impedit assumenda? Cupiditate esse ipsa repudiandae architecto dolore, similique in tempore!</p>
+					</div>
+					<div class="col-md-6">
+						<h1>
+							<span>LUTTONS CONTRE</span><br>
+							<span>LES ANTIVALEURS</span>
+						</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="latest-posts container">
+			<h2 class="section-title">Dernières nouvelles</h2>
+			{% if posts|length > 0 %}
+				<div class="container posts">
+					{% for post in posts %}
+						<div class="postcontainer">
+							<a href="{{ path('actu_detail', {title: post.title, id: post.id}) }}" class="post">
+								<div class="post-img" style="background-image: url('{{ post.getImgPath() }}');"></div>
+								<div class="post-text">
+									<h3 class="title">{{ post.title }}</h3>
+									<p>{{ post.description }}</p>
+									<p class="more-link">Voir plus
+										<i class="fa-solid fa-arrow-right"></i>
+									</p>
+								</div>
+							</a>
+						</div>
+					{% endfor %}
+				</div>
+			{% else %}
+				<p>Aucune actualité disponible</p>
+			{% endif %}
+
+		</div>
+		<div class="section gray">
+			<div class="container">
+				<section class="customer-logos slider">
+					<div class="slide"><img src="images/p1.jpeg"></div>
+					<div class="slide"><img src="images/p2.png"></div>
+					<div class="slide"><img src="images/p3.png"></div>
+					<div class="slide"><img src="images/p4.png"></div>
+					<div class="slide"><img src="images/p5.png"></div>
+					<div class="slide"><img src="images/p6.png"></div>
+				</section>
+			</div>
+		</div>
+		<div class="video-container">
+			<div class="container">
+
+				<h2 class="section-title" style="margin: 0 0 40px 0 !important;">Nos Vidéos</h2>
+				<div class="row">
+					<div class="col-md-4" style="display: flex; justify-content: center; text-align: right; flex-direction: column;">
+						<h3>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h3>
+						<p style="opacity: .7;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione molestias error culpa, neque aut sed expedita odio libero fugit odit eaque voluptate quaerat ad hic, itaque fugiat provident natus corrupti.</p>
+						<a href="#" class="more-link">Voir toutes nos vidéos
+							<i class="fa-solid fa-arrow-right"></i>
+						</a>
+					</div>
+					<div class="col-md-8" style="display: flex; justify-content: center;">
+						<div class="video" style="text-align: center; font-size: 4rem; display: flex; align-items: center; justify-content: center;">
+							<a href="#" class="video-link">
+								<i class="fa-solid fa-play"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="video-container">
+			<div class="container">
+
+				<h2 class="section-title" style="margin: 0 0 40px 0 !important;">Nos Photos</h2>
+				<div class="row">
+					<div class="col-md-8" style="display: flex; justify-content: center;">
+						<div class="photo" style="text-align: center; font-size: 4rem; display: flex; align-items: center; justify-content: center;">
+							<a href="#" class="video-link"></a>
+						</div>
+					</div>
+					<div class="col-md-4" style="display: flex; justify-content: center; text-align: left; flex-direction: column;">
+						<h3>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h3>
+						<p style="opacity: .7;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione molestias error culpa, neque aut sed expedita odio libero fugit odit eaque voluptate quaerat ad hic, itaque fugiat provident natus corrupti.</p>
+						<a href="#" class="more-link" style="color: #000;">Voir toutes nos photos
+							<i class="fa-solid fa-arrow-right"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

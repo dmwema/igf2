@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ rapport.title }}
+{% endblock %}
+
+{% block body %}
+	<div class="main">
+		<div class="jumbotron small">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 texts">
+						<h3>{{ rapport.title|upper }}</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6" style="margin-top: 150px; padding-right:70px; text-align: right; opacity: .6">
+					<h3 style="margin-bottom: 40px">{{ rapport.title }}</h3>
+					<p>{{ rapport.description }}</p>
+				</div>
+				<div class="col-sm-6">
+					{{ form_start(download_form, {'attr': {'id': 'contact'}}) }}
+					<h3>Télécharger une copie</h3>
+					<h4>Identifiez-vous et récevez le fichier par mail</h4>
+					<fieldset>
+						{{ form_widget(download_form.firstname) }}
+					</fieldset>
+					<fieldset>
+						{{ form_widget(download_form.lastname) }}
+					</fieldset>
+					<fieldset>
+						{{ form_widget(download_form.email) }}
+					</fieldset>
+					<fieldset style="display:flex">
+						{{ form_widget(download_form.newsletter) }}
+						<span style="margin-left:15px; font-size: 15px; opacity: .7">
+							{{ form_label(download_form.newsletter, "Recevoir les rapports par email") }}
+						</span>
+					</fieldset>
+					{{ form_end(download_form) }}
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div></div></div></div>{% endblock %}

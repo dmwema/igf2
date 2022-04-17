@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inspection Générale de Finance
+{% endblock %}
+
+{% block body %}
+	<div class="main">
+		<div class="container">
+			{% if first != null %}
+				<div class="top-news row post">
+					<div class="col-md-6 image">
+						<img src="{{ first.getImgPath() }}" alt="post1">
+					</div>
+					<div class="col-md-6 text">
+						<h3 class="title">{{ first.title }}</h3>
+						<p class="description">{{ first.description }}</p>
+						<a href="{{ path('actu_detail', {title: first.title, id: first.id}) }}" class="more-link">Voir plus
+							<i class="fa-solid fa-arrow-right"></i>
+						</a>
+					</div>
+				</div>
+			{% endif %}
+
+			<div class="flash-news">
+				<span>Brefs</span>
+				<p>Amphithéâtre “Félix Antoine Tshisekedi”, inauguré ce mardi à l ‘ IGF PAR FELIX A.TSHISEKEDI lui même.</p>
+			</div>
+		</div>
+
+		<div class="container posts">
+			{% if posts|length > 1 %}
+				{% for post in posts %}
+					{% if post.id != first.id %}
+						<div class="postcontainer">
+							<a href="{{ path('actu_detail', {title: post.title, id: post.id}) }}" class="post">
+								<div class="post-img" style="background-image: url('images/post1.jpg');"></div>
+								<div class="post-text">
+									<h3 class="title">{{ post.title }}</h3>
+									<p>
+										{{ post.description }}
+									</p>
+									<p class="more-link">Voir plus
+										<i class="fa-solid fa-arrow-right"></i>
+									</p>
+								</div>
+							</a>
+						</div>
+					{% endif %}
+				{% endfor %}
+			{% else %}
+				<p>Aucune actualité disponible</p>
+			{% endif %}
+
+		</div>
+	</div>
+
+	<script src="js/breaknews.js"></script>
+{% endblock %}
