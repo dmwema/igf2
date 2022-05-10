@@ -4,8 +4,6 @@ namespace App\Entity;
 
 use App\Repository\CandidatureRepository;
 use DateTime;
-use DateTimeImmutable;
-use Doctrine\DBAL\Types\DateTimeType;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,7 +39,7 @@ class Candidature
     private $postnom;
 
     /**
-     * @ORM\Column(type="DateTimeType", length=255)
+     * @ORM\Column(type="datetime_immutable")
      */
     private $naissance;
 
@@ -133,12 +131,12 @@ class Candidature
         return $this;
     }
 
-    public function getNaissance(): ?DateTimeType
+    public function getNaissance(): ?\DateTimeImmutable
     {
         return $this->naissance;
     }
 
-    public function setNaissance(DateTimeType $naissance): self
+    public function setNaissance(\DateTimeImmutable $naissance): self
     {
         $this->naissance = $naissance;
 

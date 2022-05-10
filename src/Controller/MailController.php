@@ -18,7 +18,6 @@ class MailController extends AbstractController
     public function send_mail(Swift_Mailer $mailer, $email, $rapport_id, ManagerRegistry $doctrine): Response
     {
         $rapport = $doctrine->getRepository(Rapport::class)->find($rapport_id);
-
         $email = (new Swift_Message())
             ->setFrom('danielmwemakapwe@gmail.com')
             ->setTo($email)

@@ -177,6 +177,11 @@
 						</ul>
 					</div>
 					<hr>
+
+					{% if app.session.has('success') %}
+						<div class="alert alert-success">{{ app.session.get('success') }}</div>
+					{% endif %}
+
 					<h3 class="title">Postuler</h3>
 					{{ form_start(candidature_form) }}
 					<div class="row">

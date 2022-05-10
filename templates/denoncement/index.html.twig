@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inspection Générale de Finance
+{% endblock %}
+
+{% block body %}
+	<div class="main">
+		<div class="jumbotron small">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 texts">
+						<h3>DENONCER</h3>
+						<p>Un détournement - Une fraude</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container denoncer" style="padding: 40px 0">
+			{% if app.session.has('success') %}
+				<div class="alert alert-success">{{ app.session.remove('success') }}</div>
+
+			{% endif %}
+
+
+			<h3 class="title">Denoncer</h3>
+			{{ form_start(denoncement_form) }}
+			<div class="row">
+				<div class="mb-3 col-md-4">
+					{{ form_label(denoncement_form.civilite) }}
+					{{ form_widget(denoncement_form.civilite) }}
+				</div>
+				<div class="mb-3 col-md-4">
+					{{ form_label(denoncement_form.prenom) }}
+					{{ form_widget(denoncement_form.prenom) }}
+				</div>
+				<div class="mb-3 col-md-4">
+					{{ form_label(denoncement_form.nom) }}
+					{{ form_widget(denoncement_form.nom) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="mb-3 col-md-4">
+					{{ form_label(denoncement_form.profession) }}
+					{{ form_widget(denoncement_form.profession) }}
+				</div>
+				<div class="mb-3 col-md-4">
+					{{ form_label(denoncement_form.email) }}
+					{{ form_widget(denoncement_form.email) }}
+				</div>
+				<div class="mb-3 col-md-4">
+					{{ form_label(denoncement_form.phone) }}
+					{{ form_widget(denoncement_form.phone) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="mb-3 col-md-12">
+					{{ form_label(denoncement_form.motif) }}
+					{{ form_widget(denoncement_form.motif) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="mb-3 col-md-12">
+					{{ form_label(denoncement_form.fichier) }}
+					{{ form_widget(denoncement_form.fichier) }}
+				</div>
+			</div>
+			{{ form_end(denoncement_form) }}
+		</ul>
+	</div>
+
+</div></div></div></div>{% endblock %}

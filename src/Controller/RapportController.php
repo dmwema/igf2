@@ -44,7 +44,7 @@ class RapportController extends AbstractController
             ->add('firstname', TextType::class, ['attr' => ['class' => 'form-input', 'placeholder' => 'Votre prenom'], 'label' => false])
             ->add('lastname', TextType::class, ['attr' => ['class' => 'form-input', 'placeholder' => 'Votre nom'], 'label' => false])
             ->add('email', EmailType::class, ['attr' => ['class' => 'form-input', 'placeholder' => 'Votre adresse mail'], 'label' => false])
-            ->add('newsletter', CheckboxType::class, ['attr' => ['class' => 'form-check'], 'label' => "Recevoir des emails"])
+            ->add('newsletter', CheckboxType::class, ['attr' => ['class' => 'form-check'], 'label' => "Recevoir des emails", 'required' => false])
             ->add('submit', SubmitType::class, ['attr' => ['class' => 'form-submit',], 'label' => 'Télécharger'])
             ->setMethod('POST')
             ->getForm();

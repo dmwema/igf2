@@ -1,0 +1,28 @@
+.slider-bg .slide {
+    background-size: cover;
+    margin: 0;
+    width: 100%;
+    padding: 90px 0;
+    color: #fff;
+}
+
+.slider-bg .slide a {
+    background: none;
+    padding: 10px 25px;
+    border: 1px solid #fff;
+    color: #fff;
+    text-decoration: none;
+}
+
+.slider-bg .slide p {
+    margin-bottom: 30px;
+    opacity: .7;
+}
+
+.slider-bg .slide h3 {
+    margin-bottom: 30px;
+}
+
+.slider-bg .slide a:hover {
+    border: 1px solid #eee;
+}

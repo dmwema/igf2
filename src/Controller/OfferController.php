@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Candidature;
 use App\Entity\Offer;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class OfferController extends AbstractController
@@ -35,7 +37,7 @@ class OfferController extends AbstractController
     /**
      * @Route("/emplois/{title}/{id}", name="offer_detail")
      */
-    public function detail(ManagerRegistry $doctrine, $id, Request $request, EntityManagerInterface $em): Response
+    public function detail(ManagerRegistry $doctrine, $id, Request $request, EntityManagerInterface $em, SessionInterface $session): Response
     {
         $offer = $doctrine->getRepository(Offer::class)->find($id);
 
@@ -46,7 +48,7 @@ class OfferController extends AbstractController
             ->add('email', EmailType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Votre adresse mail'], 'label' => 'Adresse mail'])
             ->add('naissance', DateType::class, ['attr' => [
                 'class' => 'birth_select', 'placeholder' => 'Votre date de naissance'
-            ], 'label' => 'Date de naissance'])
+            ], 'label' => 'Date de naissance', 'input' => 'datetime_immutable',])
             ->add('phone', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Votre numéro de téléphone'], 'label' => 'Numéro de téléphone'])
             ->add('ville', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Votre ville de résidence'], 'label' => 'Ville de résidence'])
             ->add('adresse', TextareaType::class, ['attr' => ['class' => 'form-control'], 'label' => 'Adresse de residence actuelle'])
@@ -62,6 +64,7 @@ class OfferController extends AbstractController
             $datas = $candidature_form->getData();
 
             $candidature = new Candidature();
+            //dd($datas['naissance']);
             $candidature
                 ->setPrenom($datas['prenom'])
                 ->setNom($datas['nom'])
@@ -72,12 +75,18 @@ class OfferController extends AbstractController
                 ->setEmail($datas['email'])
                 ->setPhone($datas['phone'])
                 ->setBio($datas['bio'])
-                ->setCv($datas['cv']);
+                ->setCv($datas['cv'])
+                ->setCreatedAt(new DateTimeImmutable("now"));
 
             $em->persist($candidature);
             $em->flush();
 
-            return 'ok';
+            $session->set('success', 'Votre demande a été enrégistrée avec succès');
+
+            return $this->render('offer/detail.html.twig', [
+                'offer' => $offer,
+                'candidature_form' => $candidature_form->createView()
+            ]);
         }
 
         return $this->render('offer/detail.html.twig', [

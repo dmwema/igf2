@@ -1,0 +1,143 @@
+@media only screen and (max-width: 995px) {
+    .postcontainer {
+        width: 50%;
+        margin-bottom: 30px;
+    }
+    .nav-item.has-children {
+        position: relative;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .jumbotron {
+        background-image: url(../images/flag.png);
+        background-size: cover;
+        color: #fff;
+        text-align: right;
+        padding: 50px 0;
+    }
+    .postcontainer {
+        width: 100%;
+    }
+    h1.main-title {
+        text-align: left;
+        margin-top: 20px;
+    }
+    .video-texts {
+        text-align: left !important;
+        margin-bottom: 30px;
+    }
+    .video-box {
+        display: block !important;
+    }
+    .video-box.photo {
+        margin-bottom: 30px;
+    }
+    .footer>.container {
+        padding: 0 20px;
+    }
+    .section-title {
+        margin: 40px 0;
+    }
+    .posts {
+        padding: 0;
+    }
+    .section.gray {
+        padding: 30px 0;
+    }
+    a.post .post-text {
+        padding: 15px;
+    }
+    .htexts p {
+        padding: 0 13px;
+    }
+    .list-texts p {
+        padding: 0 13px;
+    }
+    .flash-news {
+        padding: 10px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        text-align: center;
+    }
+    .flash-news span {
+        margin-bottom: 10px;
+    }
+    .flash-news p {
+        margin-left: 0;
+    }
+    .container.denoncer {
+        padding: 20px !important;
+    }
+    .posts p {
+        padding: 0 15px;
+    }
+    .htexts img {
+        border-radius: 0 !important;
+    }
+    .htexts .detail-small,
+    .htexts .title {
+        padding: 0 15px;
+    }
+    .htexts .downlod-btn {
+        margin: 0 15px;
+    }
+    .htexts .share {
+        margin: 0 15px;
+    }
+    .htexts .link {
+        margin: 0 10px;
+        margin-bottom: 20px;
+    }
+    .htexts .link a {
+        margin: 0 10px;
+        font-size: 11px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .htexts .link a i {
+        margin: 10px 0;
+    }
+    .categories-list div a {
+        padding: 0 15px;
+    }
+    .container .row p {
+        padding: 0 15px;
+    }
+    .maps {
+        padding: 0 !important;
+        margin-bottom: 0 !important;
+    }
+}
+
+.jumbotron h1 span {
+    max-width: 100%;
+}
+
+.topnav {
+    height: auto !important;
+}
+
+.toptitle {
+    padding: 10px 0;
+    margin: 0;
+}
+
+.photo,
+.video {
+    max-width: 100% !important;
+}
+
+.navbar-toggler {
+    border: none;
+    padding: 10px;
+}
+
+button:focus:not(:focus-visible) {
+    outline: 0;
+    border: none;
+    outline: none;
+}

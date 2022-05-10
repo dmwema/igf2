@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<style type="text/css">
+		body {
+			margin-top: 20px;
+		}
+		.mail-seccess {
+			text-align: center;
+			background: #fff;
+			border-top: 1px solid #eee;
+		}
+		.mail-seccess .success-inner {
+			display: inline-block;
+		}
+		.mail-seccess .success-inner h1 {
+			font-size: 100px;
+			text-shadow: 3px 5px 2px #3333;
+			color: #006DFE;
+			font-weight: 700;
+		}
+		.mail-seccess .success-inner h1 span {
+			display: block;
+			font-size: 25px;
+			color: #333;
+			font-weight: 600;
+			text-shadow: none;
+			margin-top: 20px;
+		}
+		.mail-seccess .success-inner p {
+			padding: 20px 15px;
+		}
+		.mail-seccess .success-inner .btn {
+			color: #fff;
+		}
+	</style>
+	<section class="mail-seccess section" style="padding:30px 0">
+		<div class="container">
+			<div class="row">
+				<div
+					class="col-lg-6 offset-lg-3 col-12">
+					<!-- Error Inner -->
+					<div class="success-inner">
+						<h1 style="color: rgb(228, 35, 35);">
+							<i class="fa fa-envelope"></i>
+							<span>Le fichier envoyé par mail avec succès!</span>
+						</h1>
+						<p>Nous avons envoyé avec succès le lien de téléchargement du fichier à l'adresse mail renseigné.</p>
+						<hr>
+						<p>Veuillez consulter votre boite pour pouvoir télécharger le fichier</p>
+						<a href="{{ path('rapports')}}" class="btn btn-primary btn-lg">Voir tous les rapports</a>
+					</div>
+					<!--/ End Error Inner -->
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
