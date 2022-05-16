@@ -18,7 +18,7 @@ class WelcomeController extends AbstractController
         $posts = $doctrine->getRepository(Post::class)->findAll();
         return $this->render('welcome/index.html.twig', [
             'controller_name' => 'WelcomeController',
-            'posts' => array_slice($posts, 0, 3)
+            'posts' => array_slice($posts, 0, 5)
         ]);
     }
 
