@@ -146,3 +146,23 @@ button:focus:not(:focus-visible) {
 body {
     overflow-x: hidden;
 }
+
+a.post .post-img {
+    height: 70%;
+}
+
+a.post .post-text {
+    padding: 15px;
+    transform: translateY(-50%);
+    background-color: #fff;
+    width: 90%;
+    margin: auto;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .15);
+    height: 150px;
+    overflow-y: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-top: 5px solid #ffff00;
+}
