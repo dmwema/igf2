@@ -10,10 +10,10 @@
 		</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-		<link rel="stylesheet" href="{{ asset('styles/index.css') }}">
+		<link rel="stylesheet" href="{{ asset('styles/stle.css') }}">
 		<link rel="stylesheet" href="{{ asset('styles/form.css') }}">
-		<link rel="stylesheet" href="{{ asset('styles/mobile.css') }}">
-		<link rel="stylesheet" href="{{ asset('styles/slider.css') }}">
+		<link rel="stylesheet" href="{{ asset('styles/responsive.css') }}">
+		<link rel="stylesheet" href="{{ asset('styles/slides.css') }}">
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
 		<link
@@ -23,11 +23,11 @@
 	<body>
 		<div class="topnav">
 			<div class="container">
-				<img src="{{ asset('images/logo.png') }}" alt="logo">
+				<img src="{{ asset('images/Logo_Presidence.png') }}" alt="logo presidence">
 				<h3 class="toptitle">
 					<span>INSPECTION GENERALE DES FINANCES</span>
 					| REPUBLIQUE DEMOCRATIQUE DU CONGO</h3>
-				<img src="{{ asset('images/Logo_Presidence.png') }}" alt="logo presidence">
+				<img src="{{ asset('images/logo.png') }}" alt="logo">
 			</div>
 		</div>
 		<div class="flash-news" style="margin-top:0">
@@ -124,6 +124,16 @@
 						</li>
 						<li class="nav-item {% if app.request.get('_route') == 'contact' %} active{% endif %}">
 							<a class="nav-link" href="{{ url('contact') }}">Contact</a>
+						</li>
+						<li class="nav-item {% if app.request.get('_route') == 'emplois' %} active{% endif %}">
+							<div class="input-group">
+								<span class="input-group-prepend">
+									<div style="height:100%; border:1px solid #dee2e6 !important; border-right: 0 !important; background-color:#fff !important;" class="input-group-text bg-transparent border-right-0"><i class="fa fa-search"></i></div>
+								</span>
+								<input style="border-left: 0 !important; padding-left: 0 !important" class="form-control py-2 border-left-0 border" type="search" placeholder="Rechercher" id="example-search-input">
+								<span class="input-group-append">
+							</span>
+							</div>
 						</li>
 					</ul>
 				</div>

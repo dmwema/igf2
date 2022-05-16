@@ -148,7 +148,7 @@ body {
 }
 
 a.post .post-img {
-    height: 70%;
+    height: calc(100% - 150px/2);
 }
 
 a.post .post-text {
@@ -165,4 +165,53 @@ a.post .post-text {
     justify-content: center;
     text-align: center;
     border-top: 5px solid #ffff00;
+}
+
+.form-control:focus {
+    outline: 0 !important;
+    border-color: initial;
+    box-shadow: none;
+}
+
+.social-icons {
+    position: fixed;
+    z-index: 100;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    right: 30px;
+    top: 0;
+}
+
+.social-icons ul {
+    list-style: none;
+    text-align: center;
+    padding-left: 0 !important;
+    margin-bottom: 0!important;
+}
+
+.social-icons ul li {
+    margin-bottom: 20px;
+}
+
+.social-icons ul li a {
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    padding: 10px 13px;
+    width: 100%;
+    border-radius: 50%;
+    color: #fff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .15);
+    transition: all .2s ease-in-out;
+}
+
+.social-icons ul li a:hover {
+    transform: translateY(-7px);
+}
+
+.social-icons ul li:last-child {
+    margin-bottom: 0;
 }

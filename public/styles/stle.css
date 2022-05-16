@@ -4,11 +4,11 @@
     --dark-gray: rgb(22, 22, 22);
     --gray: rgb(80, 80, 80);
     --light-gray: rgb(250, 250, 250);
-    --card-height: 350px;
+    --card-height: 250px;
 }
 
 body {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .topnav {
@@ -104,8 +104,7 @@ a.post:hover .more-link i,
 }
 
 .post .title {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+    font-size: 1rem;
 }
 
 .flash-news {
@@ -390,6 +389,10 @@ a.post:hover .more-link i,
     background-image: url("..images/flag.png"), linear-gradient(to top, rgba(0, 0, 0, .4), rgba(0, 0, 0, .7));
 }
 
+.jumbotron {
+    height: calc(100vh - 80px - 120px);
+}
+
 .jumbotron h1 span {
     width: 300px;
     max-width: 90%;
@@ -402,6 +405,8 @@ a.post:hover .more-link i,
     font-size: 1.6rem;
     font-weight: bolder;
     letter-spacing: 0px;
+    border: 2px solid red;
+    height: calc(100vh - 80px - 74px -50px);
 }
 
 .jumbotron h1 span:last-child {
@@ -491,7 +496,7 @@ a.post:hover .more-link i,
 }
 
 .flat-card:hover img {
-    transform: scale(1.1);
+    transform: scale(1.3);
 }
 
 .section.gray {
@@ -653,28 +658,33 @@ nav.navbar {
 }
 
 .postcontainer {
-    display: inline-block;
     width: 100%;
     height: var(--card-height);
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 .postcontainer.big {
-    width: calc(100% / 2);
-    height: calc(var(--card-height)* 2);
+    height: calc(var(--card-height)* 2 + 20px);
 }
 
 a.post {
     display: block;
     text-decoration: none;
     color: inherit;
+    overflow: hidden;
     width: 90%;
 }
 
 a.post .post-img {
     width: 100%;
     background-size: cover;
+    transition: all .3s ease-in-out;
+}
+
+a.post:hover .post-img {
+    transform: scale(1.1);
 }
 
 a.post .post-text {
@@ -768,6 +778,7 @@ a.post p {
     font-size: 14px;
     /* Increase font size */
     opacity: 0.6;
+    z-index: 500;
 }
 
 #myBtn:hover {
@@ -1153,4 +1164,27 @@ nav.navbar.main-nav.fixed {
     left: 0;
     width: 100%;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .15);
+}
+
+.navbar {
+    font-size: 15px;
+}
+
+a.post .overlay {
+    background: rgba(255, 0, 0, 0.3);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .2s ease-in-out;
+    height: 0;
+}
+
+a.post:hover .overlay {
+    height: 100%;
+}
+
+a.post:hover .title {
+    color: var(--red);
 }

@@ -9,12 +9,26 @@
 	<div class="main">
 		</div>
 		<div class="jumbotron" style="position:relative">
+				<div class="social-icons">
+					<ul>
+						<li>
+							<a href="#" style="background-color:#3b5998"><i class="fab fa-facebook-f"></i></a>
+						</li>
+						<li>
+							<a href="#" style="background-color:#00acee"><i class="fa-brands fa-twitter"></i></a>
+						</li>
+						<li>
+							<a href="#" style="background-color:#FF0000"><i class="fa-brands fa-youtube"></i></a>
+						</li>
+					</ul>
+				</div>
 			<section class="slider-bg slider">
 				{% if posts|length > 0 %}
 					{% for post in posts %}
 						<div class="slide" style="background:linear-gradient(to bottom right, rgba(0,0,0,.4), rgba(0,0,0,.7)), url({{ post.getImgPath() }}); background-size: cover;">
 							<div class="container">
 								<h3 class="title">{{ post.title }}</h3>
+								<hr>
 								<p>{{ post.description }}</p>
 								<a href="{{ path('actu_detail', {title: post.title, id: post.id}) }}">Voir plus <i class="fa-solid fa-arrow-right"></i></a>
 							</div>
@@ -23,28 +37,52 @@
 				{% endif %}
 			</section>
 		</div>
+		
 		<div class="latest-posts container">
 			<h2 class="section-title">Dernières nouvelles</h2>
 			{% if posts|length > 0 %}
 				<div class="container posts">
-					{% for post in posts %}
-					 {% if loop.first %}
-						<div class="postcontainer big">      
-					{% else %}
-						<div class="postcontainer">     
-					{% endif %}
-							<a href="{{ path('actu_detail', {title: post.title, id: post.id}) }}" class="post">
-								<div class="post-img" style="background-image: url({{ post.getImgPath() }}); text-align:right">
-									<p class="more-link">Voir plus
-										<i class="fa-solid fa-arrow-right"></i>
-									</p>
-								</div>
-								<div class="post-text">
-									<h3 class="title">{{ post.title }}</h3>
-								</div>
-							</a>
+					<div class="row">
+						<div class="col-md-6">
+							{% for post in posts %}
+								{% if loop.first %}
+									<div class="postcontainer big">   
+										<a href="{{ path('actu_detail', {title: post.title, id: post.id}) }}" class="post">
+											<div class="post-img" style="background-image: url({{ post.getImgPath() }}); text-align:right">
+												<div class="overlay"></div>
+											</div>
+											<div class="post-text">
+												<h3 class="title">{{ post.title }}</h3>
+											</div>
+										</a>
+									</div>    
+								{% endif %}
+							{% endfor %}
 						</div>
-					{% endfor %}
+						<div class="col-md-6">
+						<div class="row" style="display:grid; grid-template-columns: 1fr 1fr">
+						{% for post in posts %}
+							{% if loop.first %}
+							{% else %}
+								<div class="postcontainer col-sm-6">  
+									<a href="{{ path('actu_detail', {title: post.title, id: post.id}) }}" class="post">
+										<div class="post-img" style="background-image: url({{ post.getImgPath() }}); text-align:right">
+											<!--<p class="more-link">Voir plus
+												<i class="fa-solid fa-arrow-right"></i>
+											</p>-->
+											<div class="overlay"></div>
+										</div>
+										<div class="post-text">
+											<h3 class="title">{{ post.title }}</h3>
+										</div>
+									</a>
+								</div>   
+							{% endif %}
+						{% endfor %}
+						</div>
+						</div>
+					</div>
+					
 				</div>
 			{% else %}
 				<p>Aucune actualité disponible</p>
