@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +27,6 @@ class RapportController extends AbstractController
     {
 
         $rapports = $doctrine->getRepository(Rapport::class)->findAll();
-
         return $this->render('rapport/index.html.twig', [
             'controller_name' => 'RapportController',
             'rapports' => $rapports,
@@ -44,6 +44,7 @@ class RapportController extends AbstractController
             ->add('firstname', TextType::class, ['attr' => ['class' => 'form-input', 'placeholder' => 'Votre prenom'], 'label' => false])
             ->add('lastname', TextType::class, ['attr' => ['class' => 'form-input', 'placeholder' => 'Votre nom'], 'label' => false])
             ->add('email', EmailType::class, ['attr' => ['class' => 'form-input', 'placeholder' => 'Votre adresse mail'], 'label' => false])
+            ->add('phone', TelType::class, ['attr' => ['class' => 'form-input', 'placeholder' => 'Votre numéro de téléphone'], 'label' => false])
             ->add('newsletter', CheckboxType::class, ['attr' => ['class' => 'form-check'], 'label' => "Recevoir des emails", 'required' => false])
             ->add('submit', SubmitType::class, ['attr' => ['class' => 'form-submit',], 'label' => 'Télécharger'])
             ->setMethod('POST')
@@ -54,16 +55,20 @@ class RapportController extends AbstractController
         if ($download_form->isSubmitted() && $download_form->isValid()) {
             $datas = $download_form->getData();
             $user = $em->getRepository(User::class)->findBy(['email' => $datas['email']]);
-
+            
             $current_user = null;
             if (count($user) == 0) {
                 $current_user = new User();
                 $current_user
-                    ->setFirstname($datas['lastname'])
-                    ->setLastname($datas['firstname'])
-                    ->setEmail($datas['email']);
+                ->setFirstname($datas['lastname'])
+                ->setLastname($datas['firstname'])
+                ->setPhone($datas['phone'])
+                ->setEmail($datas['email']);
 
                 $em->persist($current_user);
+                // $val = $doctrine->getManager();
+                // $val->persist($current_user);
+                // $val->flush();
             } else {
                 $current_user = $em->getRepository(User::class)->findOneBy(['email' => $datas['email']]);
             }
@@ -77,6 +82,7 @@ class RapportController extends AbstractController
             $em->persist($download);
 
             // validate datas
+            $em->flush();
 
             //send file mail
             return $this->redirectToRoute('send_mail', [
@@ -84,7 +90,6 @@ class RapportController extends AbstractController
                 'rapport_id' => $rapport->getId(),
             ]);
 
-            $em->flush();
         }
 
         return $this->render('rapport/download.html.twig', [

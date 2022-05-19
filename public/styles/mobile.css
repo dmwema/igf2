@@ -9,13 +9,6 @@
 }
 
 @media only screen and (max-width: 768px) {
-    .jumbotron {
-        background-image: url(../images/flag.png);
-        background-size: cover;
-        color: #fff;
-        text-align: right;
-        padding: 50px 0;
-    }
     .postcontainer {
         width: 100%;
     }
@@ -140,4 +133,16 @@ button:focus:not(:focus-visible) {
     outline: 0;
     border: none;
     outline: none;
+}
+
+.fb-page span iframe {
+    width: 100% !important;
+}
+
+.fb-page span {
+    width: 100% !important;
+}
+
+body {
+    overflow-x: hidden;
 }

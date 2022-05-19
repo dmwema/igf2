@@ -40,6 +40,11 @@ class User
      */
     private $downloads;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $phone;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -113,6 +118,18 @@ class User
                 $download->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }

@@ -10,10 +10,12 @@
 		</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-		<link rel="stylesheet" href="{{ asset('styles/styles.css') }}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="{{ asset('styles/index.css') }}">
 		<link rel="stylesheet" href="{{ asset('styles/form.css') }}">
-		<link rel="stylesheet" href="{{ asset('styles/responsives.css') }}">
+		<link rel="stylesheet" href="{{ asset('styles/mobile.css') }}">
 		<link rel="stylesheet" href="{{ asset('styles/slider.css') }}">
+		<link rel="stylesheet" href="{{ asset('styles/stickysocial.css') }}">
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
 		<link
@@ -23,11 +25,11 @@
 	<body>
 		<div class="topnav">
 			<div class="container">
-				<img src="{{ asset('images/logo.png') }}" alt="logo">
+				<img src="{{ asset('images/Logo_Presidence.png') }}" alt="logo presidence">
 				<h3 class="toptitle">
 					<span>INSPECTION GENERALE DES FINANCES</span>
 					| REPUBLIQUE DEMOCRATIQUE DU CONGO</h3>
-				<img src="{{ asset('images/Logo_Presidence.png') }}" alt="logo presidence">
+				<img src="{{ asset('images/logo.png') }}" alt="logo">
 			</div>
 		</div>
 		<div class="flash-news" style="margin-top:0">
@@ -129,7 +131,12 @@
 				</div>
 			</div>
 		</nav>
-
+		<div class="icon-bar">
+			<a href="https://web.facebook.com/igf.rdcongo" class="facebook"><i class="fa fa-facebook"></i></a>
+			<a href="https://twitter.com/IgfRdc?s=20&t=ImahxSJ7NPKNL63tiJbQOA" class="twitter"><i class="fa fa-twitter"></i></a>
+			<a href="https://www.instagram.com/igfrdc/" class="instagram"><i class="fa fa-instagram"></i></a>
+			<a href="https://www.youtube.com/channel/UC1ZCoVkoGYZ4NC1p3cSBZQg/videos" class="youtube"><i class="fa fa-youtube"></i></a>
+		  </div>
 
 		{% block body %}{% endblock %}
 

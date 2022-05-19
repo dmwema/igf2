@@ -1,7 +1,7 @@
 var text = [
     "Liste de candidats retenus à l'issue du jury final de recrutement des inspecteurs disponible",
     "Teste de recrutement des inspecteurs programmé.",
-    "Amphithéâtre “Félix Antoine Tshisekedi”, inauguré ce mardi à l ‘ IGF PAR FELIX A.TSHISEKEDI lui même.",
+    "Amphithéâtre “Félix Antoine Tshisekedi”, inauguré ce mardi à l ‘ IGF PAR FELIX A.TSHISEKEDI lui même."
 ];
 
 var counter = 0;
