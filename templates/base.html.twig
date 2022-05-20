@@ -10,9 +10,10 @@
 		</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-		<link rel="stylesheet" href="{{ asset('styles/style.css') }}">
+		<link rel="stylesheet" href="{{ asset('styles/loader.css') }}">
+		<link rel="stylesheet" href="{{ asset('styles/css.css') }}">
 		<link rel="stylesheet" href="{{ asset('styles/form.css') }}">
-		<link rel="stylesheet" href="{{ asset('styles/mobile.css') }}">
+		<link rel="stylesheet" href="{{ asset('styles/mobiles.css') }}">
 		<link rel="stylesheet" href="{{ asset('styles/slider.css') }}">
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
@@ -21,6 +22,10 @@
 	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 	</head>
 	<body>
+		<div class="site-loader">
+			<img src="{{ asset("images/loader.gif") }}">
+		</div>
+
 		<div class="topnav">
 			<div class="container">
 				<img src="{{ asset('images/Logo_Presidence.png') }}" alt="logo presidence">
@@ -140,7 +145,6 @@
 				</div>
 			</div>
 		</nav>
-
 
 		{% block body %}{% endblock %}
 
@@ -266,6 +270,7 @@
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 		<script src="{{ asset('js/slider.js') }}"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
+		<script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
 		<script src="{{ asset('js/reveal.js') }}"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
 		<script>
@@ -274,5 +279,11 @@
 		<script src="{{ asset('js/stiky.js') }}"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v13.0" nonce="ICWil1lx"></script>
+
+		<script>
+			$(window).on('load', function () {
+$('.site-loader').fadeOut(500);
+});
+		</script>
 	</body>
 </html>

@@ -48,3 +48,12 @@
 .jumbotron:not(.small) {
   height: calc(100vh - 80px - 120px);
 }
+
+a.post .overlay {
+  width: 100%;
+  height: 100%;
+  background-size: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #eee;
+}

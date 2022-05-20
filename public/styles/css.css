@@ -665,10 +665,11 @@ nav.navbar {
   height: var(--card-height);
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
 .postcontainer.big {
-  height: calc(var(--card-height) * 2);
+  height: calc(var(--card-height) * 2 + 20px);
 }
 
 a.post {
@@ -1167,4 +1168,51 @@ nav.navbar.main-nav.fixed {
 
 .latest-postes .postcontainer a.post .title {
   text-transform: lowercase;
+}
+
+.photo-container {
+  background: url("../images/photosbg.jpg"),
+    linear-gradient(to bottom right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5));
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  height: calc(100vh - 80px);
+  color: #fff;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.big-title {
+  font-size: 3rem;
+  text-transform: uppercase;
+  font-weight: 900;
+  margin-bottom: 30px;
+}
+
+p.media-desc {
+  opacity: 0.7;
+  line-height: 30px;
+  margin-bottom: 20px;
+}
+
+a.media-link {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  padding: 10px 25px;
+  border: 2px solid #fff;
+  transition: all 0.3s;
+}
+
+.photo-container a:hover {
+  background-color: rgb(67, 62, 62);
+}
+
+.video-container {
+  height: calc(100vh - 80px);
+  display: grid;
+  align-items: center;
+  justify-content: center;
 }
