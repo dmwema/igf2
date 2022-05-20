@@ -4,159 +4,156 @@
 {% endblock %}
 
 {% block body %}
-	<div id="fb-root"></div>	
+	<div id="fb-root"></div>
 
-	<div class="main">
+	<div class="main"></div>
+	<div class="jumbotron" style="position:relative">
+		<div class="social-icons">
+			<ul>
+				<li><a href="https://web.facebook.com/igfRdc" target="_blank" style="background-color:#3b5998"><i class="fab fa-facebook-f"></i></a></li>
+				<li><a href="https://twitter.com/IgfRdc" target="_blank" style="background-color:#00acee"><i class="fa-brands fa-twitter"></i></a></li>
+				<li><a href="https://www.youtube.com/channel/UC1ZCoVkoGYZ4NC1p3cSBZQg/videos" target="_blank" style="background-color:#FF0000"><i class="fa-brands fa-youtube"></i></a></li>
+			</ul>
 		</div>
-		<div class="jumbotron" style="position:relative">
-				<div class="social-icons">
-					<ul>
-						<li>
-							<a href="#" style="background-color:#3b5998"><i class="fab fa-facebook-f"></i></a>
-						</li>
-						<li>
-							<a href="#" style="background-color:#00acee"><i class="fa-brands fa-twitter"></i></a>
-						</li>
-						<li>
-							<a href="#" style="background-color:#FF0000"><i class="fa-brands fa-youtube"></i></a>
-						</li>
-					</ul>
-				</div>
-			<section class="slider-bg slider">
-				{% if posts|length > 0 %}
-					{% for post in posts %}
-						<div class="slide" style="background:linear-gradient(to bottom right, rgba(0,0,0,.4), rgba(0,0,0,.7)), url({{ post.getImgPath() }}); background-size: cover;">
-							<div class="container">
-								<h3 class="title">{{ post.title }}</h3>
-								<hr>
-								<p>{{ post.description }}</p>
-								<a href="{{ path('actu_detail', {title: post.title, id: post.id}) }}">Voir plus <i class="fa-solid fa-arrow-right"></i></a>
-							</div>
-						</div>
-					{% endfor %}
-				{% endif %}
-			</section>
-		</div>
-		
-		<div class="latest-posts container">
-			<h2 class="section-title">Dernières nouvelles</h2>
+		<section class="slider-bg slider">
 			{% if posts|length > 0 %}
-				<div class="container posts">
-					<div class="row">
-						<div class="col-md-6">
-							{% for post in posts %}
-								{% if loop.first %}
-									<div class="postcontainer big">   
-										<a href="{{ path('actu_detail', {title: post.title, id: post.id}) }}" class="post">
-											<div class="post-img" style="background-image: url({{ post.getImgPath() }}); text-align:right">
-												<div class="overlay"></div>
-											</div>
-											<div class="post-text">
-												<h3 class="title">{{ post.title }}</h3>
-											</div>
-										</a>
-									</div>    
-								{% endif %}
-							{% endfor %}
-						</div>
-						<div class="col-md-6">
-						<div class="row" style="display:grid; grid-template-columns: 1fr 1fr">
-						{% for post in posts %}
-							{% if loop.first %}
-							{% else %}
-								<div class="postcontainer col-sm-6">  
-									<a href="{{ path('actu_detail', {title: post.title, id: post.id}) }}" class="post">
-										<div class="post-img" style="background-image: url({{ post.getImgPath() }}); text-align:right">
-											<!--<p class="more-link">Voir plus
-												<i class="fa-solid fa-arrow-right"></i>
-											</p>-->
-											<div class="overlay"></div>
-										</div>
-										<div class="post-text">
-											<h3 class="title">{{ post.title }}</h3>
-										</div>
-									</a>
-								</div>   
-							{% endif %}
-						{% endfor %}
-						</div>
-						</div>
-					</div>
-					
-				</div>
-			{% else %}
-				<p>Aucune actualité disponible</p>
-			{% endif %}
-
-		</div>
-		<div class="section gray logos">
-			<div class="container">
-				<section class="customer-logos slider">
-					<div class="slide"><img src="images/p1.jpeg"></div>
-					<div class="slide"><img src="images/p2.png"></div>
-					<div class="slide"><img src="images/p3.png"></div>
-					<div class="slide"><img src="images/p4.png"></div>
-					<div class="slide"><img src="images/p5.png"></div>
-					<div class="slide"><img src="images/p6.png"></div>
-				</section>
-			</div>
-		</div>
-		<div class="video-container">
-			<div class="container">
-				<h2 class="section-title" style="margin: 0 0 40px 0 !important;">Nos Vidéos</h2>
-				<div class="row">
-					<div class="col-md-4 video-texts" style="display: flex; justify-content: center; text-align: right; flex-direction: column;">
-						<h3>Vulgarisation contre les antivaleurs.</h3>
-						<a href="https://www.youtube.com/channel/UC1ZCoVkoGYZ4NC1p3cSBZQg/videos" target="_blank" class="more-link">Voir toutes nos vidéos
-							<i class="fa-solid fa-arrow-right"></i>
-						</a>
-					</div>
-					<div class="col-md-8 video-box" style="display: flex; justify-content: center;">
-						<div class="video" style="text-align: center; font-size: 4rem; display: flex; align-items: center; justify-content: center;">
-							<a href="#" class="video-link">
-								<i class="fa-solid fa-play"></i>
+				{% for post in posts %}
+					<div class="slide" style="background:linear-gradient(to bottom right, rgba(0,0,0,.4), rgba(0,0,0,.7)), url({{ post.getImgPath() }}); background-size: cover;">
+						<div class="container">
+							<h3 class="title">{{ post.title }}</h3>
+							<hr>
+							<p>{{ post.description }}</p>
+							<a href="{{ path('actu_detail', {title: post.title, id: post.id}) }}">Voir plus
+								<i class="fa-solid fa-arrow-right"></i>
 							</a>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-		<div style="padding: 80px 0; background-color:#fbfbfb !important" class="photo-container">
-			<div class="container">
+				{% endfor %}
+			{% endif %}
+		</section>
+	</div>
 
-				<h2 class="section-title" style="margin: 0 0 40px 0 !important;">Nos Photos</h2>
+	<div class="latest-posts container">
+		<h2 class="section-title">Dernières nouvelles</h2>
+		{% if posts|length > 0 %}
+			<div class="container posts">
 				<div class="row">
-					<div class="video-box photo col-md-8" style="display: flex; justify-content: center;">
-						<div class="photo" style="text-align: center; font-size: 4rem; display: flex; align-items: center; justify-content: center;">
-							<a href="#" class="video-link"></a>
+					<div class="col-md-6">
+						{% for post in posts %}
+							{% if loop.first %}
+								<div class="postcontainer big">
+									<a href="{{ path('actu_detail', {title: post.title, id: post.id}) }}" class="post">
+										<div class="post-img" style="background-image: url({{ post.getImgPath() }}); text-align:right">
+											<div class="overlay"></div>
+										</div>
+										<div class="post-text">
+											<h3 class="title">
+												{{ post.title }}
+											</h3>
+										</div>
+									</a>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+					<div class="col-md-6">
+						<div class="row" style="display:grid; grid-template-columns: 1fr 1fr">
+							{% for post in posts %}
+								{% if loop.first %}
+									{% else %}
+										<div class="postcontainer col-sm-6">
+											<a href="{{ path('actu_detail', {title: post.title, id: post.id}) }}" class="post">
+												<div
+													class="post-img" style="background-image: url({{ post.getImgPath() }}); text-align:right">
+													<!--<p class="more-link">Voir plus
+																																																																																																																																																											<i class="fa-solid fa-arrow-right"></i>
+																																																																																																																																																										</p>-->
+													<div class="overlay"></div>
+												</div>
+												<div class="post-text">
+													<h3 class="title">{{ post.title|length > 50 ? post.title|slice(0, 50) ~ '...' : post.title  }}</h3>
+												</div>
+											</a>
+										</div>
+								{% endif %}
+							{% endfor %}
 						</div>
 					</div>
-					<div class="col-md-4 photo-texts" style="display: flex; justify-content: center; text-align: left; flex-direction: column; margin-left: 40px">
-						<h3>Notre gallerie</h3>
-						<a href="{{ url('photos') }}" class="more-link" style="color: #000;">Voir toutes nos photos
-							<i class="fa-solid fa-arrow-right"></i>
+				</div>
+
+			</div>
+		{% else %}
+			<p>Aucune actualité disponible</p>
+		{% endif %}
+
+	</div>
+	<div class="section gray logos">
+		<div class="container">
+			<section class="customer-logos slider">
+				<div class="slide"><img src="images/p1.jpeg"></div>
+				<div class="slide"><img src="images/p2.png"></div>
+				<div class="slide"><img src="images/p3.png"></div>
+				<div class="slide"><img src="images/p4.png"></div>
+				<div class="slide"><img src="images/p5.png"></div>
+				<div class="slide"><img src="images/p6.png"></div>
+			</section>
+		</div>
+	</div>
+	<div class="video-container">
+		<div class="container">
+			<h2 class="section-title" style="margin: 0 0 40px 0 !important;">Nos Vidéos</h2>
+			<div class="row">
+				<div class="col-md-4 video-texts" style="display: flex; justify-content: center; text-align: right; flex-direction: column;">
+					<h3>Vulgarisation contre les antivaleurs.</h3>
+					<a href="https://www.youtube.com/channel/UC1ZCoVkoGYZ4NC1p3cSBZQg/videos" target="_blank" class="more-link">Voir toutes nos vidéos
+						<i class="fa-solid fa-arrow-right"></i>
+					</a>
+				</div>
+				<div class="col-md-8 video-box" style="display: flex; justify-content: center;">
+					<div class="video" style="text-align: center; font-size: 4rem; display: flex; align-items: center; justify-content: center;">
+						<a href="#" class="video-link">
+							<i class="fa-solid fa-play"></i>
 						</a>
 					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="container" style="margin-bottom:40px">
-			<div class="twitter row">
-				<div class="col-md-6">
-					<h3 class="section-title">De notre page twitter</h3>
-					<div> 
-					<a class="twitter-timeline" data-width="500" data-height="800" data-theme="light" href="https://twitter.com/IgfRdc?ref_src=twsrc%5Etfw">Tweets by IGF_finances</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<h3 class="section-title">De notre page facebook</h3>
-					<div> 
-						<div class="fb-page" data-href="https://web.facebook.com/igfRdc/?_rdc=1&amp;_rdr" data-tabs="timeline" data-height="800" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://web.facebook.com/igfRdc/?_rdc=1&amp;_rdr" class="fb-xfbml-parse-ignore"><a href="https://web.facebook.com/igfRdc/?_rdc=1&amp;_rdr">Inspection Générale des Finances rdc _officielle_</a></blockquote></div>
-					</div>			
 				</div>
 			</div>
 		</div>
 	</div>
-	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v13.0" nonce="FwwQs1J7"></script>
-{% endblock %}
+	<div style="padding: 80px 0; background-color:#fbfbfb !important" class="photo-container">
+		<div class="container">
+
+			<h2 class="section-title" style="margin: 0 0 40px 0 !important;">Nos Photos</h2>
+			<div class="row">
+				<div class="video-box photo col-md-8" style="display: flex; justify-content: center;">
+					<div class="photo" style="text-align: center; font-size: 4rem; display: flex; align-items: center; justify-content: center;">
+						<a href="#" class="video-link"></a>
+					</div>
+				</div>
+				<div class="col-md-4 photo-texts" style="display: flex; justify-content: center; text-align: left; flex-direction: column; margin-left: 40px">
+					<h3>Notre gallerie</h3>
+					<a href="{{ url('photos') }}" class="more-link" style="color: #000;">Voir toutes nos photos
+						<i class="fa-solid fa-arrow-right"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--
+													<div class="container" style="margin-bottom:40px">
+														<div class="twitter row">
+															<div class="col-md-6">
+																<h3 class="section-title">De notre page twitter</h3>
+																<div> 
+																<a class="twitter-timeline" data-width="500" data-height="800" data-theme="light" href="https://twitter.com/IgfRdc?ref_src=twsrc%5Etfw">Tweets by IGF_finances</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+																</div>
+															</div>
+															<div class="col-md-6">
+																<h3 class="section-title">De notre page facebook</h3>
+																<div> 
+																	<div class="fb-page" data-href="https://web.facebook.com/igfRdc/?_rdc=1&amp;_rdr" data-tabs="timeline" data-height="800" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://web.facebook.com/igfRdc/?_rdc=1&amp;_rdr" class="fb-xfbml-parse-ignore"><a href="https://web.facebook.com/igfRdc/?_rdc=1&amp;_rdr">Inspection Générale des Finances rdc _officielle_</a></blockquote></div>
+																</div>			
+															</div>
+														</div>
+													</div>-->
+</div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v13.0" nonce="FwwQs1J7"></script>{% endblock %}
