@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="{{ asset('styles/css.css') }}">
 		<link rel="stylesheet" href="{{ asset('styles/form.css') }}">
 		<link rel="stylesheet" href="{{ asset('styles/mobiles.css') }}">
-		<link rel="stylesheet" href="{{ asset('styles/slider.css') }}">
+		<link rel="stylesheet" href="{{ asset('styles/slide.css') }}">
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
 		<link
@@ -281,7 +281,11 @@
 		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v13.0" nonce="ICWil1lx"></script>
 
 		<script>
-			$(window).on('load', function () {
+			setTimeout(() => {
+$('.site-loader').fadeOut(500);
+}, 4000);
+
+$(window).on('load', function () {
 $('.site-loader').fadeOut(500);
 });
 		</script>

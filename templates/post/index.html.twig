@@ -21,24 +21,25 @@
 				</div>
 			{% endif %}
 
-			<div class="flash-news">
-				<span>Brèves</span>
-				<p>Amphithéâtre “Félix Antoine Tshisekedi”, inauguré ce mardi à l ‘ IGF PAR FELIX A.TSHISEKEDI lui même.</p>
-			</div>
+			<!--<div class="flash-news">
+																<span>Brèves</span>
+																<p>Amphithéâtre “Félix Antoine Tshisekedi”, inauguré ce mardi à l ‘ IGF PAR FELIX A.TSHISEKEDI lui même.</p>
+															</div>-->
 		</div>
 
-		<div class="container posts">
+		<div class="container posts" style="margin-top: 40px">
 			{% if posts|length > 1 %}
 				{% for post in posts %}
 					{% if post.id != first.id %}
 						<div class="postcontainer">
 							<a href="{{ path('actu_detail', {title: post.title|replace({'/': "-"}), id: post.id}) }}" class="post">
-								<div class="post-img" style="background-image: url('images/{{post.getImgPath()}}');"></div>
+								<div class="post-img" style="background-image: url({{post.getImgPath()}});">
+									<div class="overlay"></div>
+								</div>
 								<div class="post-text">
-									<h3 class="title">{{ post.title }}</h3>
-									<p class="more-link">Voir plus
-										<i class="fa-solid fa-arrow-right"></i>
-									</p>
+									<h3 class="title">
+										{{ post.title }}
+									</h3>
 								</div>
 							</a>
 						</div>
