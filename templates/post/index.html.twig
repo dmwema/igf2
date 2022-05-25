@@ -20,35 +20,31 @@
 					</div>
 				</div>
 			{% endif %}
-
-			<!--<div class="flash-news">
-																						<span>Brèves</span>
-																						<p>Amphithéâtre “Félix Antoine Tshisekedi”, inauguré ce mardi à l ‘ IGF PAR FELIX A.TSHISEKEDI lui même.</p>
-																					</div>-->
 		</div>
-
+		<hr>
 		<div class="container posts" style="margin-top: 40px">
-			{% if posts|length > 1 %}
-				{% for post in posts %}
-					{% if post.id != first.id %}
-						<div class="postcontainer">
-							<a href="{{ path('actu_detail', {title: post.title|replace({'/': "-"}), id: post.id}) }}" class="post">
-								<div class="post-img" style="background-image: url({{post.getImgPath()}});">
-									<div class="overlay"></div>
-								</div>
-								<div class="post-text">
-									<h3 class="title">
-										{{ post.title }}
-									</h3>
-								</div>
-							</a>
-						</div>
-					{% endif %}
-				{% endfor %}
-			{% else %}
-				<p>Aucune actualité disponible</p>
-			{% endif %}
-
+			<div class="row small-container-row ">
+				{% if posts|length > 1 %}
+					{% for post in posts %}
+						{% if post.id != first.id %}
+							<div class="postcontainer col-md-6">
+								<a href="{{ path('actu_detail', {title: post.title|replace({'/': "-"}), id: post.id}) }}" class="post">
+									<div class="post-img" style="background-image: url({{post.getImgPath()}});">
+										<div class="overlay"></div>
+									</div>
+									<div class="post-text">
+										<h3 class="title">
+											{{ post.title }}
+										</h3>
+									</div>
+								</a>
+							</div>
+						{% endif %}
+					{% endfor %}
+				{% else %}
+					<p>Aucune actualité disponible</p>
+				{% endif %}
+			</div>
 		</div>
 	</div>
 

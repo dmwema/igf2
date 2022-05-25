@@ -57,7 +57,7 @@
 						{% endfor %}
 					</div>
 					<div class="col-md-6 small-container">
-						<div class="row" style="display:grid; grid-template-columns: 1fr 1fr">
+						<div class="row small-container-row">
 							{% for post in posts %}
 								{% if loop.first %}
 									{% else %}
@@ -66,8 +66,8 @@
 												<div
 													class="post-img" style="background-image: url({{ post.getImgPath() }}); text-align:right">
 													<!--<p class="more-link">Voir plus
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									<i class="fa-solid fa-arrow-right"></i>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</p>-->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													<i class="fa-solid fa-arrow-right"></i>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												</p>-->
 													<div class="overlay"></div>
 												</div>
 												<div class="post-text">

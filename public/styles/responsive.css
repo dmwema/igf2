@@ -148,8 +148,13 @@
   }
 }
 
+.row.small-container-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 @media only screen and (max-width: 393px) {
-  .small-container > .row {
+  .row.small-container-row {
     grid-template-columns: 1fr !important;
   }
 }
