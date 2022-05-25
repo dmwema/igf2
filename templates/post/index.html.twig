@@ -9,7 +9,7 @@
 			{% if first != null %}
 				<div class="top-news row post">
 					<div class="col-md-6 image">
-						<img src="images/{{ first.getImgPath() }}" alt="post1">
+						<img src="{{ first.getImgPath() }}" alt="post1">
 					</div>
 					<div class="col-md-6 text">
 						<h3 class="title">{{ first.title }}</h3>
@@ -22,9 +22,9 @@
 			{% endif %}
 
 			<!--<div class="flash-news">
-																<span>Brèves</span>
-																<p>Amphithéâtre “Félix Antoine Tshisekedi”, inauguré ce mardi à l ‘ IGF PAR FELIX A.TSHISEKEDI lui même.</p>
-															</div>-->
+																						<span>Brèves</span>
+																						<p>Amphithéâtre “Félix Antoine Tshisekedi”, inauguré ce mardi à l ‘ IGF PAR FELIX A.TSHISEKEDI lui même.</p>
+																					</div>-->
 		</div>
 
 		<div class="container posts" style="margin-top: 40px">
