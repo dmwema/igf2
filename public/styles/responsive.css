@@ -1,3 +1,11 @@
+:root {
+  --red: rgb(228, 35, 35);
+  --light-red: rgb(247, 109, 109);
+  --dark-gray: rgb(22, 22, 22);
+  --gray: rgb(80, 80, 80);
+  --light-gray: rgb(250, 250, 250);
+  --card-height: 350px;
+}
 @media only screen and (max-width: 995px) {
   .postcontainer {
     width: 50%;
@@ -217,7 +225,7 @@ a.post .post-text {
   align-items: center;
   justify-content: center;
   text-align: center;
-  border-top: 5px solid #ffff00;
+  border-top: 5px solid var(--red);
 }
 
 .form-control:focus {
