@@ -48,7 +48,7 @@
 										</div>
 										<div class="post-text">
 											<h3 class="title">
-												{{ post.title }}
+												{{ post.title|length > 100 ? post.title|slice(0, 100) ~ '...' : post.title  }}
 											</h3>
 										</div>
 									</a>
@@ -66,8 +66,8 @@
 												<div
 													class="post-img" style="background-image: url({{ post.getImgPath() }}); text-align:right">
 													<!--<p class="more-link">Voir plus
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													<i class="fa-solid fa-arrow-right"></i>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												</p>-->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					<i class="fa-solid fa-arrow-right"></i>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				</p>-->
 													<div class="overlay"></div>
 												</div>
 												<div class="post-text">
