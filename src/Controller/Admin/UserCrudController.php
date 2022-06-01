@@ -2,16 +2,17 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Post;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class PostCrudController extends AbstractCrudController
+class UserCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Post::class;
+        return User::class;
     }
 
+    /*
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -20,4 +21,5 @@ class PostCrudController extends AbstractCrudController
             TextEditorField::new('description'),
         ];
     }
+    */
 }
