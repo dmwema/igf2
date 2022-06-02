@@ -96,8 +96,8 @@
 											<li class="nav-item">
 												<a class="nav-link" target="_blank" href="https://www.youtube.com/channel/UC1ZCoVkoGYZ4NC1p3cSBZQg/videos">Videos</a>
 											</li>
-											<li class="nav-item">
-												<a class="nav-link" href="#">Presse</a>
+											<li class="nav-item {% if app.request.get('_route') == 'press' %} active{% endif %}">
+												<a class="nav-link" href="{{ url('press') }}">Presse</a>
 											</li>
 										</ul>
 									</div>

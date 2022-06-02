@@ -47,8 +47,7 @@
         "symfony/webpack-encore-bundle": "^1.12",
         "symfony/yaml": "5.4.*",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0",
-        "vich/uploader-bundle": "^1.19"
+        "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
         "symfony/debug-bundle": "5.4.*",

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PressController!
+{% endblock %}
+
+{% block body %}
+
+	<div class="container gallery-container">
+
+		<h3 class="section-title" style="margin-bottom: 20px">Notre presse</h3>
+
+		<div class="container">
+
+			<div class="row">
+				{% if presses|length > 0  %}
+					{% for press in presses %}
+						<div class="col-sm-6 col-md-4">
+							<a href="{{ press.url }}">
+								<iframe width="100%" style="height:250px" src="{{ (press.url|replace({'watch?v=': 'embed/'})) }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							</a>
+							<div>
+								<p>{{ press.description }}</p>
+							</div>
+						</div>
+					{% endfor %}
+				{% else %}
+					<p>Aucune vidéo trouvée à la galerie</p>
+				{% endif %}
+			</div>
+
+		</div>
+
+	</div>
+
+
+{% endblock %}

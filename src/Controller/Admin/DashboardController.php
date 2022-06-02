@@ -8,6 +8,7 @@ use App\Entity\Download;
 use App\Entity\Offer;
 use App\Entity\Photo;
 use App\Entity\Post;
+use App\Entity\Press;
 use App\Entity\Rapport;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -23,7 +24,7 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
 
-        return parent::index();
+        //return parent::index();
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
@@ -52,11 +53,12 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToCrud('Actualités', 'fa fa-tags', Post::class);
         yield MenuItem::linkToCrud('Rapports', 'fa fa-list', Rapport::class);
-        yield MenuItem::linkToCrud('Photos', 'fa fa-tags', Photo::class);
+        yield MenuItem::linkToCrud('Photos', 'fa fa-image', Photo::class);
         yield MenuItem::linkToCrud('Candidatures', 'fa fa-tags', Candidature::class);
         yield MenuItem::linkToCrud('Dénoncement', 'fa fa-tags', Denoncement::class);
         yield MenuItem::linkToCrud('Téléchargéments', 'fa fa-tags', Download::class);
         yield MenuItem::linkToCrud('Offres d\'emploies', 'fa fa-tags', Offer::class);
         yield MenuItem::linkToCrud('Utilisateurs', 'fa fa-users', User::class);
+        yield MenuItem::linkToCrud('Presse', 'fa fa-video', Press::class);
     }
 }
