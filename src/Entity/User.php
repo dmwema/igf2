@@ -37,6 +37,11 @@ class User
     private $email;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $phone;
+
+    /**
      * @ORM\OneToMany(targetEntity=Download::class, mappedBy="user")
      */
     private $downloads;
@@ -81,9 +86,14 @@ class User
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function getPhone(): ?string
     {
-        $this->email = $email;
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }

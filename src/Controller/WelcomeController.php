@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Entity\Rapport;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +21,17 @@ class WelcomeController extends AbstractController
             'controller_name' => 'WelcomeController',
             'posts' => array_slice($posts, 0, 5)
         ]);
+    }
+    /**
+     * @Route("/aze", name="aze")
+     */
+    public function aze(ManagerRegistry $doctrine): Response
+    {
+        $rapport = $doctrine->getRepository(Rapport::class)->find(1);
+        return $this->render(
+            'mail/index.html.twig',
+            ['rapport' => $rapport]
+        );
     }
 
     /**

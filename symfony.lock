@@ -431,7 +431,7 @@
         "version": "3.5",
         "recipe": {
             "repo": "github.com/symfony/recipes",
-            "branch": "master",
+            "branch": "main",
             "version": "2.5",
             "ref": "f0b2fccdca2dfd97dc2fd5ad216d5e27c4f895ac"
         },

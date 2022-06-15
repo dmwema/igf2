@@ -1,4 +1,6 @@
-{% block body %}
+{% block customStyle %}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
 	<style type="text/css">
 		@media screen {
 			@font-face {
@@ -92,24 +94,21 @@
 			margin: 0 !important;
 		}
 	</style>
+{% endblock %}
+
+{% block body %}
+
 	<table
 		border="0" cellpadding="0" cellspacing="0" width="100%">
 		<!-- LOGO -->
 		<tr>
-			<td bgcolor="#242424" align="center">
-				<table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-					<tr>
-						<td align="center" valign="top" style="padding: 40px 10px 40px 10px;"></td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td bgcolor="#242424" align="center" style="padding: 0px 10px 0px 10px;">
+			<td bgcolor="#E42323" align="center" style="padding:60px 10px 0px 10px;">
 				<table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
 					<tr>
 						<td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; line-height: 48px;">
-							<h1 style="font-size: 48px; font-weight: 400; margin: 2;">Félicitations !</h1>
+							<h2 style="font-size: 20px; font-weight: 700; margin: 2;">INSPECTION GENERALE DES FINANCES</h2>
+							<hr style="padding: 0;margin: 0;border-color: #FBFBFB;">
+							<h3 style="font-size: 26px; font-weight: 500; margin: 2;">{{ rapport.title }}</h3>
 							<img src="https://igf.gouv.cd/wp-content/uploads/2021/03/logo.png" width="150" height="120" style="display: block; border: 0px; margin : 30px 20px 20px 20px; height: auto !important"/>
 						</td>
 					</tr>
@@ -131,9 +130,9 @@
 									<td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
 										<table border="0" cellspacing="0" cellpadding="0">
 											<tr>
-												<td align="center" style="border-radius: 20px;" bgcolor="#242424">
-													<a href="{{ rapport.getFilePath() }}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 20px; display: inline-block;">
-														<i class="fa-solid fa-arrow-down-to-line"></i>
+												<td align="center" style="border-radius: 4px;" bgcolor="#E42323">
+													<a href="{{ rapport.getFilePath() }}" target="_blank" style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 20px; display: inline-block;">
+														<i class="fa-solid fa-download" style="margin-right: 5px"></i>
 														Télécharger</a>
 												</td>
 											</tr>
@@ -160,7 +159,7 @@
 						<td bgcolor="#c9d2f5" align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
 							<h2 style="font-size: 20px; font-weight: 400; color: #111111; margin: 0;">Vous voulez beaucoup plus de nos rapports ?</h2>
 							<p style="margin: 0;">
-								<a href="#" target="_blank" style="color: #242424;">
+								<a href="{{ path('rapports') }}" target="_blank" style="color: #242424;">
 									Voir tous les rapports</a>
 							</p>
 						</td>
