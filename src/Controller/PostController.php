@@ -7,6 +7,10 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -70,6 +74,25 @@ class PostController extends AbstractController
 
         $posts = $doctrine->getRepository(Post::class)->findAll();
 
-        return $this->redirectToRoute('posts_admin', ['message' => 'Actualité "' . $title . '" supprimée avec succè']);
+        return $this->redirectToRoute('posts_admin');
+    }
+
+    #[Route('/admin/posts/{id}', name: 'edit_post', methods: ['GET'])]
+    public function edit(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
+    {
+        $post = $doctrine->getRepository(Post::class)->find($id);
+
+        $edit_form = $this->createFormBuilder($post)
+            ->add('title', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Titre de l\'actualité'], 'label' => false])
+            ->add('description', TextareaType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Entrez une description'], 'label' => false])
+            ->add('img_path', FileType::class, ['attr' => ['class' => 'form-control'], 'label' => "Image à la une", 'data_class' => null])
+            ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-primary',], 'label' => 'Enrégistrer'])
+            ->setMethod('POST')
+            ->getForm();
+
+        return $this->render('admin/posts/edit.html.twig', [
+            'post' => $post,
+            'edit_form' => $edit_form->createView(),
+        ]);
     }
 }

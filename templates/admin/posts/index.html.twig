@@ -51,9 +51,9 @@
 										<td>{{ post.description|length > 40 ? post.description|lower|slice(0, 40) ~ '...' : post.description|lower  }}</td>
 										<td>{{ post.getCreatedAt() |date('d-m-Y') }}</td>
 										<td>
-											<button title="Modifier" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-info">
+											<a href="{{ path('edit_post', {id: post.id}) }}" title="Modifier" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-info">
 												<i class="fas fa-edit" aria-hidden="true"></i>
-											</button>
+											</a>
 
 											<form method="POST" style="display:inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette actualité ? Cette action est irreversible.');" action="{{ path('delete_post', {id: post.id}) }}">
 												<button type="submit" title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">
