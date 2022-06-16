@@ -171,7 +171,34 @@ class AdminController extends AbstractController
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
 
                 if ($image->guessExtension() === 'jpeg' || $image->guessExtension() === 'png' || $image->guessExtension() === 'jpg' || $image->guessExtension() === 'webp') {
-                    dd('good');
+
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $image->move(
+                            $this->getParameter('posts'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        dd($e);
+                    }
+
+                    // updates the 'brochureFilename' property to store the PDF file name
+                    // instead of its contents
+                    $post
+                        ->setImgPath($newFilename);
+
+                    $em->persist($post);
+                    $em->flush();
+
+                    $this->addFlash('success', 1);
+
+                    $new_posts = $doctrine->getRepository(Post::class)->findAll();
+
+                    return $this->render('admin/posts/index.html.twig', [
+                        'posts' => $new_posts,
+                        'create_form' => $create_form->createView(),
+                        'message' => 'Actualité "' . $post->getTitle()  . '" enrégistrée dans la base de données avec succès'
+                    ]);
                 } else {
                     $this->addFlash('success', 0);
                     return $this->render('admin/posts/index.html.twig', [
@@ -180,35 +207,7 @@ class AdminController extends AbstractController
                         'message' => 'Vous devez importer comme image à la une une image au fomat : .jpeg, .jpg, .png ou .webp'
                     ]);
                 }
-
-                // Move the file to the directory where brochures are stored
-                try {
-                    $image->move(
-                        $this->getParameter('posts'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    dd($e);
-                }
-
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
-                $post
-                    ->setImgPath($newFilename);
             }
-
-            $em->persist($post);
-            $em->flush();
-
-            $this->addFlash('success', 1);
-
-            $new_posts = $doctrine->getRepository(Post::class)->findAll();
-
-            return $this->render('admin/posts/index.html.twig', [
-                'posts' => $new_posts,
-                'create_form' => $create_form->createView(),
-                'message' => 'Actualité "' . $post->getTitle()  . '" enrégistrée dans la base de données avec succès'
-            ]);
         }
 
         return $this->render('admin/posts/index.html.twig', [

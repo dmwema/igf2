@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,5 +58,18 @@ class PostController extends AbstractController
             'prev' => $prev,
             'next' => $next,
         ]);
+    }
+
+    #[Route('/admin/posts/delete/{id}', name: 'delete_post', methods: ['POST'])]
+    public function delete(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
+    {
+        $post = $doctrine->getRepository(Post::class)->find($id);
+        $title = $post->getTitle();
+        $em->remove($post);
+        $em->flush();
+
+        $posts = $doctrine->getRepository(Post::class)->findAll();
+
+        return $this->redirectToRoute('posts_admin', ['message' => 'Actualité "' . $title . '" supprimée avec succè']);
     }
 }
