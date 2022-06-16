@@ -21,6 +21,9 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="white-box">
+					<a href="{{ url('posts_admin') }}" class="back-link" title="retour">
+						<i class="fas fa-arrow-left"></i>
+					</a>
 					<h3 class="box-title">Modifier -
 						{{ post.title }}</h3>
 					<div>
@@ -46,7 +49,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</>
 			</div>
 		</div>
 
@@ -55,14 +58,14 @@
 	{% block custom_scripts %}
 		<script>
 			var imgInp = document.querySelector('input[type="file"]')
-            var blah = document.querySelector('#image_prev')
+var blah = document.querySelector('#image_prev')
 
-            imgInp.onchange = evt => {
-                const [file] = imgInp.files
-                if (file) {
-                    blah.src = URL.createObjectURL(file)
-                }
-            }
+imgInp.onchange = evt => {
+const [file] = imgInp.files
+if (file) {
+blah.src = URL.createObjectURL(file)
+}
+}
 		</script>
 	{% endblock %}
 {% endblock %}

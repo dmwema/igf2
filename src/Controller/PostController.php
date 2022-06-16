@@ -11,8 +11,11 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class PostController extends AbstractController
 {
@@ -77,18 +80,79 @@ class PostController extends AbstractController
         return $this->redirectToRoute('posts_admin');
     }
 
-    #[Route('/admin/posts/{id}', name: 'edit_post', methods: ['GET'])]
-    public function edit(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
+    #[Route('/admin/posts/{id}', name: 'edit_post', methods: ['GET', 'POST'])]
+    public function edit(ManagerRegistry $doctrine, $id, EntityManagerInterface $em, Request $request, SluggerInterface $slugger): Response
     {
         $post = $doctrine->getRepository(Post::class)->find($id);
+
+        $old_img = $post->getImgPath();
 
         $edit_form = $this->createFormBuilder($post)
             ->add('title', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Titre de l\'actualité'], 'label' => false])
             ->add('description', TextareaType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Entrez une description'], 'label' => false])
-            ->add('img_path', FileType::class, ['attr' => ['class' => 'form-control'], 'label' => "Image à la une", 'data_class' => null])
+            ->add('img_path', FileType::class, ['attr' => ['class' => 'form-control'], 'label' => "Image à la une", 'data_class' => null, 'required' => false])
             ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-primary',], 'label' => 'Enrégistrer'])
             ->setMethod('POST')
             ->getForm();
+
+        $edit_form->handleRequest($request);
+
+        if ($edit_form->isSubmitted() && $edit_form->isValid()) {
+            $datas = $edit_form->getData();
+            $image = $edit_form->get('img_path')->getData();
+
+            $post
+                ->setTitle($datas->getTitle())
+                ->setDescription($datas->getDescription())
+                ->setImgPath($old_img);
+
+
+            if ($image) {
+                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
+
+                if ($image->guessExtension() === 'jpeg' || $image->guessExtension() === 'png' || $image->guessExtension() === 'jpg' || $image->guessExtension() === 'webp') {
+
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $image->move(
+                            $this->getParameter('posts'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        dd($e);
+                    }
+
+                    // updates the 'brochureFilename' property to store the PDF file name
+                    // instead of its contents
+                    $post
+                        ->setImgPath($newFilename);
+                } else {
+                    $this->addFlash('success', 0);
+                    $posts = $doctrine->getRepository(Post::class)->findAll();
+                    return $this->render('admin/posts/edit.html.twig', [
+                        'post' => $post,
+                        'edit_form' => $edit_form->createView(),
+                        'message' => 'Vous devez importer comme image à la une une image au fomat : .jpeg, .jpg, .png ou .webp'
+                    ]);
+                }
+            }
+
+            $em->persist($post);
+            $em->flush();
+
+            $this->addFlash('success', 1);
+
+            $new_posts = $doctrine->getRepository(Post::class)->findAll();
+
+            return $this->render('admin/posts/edit.html.twig', [
+                'post' => $post,
+                'edit_form' => $edit_form->createView(),
+                'message' => 'Actualité "' . $post->getTitle()  . '" modifiée avec succès'
+            ]);
+        }
 
         return $this->render('admin/posts/edit.html.twig', [
             'post' => $post,
