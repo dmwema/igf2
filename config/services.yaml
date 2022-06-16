@@ -6,6 +6,7 @@
 parameters:
   upload_path: "posts/upload/2022/06/"
   app.mailer_dsn: "%env(MAILER_DSN)%"
+  posts: "%kernel.project_dir%/public/uploads/posts"
 
 services:
   # default configuration for services in *this* file

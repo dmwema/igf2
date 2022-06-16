@@ -1,12 +1,21 @@
 {% extends 'admin/layout.html.twig' %}
 
-
 {% block body %}
 	<div class="container-fluid">
-		<a class="btn btn-primary mb-4">
+		<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-4">
 			<i class="far fa-plus-square mr-4" aria-hidden="true"></i>
 			Enrégistrer une nouvelle actualités
-		</a>
+		</button>
+
+		{% for success in app.flashes('success') %}
+			{% if success == 1 %}
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					<strong>Succès!</strong>
+					{{ message }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% endif %}
+		{% endfor %}
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="white-box">
@@ -57,5 +66,35 @@
 			</div>
 		</div>
 
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Enrégistrer une nouvelle actualité</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					{{ form_start(create_form) }}
+					<div class="modal-body">
+
+						<div class="form-group">
+							{{ form_widget(create_form.title) }}
+						</div>
+						<div class="form-group">
+							{{ form_widget(create_form.description) }}
+						</div>
+						<div class="form-group">
+							<label class="form-label">Image à la une</label>
+							{{ form_widget(create_form.img_path) }}
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+						{{ form_widget(create_form.submit) }}
+					</div>
+					{{ form_end(create_form) }}
+				</div>
+			</div>
+		</div>
 	</div>
 {% endblock %}

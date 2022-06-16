@@ -16,13 +16,17 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AdminController extends AbstractController
 {
@@ -138,11 +142,65 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/actualites", name="posts_admin")
      */
-    public function posts(ManagerRegistry $doctrine, EntityManagerInterface $em)
+    public function posts(ManagerRegistry $doctrine, EntityManagerInterface $em, Request $request, SluggerInterface $slugger)
     {
-        $posts = $doctrine->getRepository(Post::class)->findAll();
+        $create_form = $this->createFormBuilder()
+            ->add('title', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Titre de l\'actualité'], 'label' => false])
+            ->add('description', TextareaType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Entrez une description'], 'label' => false])
+            ->add('img_path', FileType::class, ['attr' => ['class' => 'form-control'], 'label' => "Image à la une"])
+            ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-primary',], 'label' => 'Enrégistrer'])
+            ->setMethod('POST')
+            ->getForm();
 
-        return $this->render('admin/posts/index.html.twig', ['posts' => $posts]);
+        $posts = $doctrine->getRepository(Post::class)->findAll();
+        $create_form->handleRequest($request);
+
+        if ($create_form->isSubmitted() && $create_form->isValid()) {
+            $datas = $create_form->getData();
+            $post = new Post();
+            $image = $create_form->get('img_path')->getData();
+
+            $post
+                ->setTitle($datas['title'])
+                ->setDescription($datas['description']);
+
+            if ($image) {
+                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $image->move(
+                        $this->getParameter('posts'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    dd($e);
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $post
+                    ->setImgPath($newFilename);
+            }
+
+            $em->persist($post);
+            $em->flush();
+            $this->addFlash('success', 1);
+
+            return $this->render('admin/posts/index.html.twig', [
+                'posts' => $posts,
+                'create_form' => $create_form->createView(),
+                'message' => 'Actualité "' . $post->getTitle()  . '" enrégistrée dans la base de données avec succès'
+            ]);
+        }
+
+        return $this->render('admin/posts/index.html.twig', [
+            'posts' => $posts,
+            'create_form' => $create_form->createView()
+        ]);
     }
 
     /**

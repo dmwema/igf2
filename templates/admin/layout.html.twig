@@ -144,7 +144,7 @@ class="left-sidebar" data-sidebarbg="skin6"> <!-- Sidebar scroll-->
 					<i class="fas fa-download" aria-hidden="true"></i>
 					<span style="display:flex; justify-content: space-between; width:100%">
 						<span class="hide-menu" style="margin-left:5px">Téléchargément</span>
-						<span class="badge">+7</span>
+						<span class="badge">+99</span>
 					</span>
 				</a>
 			</li>
@@ -171,7 +171,7 @@ class="left-sidebar" data-sidebarbg="skin6"> <!-- Sidebar scroll-->
 					<i class="fas fa-file-alt" aria-hidden="true"></i>
 					<span style="display:flex; justify-content: space-between; width:100%">
 						<span class="hide-menu" style="margin-left:5px">Candidatures</span>
-						<span class="badge">+7</span>
+						<span class="badge">1</span>
 					</span>
 				</a>
 			</li>
@@ -187,7 +187,7 @@ class="left-sidebar" data-sidebarbg="skin6"> <!-- Sidebar scroll-->
 					<span style="display:flex; justify-content: space-between; width:100%">
 						<span style="display:flex; justify-content: space-between; width:100%">
 							<span class="hide-menu" style="margin-left:5px">Utilisateurs</span>
-							<span class="badge">+7</span>
+							<span class="badge">13</span>
 						</span>
 					</span>
 				</a>
@@ -225,13 +225,10 @@ class="left-sidebar" data-sidebarbg="skin6"> <!-- Sidebar scroll-->
 	</div>
 	<!-- /.col-lg-12 -->
 </div>
-{% block body %}{% endblock %}<!-- ============================================================== --><!-- End Wrapper --><!-- ============================================================== --><!-- ============================================================== --><!-- All Jquery --><script src="{{ asset('plugins/bower_components/jquery/dist/jquery.min.js') }} "> </script><!-- Bootstrap tether Core JavaScript --><script src="{{ asset('bootstrap/dist/js/bootstrap.bundle.min.js') }} "></script>
+{% block body %}{% endblock %}
+<script src="{{ asset('plugins/bower_components/jquery/dist/jquery.min.js') }} "></script>
+<script src="{{ asset('bootstrap/dist/js/bootstrap.min.js') }} "></script>
 <script src="{{ asset('js/app-style-switcher.js') }} "></script>
 <script src="{{ asset('js/waves.js') }} "></script>
 <script src="js/sidebarmenu.js"></script>
-<script src="{{ asset('js/custom.js') }} "></script>
-<script>
-	$('#myModal').on('shown.bs.modal', function () {
-$('#myInput').trigger('focus')
-})
-</script></body></html>
+<script src="{{ asset('js/custom.js') }} "></script></body></html>

@@ -37,9 +37,16 @@ class Post
      * @ORM\Column(type="datetime_immutable")
      */
     private $created_at;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $updated_at;
+
     public function __construct()
     {
         $this->created_at = new \DateTimeImmutable();
+        $this->updated_ad = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -91,6 +98,18 @@ class Post
     public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }
