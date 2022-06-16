@@ -14,6 +14,12 @@
 					{{ message }}
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
+			{% elseif success == 0 %}
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					<strong>Échec!</strong>
+					{{ message }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
 			{% endif %}
 		{% endfor %}
 		<div class="row">
@@ -39,7 +45,7 @@
 									<tr>
 										<td>{{ loop.index }}</td>
 										<td>
-											<img style="width:80px; height:auto" alt="post" src="{{ post.getImgPath() }}"/>
+											<img style="width:80px; height:auto" alt="post" src="{{ asset('uploads/posts/' ~ post.getImgPath()) }}"/>
 										</td>
 										<td>{{ post.title|length > 40 ? post.title|lower|slice(0, 40) ~ '...'  : post.title|lower  }}</td>
 										<td>{{ post.description|length > 40 ? post.description|lower|slice(0, 40) ~ '...' : post.description|lower  }}</td>

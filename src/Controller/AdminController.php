@@ -170,6 +170,17 @@ class AdminController extends AbstractController
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
 
+                if ($image->guessExtension() === 'jpeg' || $image->guessExtension() === 'png' || $image->guessExtension() === 'jpg' || $image->guessExtension() === 'webp') {
+                    dd('good');
+                } else {
+                    $this->addFlash('success', 0);
+                    return $this->render('admin/posts/index.html.twig', [
+                        'posts' => $posts,
+                        'create_form' => $create_form->createView(),
+                        'message' => 'Vous devez importer comme image à la une une image au fomat : .jpeg, .jpg, .png ou .webp'
+                    ]);
+                }
+
                 // Move the file to the directory where brochures are stored
                 try {
                     $image->move(
@@ -188,10 +199,13 @@ class AdminController extends AbstractController
 
             $em->persist($post);
             $em->flush();
+
             $this->addFlash('success', 1);
 
+            $new_posts = $doctrine->getRepository(Post::class)->findAll();
+
             return $this->render('admin/posts/index.html.twig', [
-                'posts' => $posts,
+                'posts' => $new_posts,
                 'create_form' => $create_form->createView(),
                 'message' => 'Actualité "' . $post->getTitle()  . '" enrégistrée dans la base de données avec succès'
             ]);

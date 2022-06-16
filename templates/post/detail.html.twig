@@ -124,7 +124,7 @@
 		<div class="container post-detail" style="padding: 40px 0">
 			<div class="row">
 				<div class="col-sm-8 htexts">
-					<img alt="Actualité" src="{{ asset(post.ImgPath) }}" style="width:100%; border-radius: 8px">
+					<img alt="Actualité" src="{{ asset('uploads/posts/' ~ post.getImgPath()) }}" style="width:100%; border-radius: 8px">
 
 					<div class="detail-small">
 						<small>
