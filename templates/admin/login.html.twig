@@ -21,7 +21,7 @@
 		.main-login-bg {
 			width: 100vw;
 			height: 100vh;
-			background-image: linear-gradient(#414141, #000000);
+			background-image: url("https://igf.gouv.cd/images/photosbg.jpg");
 			background-size: cover;
 			background-repeat: no-repeat;
 			display: flex;
@@ -93,33 +93,24 @@
 
 	<body>
 		<main role="main" class="main-login-bg">
+			{% if has_error %}
+				<div class="alert alert-warning" role="alert">
+					<strong>Une erreur s'est produite!</strong>
+					{{ error_message }}
+				</div>
+			{% endif %}
 			<h3 class="big-title">Connectez-vous</h3>
 			<p class="desc">Vous devez vous connecter pour pour avoir un accès administrateur</p>
 			<div class="form-container">
-				<form method="post">
-					{% if error %}
-						<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-					{% endif %}
+				{{ form_start(login_form, {'attr': {'id': 'contact'}}) }}
 
-					{% if app.user %}
-						<div class="mb-3">
-							You are logged in as
-							{{ app.user.userIdentifier }},
-							<a href="{{ path('app_logout') }}">Logout</a>
-						</div>
-					{% endif %}
-
-					<div class="form-group">
-						<input type="email" value="{{ last_username }}" placeholder="Entrez l'adresse email" name="email" id="inputEmail" class="login-input form-control" autocomplete="email" required autofocus>
-					</div>
-					<div class="form-group">
-						<input type="password" name="password" id="inputPassword" class="login-input form-control" placeholder="Entrez le mot de passe" autocomplete="current-password" required>
-					</div>
-					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-					<button class="media-link" type="submit">
-						Se connecter
-					</button>
-				</form>
+				<div class="form-group">
+					{{ form_widget(login_form.email) }}
+				</div>
+				<div class="form-group">
+					{{ form_widget(login_form.password) }}
+				</div>
+				{{ form_end(login_form) }}
 			</div>
 		</main>
 		<!-- /.container -->

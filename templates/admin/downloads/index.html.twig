@@ -1,0 +1,45 @@
+{% extends 'admin/layout.html.twig' %}
+
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="white-box">
+					<h3 class="box-title">Téléchargéments</h3>
+					<p class="text-muted">{{ downloads|length }}
+						Téléchargément(s)</p>
+					<div class="table-responsive">
+						<table class="table text-nowrap">
+							<thead>
+								<tr>
+									<th class="border-top-0">#</th>
+									<th class="border-top-0">Utilisateur (Prenom Nom, Email Téléphone)</th>
+									<th class="border-top-0">Rapport</th>
+									<th class="border-top-0">Date du téléchargément</th>
+									<th class="border-top-0">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for download in downloads %}
+									<tr>
+										<td>{{ loop.index }}</td>
+										<td>{{ download.getUser().firstname ~ " " ~ download.getUser().lastname ~ ", " ~ download.getUser().email ~ " " ~ download.getUser().phone }}</td>
+										<td>{{ download.getRapport().title|length > 50 ? download.getRapport().title|lower|slice(0, 50) ~ '...'  : download.getRapport().title|lower  }}</td>
+										<td>{{ download.date|date('d-m-Y') }}</td>
+										<td>
+											<button title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">
+												<i class="fas fa-trash-alt" aria-hidden="true"></i>
+											</button>
+										</td>
+									</tr>
+								{% endfor %}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

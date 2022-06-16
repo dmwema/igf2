@@ -1,0 +1,50 @@
+{% extends 'admin/layout.html.twig' %}
+
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="white-box">
+					<h3 class="box-title">Utilisateurs</h3>
+					<p class="text-muted">{{ users|length }}
+						Utilisateurs(s) enrégistré(s)</p>
+					<div class="table-responsive">
+						<table class="table text-nowrap">
+							<thead>
+								<tr>
+									<th class="border-top-0">#</th>
+									<th class="border-top-0">Prénom</th>
+									<th class="border-top-0">Nom</th>
+									<th class="border-top-0">Email</th>
+									<th class="border-top-0">Téléphone</th>
+									<th class="border-top-0">Téléchargéments</th>
+									<th class="border-top-0">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for user in users %}
+									<tr>
+										<td>{{ loop.index }}</td>
+										<td>{{ user.firstname  }}</td>
+										<td>{{ user.lastname  }}</td>
+										<td>{{ user.email  }}</td>
+										<td>{{ user.phone  }}</td>
+										<td>{{ user.getDownloads()|length  }}</td>
+										<td>
+											<button title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">
+												<i class="fas fa-trash-alt" aria-hidden="true"></i>
+											</button>
+										</td>
+									</tr>
+								{% endfor %}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}

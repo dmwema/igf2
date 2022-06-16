@@ -78,13 +78,12 @@ class RapportController extends AbstractController
 
             // validate datas
 
+            $em->flush();
             //send file mail
             return $this->redirectToRoute('send_mail', [
                 'email' => $current_user->getEmail(),
                 'rapport_id' => $rapport->getId(),
             ]);
-
-            $em->flush();
         }
 
         return $this->render('rapport/download.html.twig', [

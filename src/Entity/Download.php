@@ -50,9 +50,9 @@ class Download
         return $this;
     }
 
-    public function getRapport(): ?Rapport
+    public function getRapport(): ?rapport
     {
-        return $this->Rapport;
+        return $this->rapport;
     }
 
     public function setRapport(?Rapport $rapport): self

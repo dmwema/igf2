@@ -3,7 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Admin;
+use App\Entity\Candidature;
+use App\Entity\Download;
+use App\Entity\Offer;
+use App\Entity\Photo;
+use App\Entity\Post;
+use App\Entity\Press;
 use App\Entity\Rapport;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +26,58 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
 {
+    /**
+     * @Route("/admin", name="admin")
+     */
+    public function index(Request $request, EntityManagerInterface $em, ManagerRegistry $doctrine)
+    {
+        $rapports = count($doctrine->getRepository(Rapport::class)->findAll());
+        $posts = count($doctrine->getRepository(Post::class)->findAll());
+        $downloads = count($doctrine->getRepository(Download::class)->findAll());
+        $photos = count($doctrine->getRepository(Photo::class)->findAll());
+        $offers = count($doctrine->getRepository(Offer::class)->findAll());
+        $candidatures = count($doctrine->getRepository(Candidature::class)->findAll());
+        $presses = count($doctrine->getRepository(Press::class)->findAll());
+        $users = count($doctrine->getRepository(User::class)->findAll());
+
+        $datas = [
+            'Rapports' => [
+                'icon' => 'fas fa-file-pdf',
+                'count' => $rapports
+            ],
+            'Actualités' => [
+                'icon' => 'fas fa-newspaper',
+                'count' => $posts
+            ],
+            'Téléchargéments' => [
+                'icon' => 'fas fa-download',
+                'count' => $downloads
+            ],
+            'Photos' => [
+                'icon' => 'fas fa-file-image',
+                'count' => $photos
+            ],
+            'Offres d\'emploie' => [
+                'icon' => 'fas fa-search',
+                'count' => $offers
+            ],
+            'Candidatures' => [
+                'icon' => 'fas fa-file-alt',
+                'count' => $candidatures
+            ],
+            'Press' => [
+                'icon' => 'fas fa-video',
+                'count' => $presses
+            ],
+            'Utilisateurs' => [
+                'icon' => 'fas fa-users',
+                'count' => $users
+            ],
+        ];
+
+        return $this->render('admin/index.html.twig', compact('datas'));
+    }
+
     /**
      * @Route("/admin/login", name="login_admin")
      */
@@ -59,12 +118,13 @@ class AdminController extends AbstractController
             }
         }
 
-        return $this->render('admin/index.html.twig', [
+        return $this->render('admin/login.html.twig', [
             'has_error' => $has_error, 'error_message' => $error_message,
             'login_form' => $login_form->createView(),
             'post' => $_POST
         ]);
     }
+
     /**
      * @Route("/admin/rapports", name="rapports_admin")
      */
@@ -73,5 +133,75 @@ class AdminController extends AbstractController
         $rapports = $doctrine->getRepository(Rapport::class)->findAll();
 
         return $this->render('admin/rapports/index.html.twig', ['rapports' => $rapports]);
+    }
+
+    /**
+     * @Route("/admin/actualites", name="posts_admin")
+     */
+    public function posts(ManagerRegistry $doctrine, EntityManagerInterface $em)
+    {
+        $posts = $doctrine->getRepository(Post::class)->findAll();
+
+        return $this->render('admin/posts/index.html.twig', ['posts' => $posts]);
+    }
+
+    /**
+     * @Route("/admin/telechargement", name="downloads_admin")
+     */
+    public function downloads(ManagerRegistry $doctrine, EntityManagerInterface $em)
+    {
+        $downloads = $doctrine->getRepository(Download::class)->findAll();
+
+        return $this->render('admin/downloads/index.html.twig', ['downloads' => $downloads]);
+    }
+
+    /**
+     * @Route("/admin/photos", name="photos_admin")
+     */
+    public function photos(ManagerRegistry $doctrine, EntityManagerInterface $em)
+    {
+        $photos = $doctrine->getRepository(Photo::class)->findAll();
+
+        return $this->render('admin/photos/index.html.twig', ['photos' => $photos]);
+    }
+
+    /**
+     * @Route("/admin/offers", name="offers_admin")
+     */
+    public function offers(ManagerRegistry $doctrine, EntityManagerInterface $em)
+    {
+        $offers = $doctrine->getRepository(Offer::class)->findAll();
+
+        return $this->render('admin/offers/index.html.twig', ['offers' => $offers]);
+    }
+
+    /**
+     * @Route("/admin/candidatures", name="candidatures_admin")
+     */
+    public function candidatures(ManagerRegistry $doctrine, EntityManagerInterface $em)
+    {
+        $candidatures = $doctrine->getRepository(Candidature::class)->findAll();
+
+        return $this->render('admin/candidatures/index.html.twig', ['candidatures' => $candidatures]);
+    }
+
+    /**
+     * @Route("/admin/presses", name="presses_admin")
+     */
+    public function presses(ManagerRegistry $doctrine, EntityManagerInterface $em)
+    {
+        $presses = $doctrine->getRepository(Press::class)->findAll();
+
+        return $this->render('admin/presses/index.html.twig', ['presses' => $presses]);
+    }
+
+    /**
+     * @Route("/admin/users", name="users_admin")
+     */
+    public function users(ManagerRegistry $doctrine, EntityManagerInterface $em)
+    {
+        $users = $doctrine->getRepository(User::class)->findAll();
+
+        return $this->render('admin/users/index.html.twig', ['users' => $users]);
     }
 }

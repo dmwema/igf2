@@ -1,0 +1,27 @@
+{% extends "admin/layout.html.twig" %}
+{% block body %}
+
+	<div class="container-fluid">
+		<a class="btn btn-primary mb-4">
+			<i class="far fa-plus-square mr-4" aria-hidden="true"></i>
+			Enrégistrer une nouvelle photo
+		</a>
+		<div class="row">
+			{% for photo in photos %}
+				<div class="col-lg-4 col-md-12">
+					<div class="white-box analytics-info">
+						<img style="width:100%; margin-bottom:20px" alt="photo" src="{{photo.path}}"/>
+						<p>{{ photo.description }}</p>
+						<button title="Modifier" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-info">
+							<i class="fas fa-edit" aria-hidden="true"></i>
+						</button>
+						<button title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">
+							<i class="fas fa-trash-alt" aria-hidden="true"></i>
+						</button>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+{% endblock %}

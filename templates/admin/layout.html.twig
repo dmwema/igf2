@@ -17,9 +17,18 @@
 		rel="icon" type="image/png" sizes="16x16" href="{{ asset('plugins/images/favicon.png') }}">
 		<!-- Custom CSS -->
 		<link href="{{ asset('css/style.min.css') }} " rel="stylesheet">
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>																																																											<![endif]-->
+
+		<style>
+			.badge {
+				background: red;
+				font-weight: 900;
+				margin-right: 20px;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				margin-left: 10px;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -77,7 +86,7 @@
 							<!-- Search -->
 							<!-- ============================================================== -->
 								<li class=" in"> <form role="search" class="app-search d-none d-md-block me-3">
-									<input type="text" placeholder="Search..." class="form-control mt-0">
+									<input type="text" placeholder="Rechercher..." class="form-control mt-0">
 									<a href="" class="active">
 										<i class="fa fa-search"></i>
 									</a>
@@ -106,20 +115,20 @@ class="left-sidebar" data-sidebarbg="skin6"> <!-- Sidebar scroll-->
 		<ul
 			id="sidebarnav">
 			<!-- User Profile-->
-			<li class="sidebar-item pt-2">
-				<a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.html" aria-expanded="false">
+			<li class="sidebar-item pt-2 {% if app.request.get('_route') == 'admin' %} selected{% endif %}">
+				<a class="{% if app.request.get('_route') == 'admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('admin') }}" aria-expanded="false">
 					<i class=" fas fa-chart-bar" aria-hidden="true"></i>
 					<span class="hide-menu">Tableau de bord</span>
 				</a>
 			</li>
-			<li class="sidebar-item">
-				<a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile.html" aria-expanded="false">
+			<li class="sidebar-item {% if app.request.get('_route') == 'posts_admin' %} selected{% endif %}">
+				<a class="{% if app.request.get('_route') == 'posts_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('posts_admin') }}" aria-expanded="false">
 					<i class="fas fa-newspaper" aria-hidden="true"></i>
 					<span class="hide-menu">Actualités</span>
 				</a>
 			</li>
 			<li class="sidebar-item">
-				<a class="sidebar-link waves-effect waves-dark sidebar-link" href="404.html" aria-expanded="false">
+				<a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
 					<i class="fa fa-info-circle" aria-hidden="true"></i>
 					<span class="hide-menu">Brèves</span>
 				</a>
@@ -130,46 +139,57 @@ class="left-sidebar" data-sidebarbg="skin6"> <!-- Sidebar scroll-->
 					<span class="hide-menu">Rapports</span>
 				</a>
 			</li>
-			<li class="sidebar-item">
-				<a class="sidebar-link waves-effect waves-dark sidebar-link" href="blank.html" aria-expanded="false">
+			<li class="sidebar-item {% if app.request.get('_route') == 'downloads_admin' %} selected{% endif %}">
+				<a class="{% if app.request.get('_route') == 'downloads_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('downloads_admin') }}" aria-expanded="false">
 					<i class="fas fa-download" aria-hidden="true"></i>
-					<span class="hide-menu">Téléchargément</span>
+					<span style="display:flex; justify-content: space-between; width:100%">
+						<span class="hide-menu" style="margin-left:5px">Téléchargément</span>
+						<span class="badge">+7</span>
+					</span>
 				</a>
 			</li>
-			<li class="sidebar-item">
-				<a class="sidebar-link waves-effect waves-dark sidebar-link" href="fontawesome.html" aria-expanded="false">
+			<li class="sidebar-item {% if app.request.get('_route') == 'photos_admin' %} selected{% endif %}">
+				<a class="{% if app.request.get('_route') == 'photos_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('photos_admin') }}" aria-expanded="false">
 					<i class="fas fa-file-image" aria-hidden="true"></i>
 					<span class="hide-menu">Photos</span>
 				</a>
 			</li>
 			<li class="sidebar-item">
-				<a class="sidebar-link waves-effect waves-dark sidebar-link" href="fontawesome.html" aria-expanded="false">
+				<a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
 					<i class="fas fa-video" aria-hidden="true"></i>
 					<span class="hide-menu">Vidéos</span>
 				</a>
 			</li>
-			<li class="sidebar-item">
-				<a class="sidebar-link waves-effect waves-dark sidebar-link" href="map-google.html" aria-expanded="false">
+			<li class="sidebar-item {% if app.request.get('_route') == 'offers_admin' %} selected{% endif %}">
+				<a class="{% if app.request.get('_route') == 'offers_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('offers_admin') }}" aria-expanded="false">
 					<i class="fas fa-search" aria-hidden="true"></i>
 					<span class="hide-menu">Offres d'emploies</span>
 				</a>
 			</li>
-			<li class="sidebar-item">
-				<a class="sidebar-link waves-effect waves-dark sidebar-link" href="map-google.html" aria-expanded="false">
+			<li class="sidebar-item {% if app.request.get('_route') == 'candidatures_admin' %} selected{% endif %}">
+				<a class="{% if app.request.get('_route') == 'candidatures_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('candidatures_admin') }}" aria-expanded="false">
 					<i class="fas fa-file-alt" aria-hidden="true"></i>
-					<span class="hide-menu">Candidatures</span>
+					<span style="display:flex; justify-content: space-between; width:100%">
+						<span class="hide-menu" style="margin-left:5px">Candidatures</span>
+						<span class="badge">+7</span>
+					</span>
 				</a>
 			</li>
-			<li class="sidebar-item">
-				<a class="sidebar-link waves-effect waves-dark sidebar-link" href="404.html" aria-expanded="false">
+			<li class="sidebar-item {% if app.request.get('_route') == 'presses_admin' %} selected{% endif %}">
+				<a class="{% if app.request.get('_route') == 'presses_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('presses_admin') }}" aria-expanded="false">
 					<i class="fas fa-video" aria-hidden="true"></i>
 					<span class="hide-menu">Presse</span>
 				</a>
 			</li>
-			<li class="sidebar-item">
-				<a class="sidebar-link waves-effect waves-dark sidebar-link" href="404.html" aria-expanded="false">
+			<li class="sidebar-item {% if app.request.get('_route') == 'users_admin' %} selected{% endif %}">
+				<a class="{% if app.request.get('_route') == 'users_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('users_admin') }}" aria-expanded="false">
 					<i class="fas fa-users" aria-hidden="true"></i>
-					<span class="hide-menu">Utilisateurs</span>
+					<span style="display:flex; justify-content: space-between; width:100%">
+						<span style="display:flex; justify-content: space-between; width:100%">
+							<span class="hide-menu" style="margin-left:5px">Utilisateurs</span>
+							<span class="badge">+7</span>
+						</span>
+					</span>
 				</a>
 			</li>
 			<li class="text-center p-20 upgrade-btn">
@@ -197,7 +217,7 @@ class="left-sidebar" data-sidebarbg="skin6"> <!-- Sidebar scroll-->
 			<div class="d-md-flex">
 				<ol class="breadcrumb ms-auto">
 					<li>
-						<a href="#" class="fw-normal">Se deconnecter</a>
+						<a href="{{ path('app_logout') }}" class="fw-normal">Se deconnecter</a>
 					</li>
 				</ol>
 			</div>

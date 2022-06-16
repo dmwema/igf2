@@ -5,14 +5,14 @@
 	<div class="container-fluid">
 		<a class="btn btn-primary mb-4">
 			<i class="far fa-plus-square mr-4" aria-hidden="true"></i>
-			Enrégistrer un nouveau rapport
+			Enrégistrer un  nouvel offre d'emploi
 		</a>
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="white-box">
-					<h3 class="box-title">Rapports</h3>
-					<p class="text-muted">{{ rapports|length }}
-						rapport(s) enrégistrés</p>
+					<h3 class="box-title">Offres d'emplois</h3>
+					<p class="text-muted">{{ offers|length }}
+						Offre(s)</p>
 					<div class="table-responsive">
 						<table class="table text-nowrap">
 							<thead>
@@ -20,15 +20,17 @@
 									<th class="border-top-0">#</th>
 									<th class="border-top-0">Titre</th>
 									<th class="border-top-0">Description</th>
+									<th class="border-top-0">Candidatures</th>
 									<th class="border-top-0">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
-								{% for rapport in rapports %}
+								{% for offer in offers %}
 									<tr>
 										<td>{{ loop.index }}</td>
-										<td>{{ rapport.title }}</td>
-										<td>{{ rapport.description|length > 70 ? rapport.description|slice(0, 70) ~ '...' : rapport.description  }}</td>
+										<td>{{ offer.title|length > 70 ? offer.title|lower|slice(0, 70) ~ '...'  : offer.title|lower  }}</td>
+										<td>{{ offer.description|length > 70 ? offer.description|lower|slice(0, 70) ~ '...'  : offer.description|lower  }}</td>
+										<td>{{ offer.getCandidatures()|length }}</td>
 										<td>
 											<button title="Modifier" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-info">
 												<i class="fas fa-edit" aria-hidden="true"></i>
@@ -36,9 +38,9 @@
 											<button title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">
 												<i class="fas fa-trash-alt" aria-hidden="true"></i>
 											</button>
-											<a href="{{ rapport.getFilePath() }}" target="_blank" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-primary">
-												<i class="fas fa-download" aria-hidden="true"></i>
-												Télécharger
+											<a href="{{ path('offer_detail', {title: offer.title, id: offer.id}) }}" target="_blank" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-primary">
+												<i class="fas fa-eye" aria-hidden="true"></i>
+												Voir
 											</a>
 										</td>
 									</tr>

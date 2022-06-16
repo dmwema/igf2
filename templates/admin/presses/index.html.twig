@@ -5,30 +5,30 @@
 	<div class="container-fluid">
 		<a class="btn btn-primary mb-4">
 			<i class="far fa-plus-square mr-4" aria-hidden="true"></i>
-			Enrégistrer un nouveau rapport
+			Enrégistrer une presse
 		</a>
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="white-box">
-					<h3 class="box-title">Rapports</h3>
-					<p class="text-muted">{{ rapports|length }}
-						rapport(s) enrégistrés</p>
+					<h3 class="box-title">Presses</h3>
+					<p class="text-muted">{{ presses|length }}
+						vidéo(s) enrégistrée(s)</p>
 					<div class="table-responsive">
 						<table class="table text-nowrap">
 							<thead>
 								<tr>
 									<th class="border-top-0">#</th>
-									<th class="border-top-0">Titre</th>
+									<th class="border-top-0">Lien de la vidéo</th>
 									<th class="border-top-0">Description</th>
 									<th class="border-top-0">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
-								{% for rapport in rapports %}
+								{% for presse in presses %}
 									<tr>
 										<td>{{ loop.index }}</td>
-										<td>{{ rapport.title }}</td>
-										<td>{{ rapport.description|length > 70 ? rapport.description|slice(0, 70) ~ '...' : rapport.description  }}</td>
+										<td>{{ presse.url|length > 40 ? presse.url|lower|slice(0, 40) ~ '...'  : presse.url|lower  }}</td>
+										<td>{{ presse.description|length > 40 ? presse.description|lower|slice(0, 40) ~ '...' : presse.description|lower  }}</td>
 										<td>
 											<button title="Modifier" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-info">
 												<i class="fas fa-edit" aria-hidden="true"></i>
@@ -36,9 +36,9 @@
 											<button title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">
 												<i class="fas fa-trash-alt" aria-hidden="true"></i>
 											</button>
-											<a href="{{ rapport.getFilePath() }}" target="_blank" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-primary">
-												<i class="fas fa-download" aria-hidden="true"></i>
-												Télécharger
+											<a href="{{ presse.url }}" target="_blank" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-primary">
+												<i class="fas fa-eye" aria-hidden="true"></i>
+												Voir la vidéo
 											</a>
 										</td>
 									</tr>
@@ -50,5 +50,6 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 {% endblock %}
