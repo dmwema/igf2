@@ -1,0 +1,68 @@
+{% extends 'admin/layout.html.twig' %}
+
+
+{% block body %}
+	<div class="container-fluid">
+		<a class="btn btn-primary mb-4">
+			<i class="far fa-plus-square mr-4" aria-hidden="true"></i>
+			Enrégistrer un nouveau rapport
+		</a>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="white-box">
+					<h3 class="box-title">Rapports</h3>
+					<p class="text-muted">{{ rapports|length }}
+						rapport(s) enrégistrés</p>
+					<div class="table-responsive">
+						<table class="table text-nowrap">
+							<thead>
+								<tr>
+									<th class="border-top-0">#</th>
+									<th class="border-top-0">Titre</th>
+									<th class="border-top-0">Description</th>
+									<th class="border-top-0">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for rapport in rapports %}
+									<tr>
+										<td>{{ loop.index }}</td>
+										<td>{{ rapport.title }}</td>
+										<td>{{ rapport.description|length > 70 ? rapport.description|slice(0, 70) ~ '...' : rapport.description  }}</td>
+										<td>
+											<button title="Modifier" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-info">
+												<i class="fas fa-edit" aria-hidden="true"></i>
+											</button>
+											<button title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">
+												<i class="fas fa-trash-alt" aria-hidden="true"></i>
+											</button>
+											<a href="{{ rapport.getFilePath() }}" target="_blank" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-primary">
+												<i class="fas fa-download" aria-hidden="true"></i>
+												Télécharger
+											</a>
+										</td>
+									</tr>
+								{% endfor %}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ============================================================== -->
+	<!-- End PAge Content -->
+		<!-- ============================================================== -->
+		<!-- ============================================================== -->
+		<!-- Right sidebar -->
+		<!-- ============================================================== -->
+		<!-- .right-sidebar -->
+		<!-- ============================================================== -->
+		<!-- End Right sidebar -->
+		<!-- ============================================================== -->
+	</>
+	<!-- ============================================================== -->
+<!-- End Container fluid  -->
+	<!-- ============================================================== -->
+
+</div>{% endblock %}

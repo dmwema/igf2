@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Admin;
+use App\Entity\Rapport;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -62,5 +64,14 @@ class AdminController extends AbstractController
             'login_form' => $login_form->createView(),
             'post' => $_POST
         ]);
+    }
+    /**
+     * @Route("/admin/rapports", name="rapports_admin")
+     */
+    public function rapports(ManagerRegistry $doctrine, EntityManagerInterface $em)
+    {
+        $rapports = $doctrine->getRepository(Rapport::class)->findAll();
+
+        return $this->render('admin/rapports/index.html.twig', ['rapports' => $rapports]);
     }
 }
