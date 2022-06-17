@@ -372,11 +372,78 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/offers", name="offers_admin")
      */
-    public function offers(ManagerRegistry $doctrine, EntityManagerInterface $em)
+    public function offers(ManagerRegistry $doctrine, EntityManagerInterface $em, Request $request, SluggerInterface $slugger)
     {
-        $offers = $doctrine->getRepository(Offer::class)->findAll();
+        $create_form = $this->createFormBuilder()
+            ->add('title', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Poste de l\'offre'], 'label' => false])
+            ->add('description', TextareaType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Description'], 'label' => false])
+            ->add('image', FileType::class, ['attr' => ['class' => 'form-control'], 'label' => "Image (optionnel)"])
+            ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-primary',], 'label' => 'Enrégistrer'])
+            ->setMethod('POST')
+            ->getForm();
 
-        return $this->render('admin/offers/index.html.twig', ['offers' => $offers]);
+        $offers = $doctrine->getRepository(Offer::class)->findAll();
+        $create_form->handleRequest($request);
+
+        if ($create_form->isSubmitted() && $create_form->isValid()) {
+            $datas = $create_form->getData();
+            $offer = new Offer();
+            $image = $create_form->get('image')->getData();
+
+            $offer
+                ->setTitle($datas['title'])
+                ->setDescription($datas['description']);
+
+            if ($image) {
+                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
+
+                if ($image->guessExtension() === 'jpeg' || $image->guessExtension() === 'png' || $image->guessExtension() === 'jpg' || $image->guessExtension() === 'webp') {
+
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $image->move(
+                            $this->getParameter('offers'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        dd($e);
+                    }
+
+                    // updates the 'brochureFilename' property to store the PDF file name
+                    // instead of its contents
+                    $offer
+                        ->setImage($newFilename);
+
+                    $em->persist($offer);
+                    $em->flush();
+
+                    $this->addFlash('success', 1);
+
+                    $new_offers = $doctrine->getRepository(Offer::class)->findAll();
+
+                    return $this->render('admin/offers/index.html.twig', [
+                        'offers' => $new_offers,
+                        'create_form' => $create_form->createView(),
+                        'message' => 'Offre au post de "' . $offer->getTitle()  . '" enrégistrée dans la base de données avec succès'
+                    ]);
+                } else {
+                    $this->addFlash('success', 0);
+                    return $this->render('admin/offers/index.html.twig', [
+                        'offers' => $offers,
+                        'create_form' => $create_form->createView(),
+                        'message' => 'Vous devez importer comme image à la une une image au fomat : .jpeg, .jpg, .png ou .webp'
+                    ]);
+                }
+            }
+        }
+
+        return $this->render('admin/offers/index.html.twig', [
+            'offers' => $offers,
+            'create_form' => $create_form->createView()
+        ]);
     }
 
     /**

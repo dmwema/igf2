@@ -1,0 +1,72 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block body %}
+	<div class="container-fluid">
+
+		{% for success in app.flashes('success') %}
+			{% if success == 1 %}
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					<strong>Succès!</strong>
+					{{ message }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% elseif success == 0 %}
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					<strong>Échec!</strong>
+					{{ message }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% endif %}
+		{% endfor %}
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="white-box">
+					<a href="{{ url('offers_admin') }}" class="back-link" title="retour">
+						<i class="fas fa-arrow-left"></i>
+					</a>
+					<h3 class="box-title">Modifier l'offre au poste de -
+						{{ offer.title }}</h3>
+					<div>
+						<div class="row">
+							<div class="col-md-6">
+								<img id="image_prev" style="width:100%" src="{{ asset('uploads/offers/' ~ offer.getImage()) }}"/>
+							</div>
+							<div class="col-md-6">
+								{{ form_start(edit_form) }}
+								<div class="form-group">
+									<label for="exampleInputEmail1">Nous récrutons des</label>
+									{{ form_widget(edit_form.title) }}
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Description</label>
+									{{ form_widget(edit_form.description) }}
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Image à la une</label>
+									{{ form_widget(edit_form.image) }}
+								</div>
+								{{ form_end(edit_form) }}
+							</div>
+						</div>
+					</div>
+				</>
+			</div>
+		</div>
+
+	</div>
+
+{% endblock %}
+
+{% block custom_scripts %}
+	<script>
+		var imgInp = document.querySelector('input[type="file"]')
+var blah = document.querySelector('#image_prev')
+
+imgInp.onchange = evt => {
+const [file] = imgInp.files
+if (file) {
+blah.src = URL.createObjectURL(file)
+}
+}
+	</script>
+{% endblock %}

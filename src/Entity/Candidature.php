@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CandidatureRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass=CandidatureRepository::class)
@@ -20,6 +21,13 @@ class Candidature
 
     /**
      * @ORM\ManyToOne(targetEntity=Offer::class, inversedBy="candidatures")
+     * @ORM\JoinColumn(nullable=false)
+     * @JoinColumn(
+     *      name="rapport_id",
+     *      referencedColumnName="id",
+     *      onDelete="CASCADE",
+     *      nullable=false
+     * )
      */
     private $offer;
 

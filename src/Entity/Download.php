@@ -20,7 +20,13 @@ class Download
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="downloads")
-     * @JoinColumn(onDelete="CASCADE")
+     * @ORM\JoinColumn(nullable=false)
+     * @JoinColumn(
+     *      name="rapport_id",
+     *      referencedColumnName="id",
+     *      onDelete="CASCADE",
+     *      nullable=false
+     * )
      */
     private $user;
 

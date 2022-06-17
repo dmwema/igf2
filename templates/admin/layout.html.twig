@@ -165,12 +165,6 @@ class="left-sidebar" data-sidebarbg="skin6"> <!-- Sidebar scroll-->
 					<span class="hide-menu">Photos</span>
 				</a>
 			</li>
-			<li class="sidebar-item">
-				<a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
-					<i class="fas fa-video" aria-hidden="true"></i>
-					<span class="hide-menu">Vidéos</span>
-				</a>
-			</li>
 			<li class="sidebar-item {% if app.request.get('_route') == 'offers_admin' %} selected{% endif %}">
 				<a class="{% if app.request.get('_route') == 'offers_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('offers_admin') }}" aria-expanded="false">
 					<i class="fas fa-search" aria-hidden="true"></i>

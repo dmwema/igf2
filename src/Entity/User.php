@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -42,7 +43,7 @@ class User
     private $phone;
 
     /**
-     * @ORM\OneToMany(targetEntity=Download::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Download::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $downloads;
 

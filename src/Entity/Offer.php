@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\OfferRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,13 +41,14 @@ class Offer
     private $created_at;
 
     /**
-     * @ORM\OneToMany(targetEntity=Candidature::class, mappedBy="offer")
+     * @ORM\OneToMany(targetEntity=Candidature::class, mappedBy="offer", cascade={"persist", "remove"})
      */
     private $candidatures;
 
     public function __construct()
     {
         $this->candidatures = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
     /**
