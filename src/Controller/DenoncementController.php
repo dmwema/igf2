@@ -28,9 +28,9 @@ class DenoncementController extends AbstractController
     {
         $denoncement_form = $this->createFormBuilder()
             ->add('civilite', ChoiceType::class, ['attr' => ['class' => 'form-select'], 'label' => 'Civilité', 'choices' => [
-                'Mr' => 1,
-                'Mme' => 1,
-                'Mlle' => 1,
+                'Mr' => 'Mr',
+                'Mme' => 'Mme',
+                'Mlle' => 'Mlle',
             ]])
             ->add('nom', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Votre nom'], 'label' => 'Nom'])
             ->add('prenom', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Votre prenom'], 'label' => 'Prenom'])

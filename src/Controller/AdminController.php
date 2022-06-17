@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Admin;
 use App\Entity\Candidature;
+use App\Entity\Denoncement;
 use App\Entity\Download;
 use App\Entity\Offer;
 use App\Entity\Photo;
@@ -507,5 +508,25 @@ class AdminController extends AbstractController
         $users = $doctrine->getRepository(User::class)->findAll();
 
         return $this->render('admin/users/index.html.twig', ['users' => $users]);
+    }
+
+    /**
+     * @Route("/admin/denoncements", name="denoncements_admin")
+     */
+    public function denoncements(ManagerRegistry $doctrine, EntityManagerInterface $em)
+    {
+        $denoncements = $doctrine->getRepository(Denoncement::class)->findAll();
+
+        return $this->render('admin/denoncements/index.html.twig', ['denoncements' => $denoncements]);
+    }
+
+    #[Route('/admin/denoncements/delete/{id}', name: 'delete_denoncement', methods: ['POST'])]
+    public function delete(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
+    {
+        $denoncement = $doctrine->getRepository(Denoncement::class)->find($id);
+        $em->remove($denoncement);
+        $em->flush();
+
+        return $this->redirectToRoute('denoncements_admin');
     }
 }

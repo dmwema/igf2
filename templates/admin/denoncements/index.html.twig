@@ -1,0 +1,51 @@
+{% extends 'admin/layout.html.twig' %}
+
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="white-box">
+					<h3 class="box-title">Dénoncements</h3>
+					<p class="text-muted">{{ denoncements|length }}
+						Dénoncements(s) enrégistrée(s)</p>
+					<div class="table-responsive"></div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			{% for denoncement in denoncements %}
+				<div class="col-lg-6 col-md-12">
+					<div class="white-box analytics-info">
+						<h5 style="font-weight:700">{{ denoncement.civilite ~ " " ~ denoncement.nom ~ " " ~  denoncement.prenom ~ " " ~ (denoncement.email)  }}</h5>
+						<p style="margin:0">Proféssion :
+							{{ denoncement.profession }}</p>
+						<p style="margin:0">Téléphone :
+							{{ denoncement.phone }}</p>
+						<hr/>
+						<small>
+							<strong>Motif</strong>
+						</small>
+						<br/>
+						<p>{{ denoncement.motif }}</p>
+
+						<form method="POST" style="display:inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce denoncement ? Cette action est irreversible.');" action="{{ path('delete_denoncement', {id: denoncement.id}) }}">
+							<button type="submit" title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">
+								<i class="fas fa-trash-alt" aria-hidden="true"></i>
+								Supprimer
+							</button>
+						</form>
+						{% if denoncement.fichier != "" %}
+							<a href="{{ path('delete_denoncement', {id: denoncement.id} ) }}" title="Fichier" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-primary">
+								<i class="fas fa-download" aria-hidden="true"></i>
+								Voir le fichier
+							</a>
+						{% endif %}
+					</form>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>{% endblock %}

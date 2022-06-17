@@ -236,7 +236,7 @@ a.post .post-text {
 
 .social-icons {
   position: fixed;
-  z-index: 100;
+  z-index: 50;
   height: 100%;
   display: flex;
   flex-direction: column;

@@ -156,4 +156,13 @@ class PostController extends AbstractController
             'edit_form' => $edit_form->createView(),
         ]);
     }
+
+    #[Route('/rececntscl/posts/', name: 'recent_post')]
+    public function recentes(ManagerRegistry $doctrine): Response
+    {
+        $posts = $doctrine->getRepository(Post::class)->findAll();
+        return $this->render('post/_recent.html.twig', [
+            'recents' => $posts
+        ]);
+    }
 }
