@@ -38,7 +38,7 @@ class OfferController extends AbstractController
     /**
      * @Route("/emplois/{title}/{id}", name="offer_detail")
      */
-    public function detail(ManagerRegistry $doctrine, $id, Request $request, EntityManagerInterface $em, SessionInterface $session): Response
+    public function detail(SluggerInterface $slugger, ManagerRegistry $doctrine, $id, Request $request, EntityManagerInterface $em, SessionInterface $session): Response
     {
         $offer = $doctrine->getRepository(Offer::class)->find($id);
 
@@ -63,6 +63,7 @@ class OfferController extends AbstractController
 
         if ($candidature_form->isSubmitted() && $candidature_form->isValid()) {
             $datas = $candidature_form->getData();
+            $cv = $candidature_form->get('cv')->getData();
 
             $candidature = new Candidature();
             //dd($datas['naissance']);
@@ -76,18 +77,40 @@ class OfferController extends AbstractController
                 ->setEmail($datas['email'])
                 ->setPhone($datas['phone'])
                 ->setBio($datas['bio'])
-                ->setCv($datas['cv'])
                 ->setCreatedAt(new DateTimeImmutable("now"));
 
-            $em->persist($candidature);
-            $em->flush();
 
-            $session->set('success', 'Votre demande a été enrégistrée avec succès');
+            if ($cv) {
+                $originalFilename = pathinfo($cv->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $cv->guessExtension();
 
-            return $this->render('offer/detail.html.twig', [
-                'offer' => $offer,
-                'candidature_form' => $candidature_form->createView()
-            ]);
+                if ($cv->guessExtension() === 'pdf') {
+
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $cv->move(
+                            $this->getParameter('cvs'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        dd($e);
+                    }
+
+                    // updates the 'brochureFilename' property to store the PDF file name
+                    // instead of its contents
+                    $candidature
+                        ->setCv($newFilename);
+
+                    $em->persist($candidature);
+                    $em->flush();
+
+                    $session->set('success', 'Votre demande a été enrégistrée avec succès');
+                } else {
+                    $session->set('fail', 'Le CV doit être au format .pdf');
+                }
+            }
         }
 
         return $this->render('offer/detail.html.twig', [

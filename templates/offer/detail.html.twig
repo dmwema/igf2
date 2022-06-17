@@ -182,6 +182,10 @@
 						<div class="alert alert-success">{{ app.session.get('success') }}</div>
 					{% endif %}
 
+					{% if app.session.has('fail') %}
+						<div class="alert alert-danger">{{ app.session.get('fail') }}</div>
+					{% endif %}
+
 					<h3 class="title">Postuler</h3>
 					{{ form_start(candidature_form) }}
 					<div class="row">

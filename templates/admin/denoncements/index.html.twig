@@ -19,7 +19,7 @@
 			{% for denoncement in denoncements %}
 				<div class="col-lg-6 col-md-12">
 					<div class="white-box analytics-info">
-						<h5 style="font-weight:700">{{ denoncement.civilite ~ " " ~ denoncement.nom ~ " " ~  denoncement.prenom ~ " " ~ (denoncement.email)  }}</h5>
+						<h5 style="font-weight:700">{{ denoncement.civilite ~ " " ~ denoncement.nom ~ " " ~  denoncement.prenom ~ " (" ~ (denoncement.email) ~ ")" }}</h5>
 						<p style="margin:0">Proféssion :
 							{{ denoncement.profession }}</p>
 						<p style="margin:0">Téléphone :
@@ -38,7 +38,7 @@
 							</button>
 						</form>
 						{% if denoncement.fichier != "" %}
-							<a href="{{ path('delete_denoncement', {id: denoncement.id} ) }}" title="Fichier" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-primary">
+							<a target="_blank" href="{{ asset('uploads/denoncements/' ~ denoncement.fichier) }}" title="Fichier" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-primary">
 								<i class="fas fa-download" aria-hidden="true"></i>
 								Voir le fichier
 							</a>
