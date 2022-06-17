@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Admin;
+use App\Entity\Breve;
 use App\Entity\Candidature;
 use App\Entity\Denoncement;
 use App\Entity\Download;
@@ -530,5 +531,65 @@ class AdminController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('denoncements_admin');
+    }
+
+    /**
+     * @Route("/admin/breves", name="breves_admin")
+     */
+    public function breves(ManagerRegistry $doctrine, EntityManagerInterface $em, Request $request)
+    {
+        $create_form = $this->createFormBuilder()
+            ->add('content', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Intitulé'], 'label' => false])
+            ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-primary',], 'label' => 'Enrégistrer'])
+            ->setMethod('POST')
+            ->getForm();
+
+        $breves = $doctrine->getRepository(Breve::class)->findAll();
+        $create_form->handleRequest($request);
+
+        if ($create_form->isSubmitted() && $create_form->isValid()) {
+            $datas = $create_form->getData();
+            $breve = new Breve();
+
+            $breve
+                ->setContent($datas['content']);
+
+            $em->persist($breve);
+            $em->flush();
+
+            $this->addFlash('success', 1);
+
+            $new_breves = $doctrine->getRepository(Breve::class)->findAll();
+
+            return $this->render('admin/breves/index.html.twig', [
+                'breves' => $new_breves,
+                'create_form' => $create_form->createView(),
+                'message' => 'Brève enrégistrée dans la base de données avec succès'
+            ]);
+        }
+
+        return $this->render('admin/breves/index.html.twig', [
+            'breves' => $breves,
+            'create_form' => $create_form->createView(),
+        ]);
+    }
+
+    #[Route('/admin/breves/delete/{id}', name: 'delete_breve', methods: ['POST'])]
+    public function delete_breves(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
+    {
+        $breve = $doctrine->getRepository(Breve::class)->find($id);
+        $em->remove($breve);
+        $em->flush();
+
+        return $this->redirectToRoute('breves_admin');
+    }
+
+    #[Route('/brevescalculus/breves/', name: 'breves')]
+    public function breves_all(ManagerRegistry $doctrine): Response
+    {
+        $breves = $doctrine->getRepository(Breve::class)->findAll();
+        return $this->render('breve/_breves.html.twig', [
+            'breves' => $breves
+        ]);
     }
 }

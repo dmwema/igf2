@@ -5,7 +5,7 @@
 	<div class="container-fluid">
 		<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-4">
 			<i class="far fa-plus-square mr-4" aria-hidden="true"></i>
-			Enrégistrer un  nouvel offre d'emploi
+			Enrégistrer une brève
 		</button>
 		{% for success in app.flashes('success') %}
 			{% if success == 1 %}
@@ -25,8 +25,8 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="white-box">
-					<h3 class="box-title">Offres d'emplois</h3>
-					<p class="text-muted">{{ offers|length }}
+					<h3 class="box-title">Brèves</h3>
+					<p class="text-muted">{{ breves|length }}
 						Offre(s)</p>
 					<div class="table-responsive">
 						<table class="table text-nowrap">
@@ -34,31 +34,21 @@
 								<tr>
 									<th class="border-top-0">#</th>
 									<th class="border-top-0">Titre</th>
-									<th class="border-top-0">Description</th>
-									<th class="border-top-0">Candidatures</th>
-									<th class="border-top-0">Actions</th>
+									<th class="border-top-0"></th>
 								</tr>
 							</thead>
 							<tbody>
-								{% for offer in offers %}
+								{% for breve in breves %}
 									<tr>
 										<td>{{ loop.index }}</td>
-										<td>{{ offer.title|length > 70 ? offer.title|lower|slice(0, 70) ~ '...'  : offer.title|lower  }}</td>
-										<td>{{ offer.description|length > 70 ? offer.description|lower|slice(0, 70) ~ '...'  : offer.description|lower  }}</td>
-										<td>{{ offer.getCandidatures()|length }}</td>
+										<td>{{ breve.getContent() }}</td>
 										<td>
-											<a href="{{ path('edit_offer', {id: offer.id}) }}" title="Modifier" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-info">
-												<i class="fas fa-edit" aria-hidden="true"></i>
-											</a>
-											<form method="POST" style="display:inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette photo ? Cette action est irreversible.');" action="{{ path('delete_offer', {id: offer.id}) }}">
+											<form method="POST" style="display:inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette photo ? Cette action est irreversible.');" action="{{ path('delete_breve', {id: breve.id}) }}">
 												<button type="submit" title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">
 													<i class="fas fa-trash-alt" aria-hidden="true"></i>
+													Supprimer
 												</button>
 											</form>
-											<a href="{{ path('offer_detail', {title: offer.title, id: offer.id}) }}" target="_blank" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-primary">
-												<i class="fas fa-eye" aria-hidden="true"></i>
-												Voir
-											</a>
 										</td>
 									</tr>
 								{% endfor %}
@@ -82,15 +72,7 @@
 						<img alt="preview" style="width:100%; display:none" id="image_prev" src=""/>
 
 						<div class="form-group">
-							{{ form_widget(create_form.image) }}
-						</div>
-						<div class="form-group">
-							<label>Nous récrutons au poste de
-							</label>
-							{{ form_widget(create_form.title) }}
-						</div>
-						<div class="form-group">
-							{{ form_widget(create_form.description) }}
+							{{ form_widget(create_form.content) }}
 						</div>
 					</div>
 					<div class="modal-footer">

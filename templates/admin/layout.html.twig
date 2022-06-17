@@ -136,8 +136,8 @@ class="left-sidebar" data-sidebarbg="skin6"> <!-- Sidebar scroll-->
 					<span class="hide-menu">Actualités</span>
 				</a>
 			</li>
-			<li class="sidebar-item">
-				<a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
+			<li class="sidebar-item {% if app.request.get('_route') == 'breves_admin' %} selected{% endif %}">
+				<a class="{% if app.request.get('_route') == 'breves_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('breves_admin') }}" aria-expanded="false">
 					<i class="fa fa-info-circle" aria-hidden="true"></i>
 					<span class="hide-menu">Brèves</span>
 				</a>

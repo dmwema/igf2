@@ -164,7 +164,7 @@ class PostController extends AbstractController
     {
         $posts = $doctrine->getRepository(Post::class)->findAll();
         return $this->render('post/_recent.html.twig', [
-            'recents' => $posts
+            'recents' => array_slice($posts, 0, 5)
         ]);
     }
 }
