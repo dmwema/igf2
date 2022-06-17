@@ -139,8 +139,10 @@
 					</div>
 					<h3 class="title">{{ post.title }}
 					</h3>
-					<a href="#" class="downlod-btn">
-						<i class="fa-solid fa-download" style="margin-right: 5px"></i>Télécharger le fichier</a>
+					{% if post.getRapportLink() != "" %}
+						<a href="{{ post.getRapportLink() }}" class="downlod-btn">
+							<i class="far fa-file-alt" style="margin-right: 5px"></i>Voir le rapport</a>
+					{% endif %}
 					<hr style="margin:30px 0">
 					<div class="texts">
 						<p>{{ post.description|lower }}</p>

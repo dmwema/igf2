@@ -29,6 +29,11 @@ class Post
     private $img_path;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $rapport_link;
+
+    /**
      * @ORM\Column(type="text")
      */
     private $description;
@@ -62,6 +67,18 @@ class Post
     public function getImgPath(): ?string
     {
         return $this->img_path;
+    }
+
+    public function getRapportLink(): ?string
+    {
+        return $this->rapport_link;
+    }
+
+    public function setRapportLink(string $rapport_link): self
+    {
+        $this->rapport_link = $rapport_link;
+
+        return $this;
     }
 
     public function setTitle(string $title): self

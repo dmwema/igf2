@@ -36,6 +36,7 @@
 									<th class="border-top-0">Image</th>
 									<th class="border-top-0">Titre</th>
 									<th class="border-top-0">Description</th>
+									<th class="border-top-0">Lien du rapport</th>
 									<th class="border-top-0">Date de publication</th>
 									<th class="border-top-0">Actions</th>
 								</tr>
@@ -49,6 +50,7 @@
 										</td>
 										<td>{{ post.title|length > 40 ? post.title|lower|slice(0, 40) ~ '...'  : post.title|lower  }}</td>
 										<td>{{ post.description|length > 40 ? post.description|lower|slice(0, 40) ~ '...' : post.description|lower  }}</td>
+										<td>{{ post.getRapportLink() }}</td>
 										<td>{{ post.getCreatedAt() |date('d-m-Y') }}</td>
 										<td>
 											<a href="{{ path('edit_post', {id: post.id}) }}" title="Modifier" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-info">
@@ -93,6 +95,10 @@
 						<div class="form-group">
 							<label class="form-label">Image à la une</label>
 							{{ form_widget(create_form.img_path) }}
+						</div>
+						<div class="form-group">
+							<label class="form-label">Lien du rapport (optionnel)</label>
+							{{ form_widget(create_form.rapport_link) }}
 						</div>
 					</div>
 					<div class="modal-footer">

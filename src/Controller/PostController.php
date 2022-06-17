@@ -87,6 +87,7 @@ class PostController extends AbstractController
         $edit_form = $this->createFormBuilder($post)
             ->add('title', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Titre de l\'actualité'], 'label' => false])
             ->add('description', TextareaType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Entrez une description'], 'label' => false])
+            ->add('rapport_link', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Lien du rapport'], 'label' => false, 'required' => false])
             ->add('img_path', FileType::class, ['attr' => ['class' => 'form-control'], 'label' => "Image à la une", 'data_class' => null, 'required' => false])
             ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-primary',], 'label' => 'Enrégistrer'])
             ->setMethod('POST')
@@ -101,7 +102,8 @@ class PostController extends AbstractController
             $post
                 ->setTitle($datas->getTitle())
                 ->setDescription($datas->getDescription())
-                ->setImgPath($old_img);
+                ->setImgPath($old_img)
+                ->setRapportLink($datas->getRapportLink());
 
 
             if ($image) {

@@ -12472,7 +12472,7 @@ select.form-select.form-control-line {
 .sidebar-nav ul .sidebar-item .sidebar-link.active {
   font-weight: 500;
   border-left: 3px solid #41b3f9;
-  background: #fbfbfb;
+  background: #e6e6e6;
 }
 .sidebar-nav ul .sidebar-item.selected > .sidebar-link {
   opacity: 1;

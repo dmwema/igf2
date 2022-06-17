@@ -11,10 +11,8 @@
 		<meta name="description" content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
 		<meta name="robots" content="noindex,nofollow">
 		<title>IGF RDC - Administration</title>
-
-		<!-- Favicon icon -->
 		<link
-		rel="icon" type="image/png" sizes="16x16" href="{{ asset('plugins/images/favicon.png') }}">
+		rel="icon" href="{{asset('images/logo.png')}}">
 		<!-- Custom CSS -->
 		<link href="{{ asset('css/style.min.css') }} " rel="stylesheet">
 
@@ -176,6 +174,12 @@ class="left-sidebar" data-sidebarbg="skin6"> <!-- Sidebar scroll-->
 					<span class="hide-menu">Photos</span>
 				</a>
 			</li>
+			<li class="sidebar-item {% if app.request.get('_route') == 'presses_admin' %} selected{% endif %}">
+				<a class="{% if app.request.get('_route') == 'presses_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('presses_admin') }}" aria-expanded="false">
+					<i class="fas fa-video" aria-hidden="true"></i>
+					<span class="hide-menu">Presses</span>
+				</a>
+			</li>
 			<li class="sidebar-item {% if app.request.get('_route') == 'offers_admin' %} selected{% endif %}">
 				<a class="{% if app.request.get('_route') == 'offers_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('offers_admin') }}" aria-expanded="false">
 					<i class="fas fa-search" aria-hidden="true"></i>
@@ -191,18 +195,29 @@ class="left-sidebar" data-sidebarbg="skin6"> <!-- Sidebar scroll-->
 					</span>
 				</a>
 			</li>
-			<li class="sidebar-item {% if app.request.get('_route') == 'presses_admin' %} selected{% endif %}">
-				<a class="{% if app.request.get('_route') == 'presses_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('presses_admin') }}" aria-expanded="false">
-					<i class="fas fa-video" aria-hidden="true"></i>
-					<span class="hide-menu">Presses</span>
-				</a>
-			</li>
 			<li class="sidebar-item {% if app.request.get('_route') == 'users_admin' %} selected{% endif %}">
 				<a class="{% if app.request.get('_route') == 'users_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('users_admin') }}" aria-expanded="false">
 					<i class="fas fa-users" aria-hidden="true"></i>
 					<span style="display:flex; justify-content: space-between; width:100%">
 						<span style="display:flex; justify-content: space-between; width:100%">
 							<span class="hide-menu" style="margin-left:5px">Utilisateurs</span>
+							<span class="badge">13</span>
+						</span>
+					</span>
+				</a>
+			</li>
+			<li class="sidebar-item {% if app.request.get('_route') == 'users_admin' %} selected{% endif %}">
+				<a class="{% if app.request.get('_route') == 'users_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('users_admin') }}" aria-expanded="false">
+					<i class="fas fa-user" aria-hidden="true"></i>
+					<span class="hide-menu">Inspecteurs</span>
+				</a>
+			</li>
+			<li class="sidebar-item {% if app.request.get('_route') == 'users_admin' %} selected{% endif %}">
+				<a class="{% if app.request.get('_route') == 'users_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('users_admin') }}" aria-expanded="false">
+					<i class="fas fa-envelope" aria-hidden="true"></i>
+					<span style="display:flex; justify-content: space-between; width:100%">
+						<span style="display:flex; justify-content: space-between; width:100%">
+							<span class="hide-menu" style="margin-left:5px">Message</span>
 							<span class="badge">13</span>
 						</span>
 					</span>

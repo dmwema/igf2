@@ -215,6 +215,7 @@ class AdminController extends AbstractController
         $create_form = $this->createFormBuilder()
             ->add('title', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Titre de l\'actualité'], 'label' => false])
             ->add('description', TextareaType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Entrez une description'], 'label' => false])
+            ->add('rapport_link', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Lien du rapport'], 'label' => false, 'required' => false])
             ->add('img_path', FileType::class, ['attr' => ['class' => 'form-control'], 'label' => "Image à la une"])
             ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-primary',], 'label' => 'Enrégistrer'])
             ->setMethod('POST')
@@ -230,7 +231,8 @@ class AdminController extends AbstractController
 
             $post
                 ->setTitle($datas['title'])
-                ->setDescription($datas['description']);
+                ->setDescription($datas['description'])
+                ->setRapportLink($datas['rapport_link']);
 
             if ($image) {
                 $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);

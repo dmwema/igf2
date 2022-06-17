@@ -35,6 +35,7 @@
 									<th class="border-top-0">#</th>
 									<th class="border-top-0">Titre</th>
 									<th class="border-top-0">Description</th>
+									<th class="border-top-0">Téléchargéments</th>
 									<th class="border-top-0">Actions</th>
 								</tr>
 							</thead>
@@ -44,6 +45,7 @@
 										<td>{{ loop.index }}</td>
 										<td>{{ rapport.title }}</td>
 										<td>{{ rapport.description|length > 70 ? rapport.description|slice(0, 70) ~ '...' : rapport.description  }}</td>
+										<td>{{ rapport.Downloads|length }}</td>
 										<td>
 											<a href="{{ path('edit_rapport', {id: rapport.id}) }}" title="Modifier" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-info">
 												<i class="fas fa-edit" aria-hidden="true"></i>
