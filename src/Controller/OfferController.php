@@ -76,6 +76,7 @@ class OfferController extends AbstractController
                 ->setAdresse($datas['adresse'])
                 ->setEmail($datas['email'])
                 ->setPhone($datas['phone'])
+                ->setOffer($offer)
                 ->setBio($datas['bio'])
                 ->setCreatedAt(new DateTimeImmutable("now"));
 

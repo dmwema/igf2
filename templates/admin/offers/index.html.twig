@@ -59,6 +59,12 @@
 												<i class="fas fa-eye" aria-hidden="true"></i>
 												Voir
 											</a>
+											{% if offer.file != "" %}
+												<a href="{{ asset('uploads/offers/descs/' ~ offer.getImage()) }}" target="_blank" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-primary">
+													<i class="fas fa-download" aria-hidden="true"></i>
+													Voir le fichier descriptif
+												</a>
+											{% endif %}
 										</td>
 									</tr>
 								{% endfor %}
@@ -80,13 +86,16 @@
 					{{ form_start(create_form) }}
 					<div class="modal-body">
 						<img alt="preview" style="width:100%; display:none" id="image_prev" src=""/>
-
 						<div class="form-group">
+							<label>Image à la une</label>
 							{{ form_widget(create_form.image) }}
 						</div>
 						<div class="form-group">
-							<label>Nous récrutons au poste de
-							</label>
+							<label>Fichier descriptif (en .pdf)</label>
+							{{ form_widget(create_form.file) }}
+						</div>
+						<div class="form-group">
+							<label>Nous récrutons au poste de</label>
 							{{ form_widget(create_form.title) }}
 						</div>
 						<div class="form-group">

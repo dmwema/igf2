@@ -45,6 +45,11 @@ class Offer
      */
     private $candidatures;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $file;
+
     public function __construct()
     {
         $this->candidatures = new ArrayCollection();
@@ -141,6 +146,18 @@ class Offer
                 $candidature->setOffer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFile(): ?string
+    {
+        return $this->file;
+    }
+
+    public function setFile(string $file): self
+    {
+        $this->file = $file;
 
         return $this;
     }

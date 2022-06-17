@@ -382,6 +382,7 @@ class AdminController extends AbstractController
             ->add('title', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Poste de l\'offre'], 'label' => false])
             ->add('description', TextareaType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Description'], 'label' => false])
             ->add('image', FileType::class, ['attr' => ['class' => 'form-control'], 'label' => "Image (optionnel)"])
+            ->add('file', FileType::class, ['attr' => ['class' => 'form-control'], 'label' => "Fichier descriptif (description + critères)"])
             ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-primary',], 'label' => 'Enrégistrer'])
             ->setMethod('POST')
             ->getForm();
@@ -393,46 +394,67 @@ class AdminController extends AbstractController
             $datas = $create_form->getData();
             $offer = new Offer();
             $image = $create_form->get('image')->getData();
+            $file = $create_form->get('file')->getData();
 
             $offer
                 ->setTitle($datas['title'])
                 ->setDescription($datas['description']);
 
-            if ($image) {
+            if ($image && $file) {
                 $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
 
+                $originalFilenameDesc = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilenameDesc = $slugger->slug($originalFilenameDesc);
+                $newFilenameDesc = $safeFilenameDesc . '-' . uniqid() . '.' . $file->guessExtension();
+
                 if ($image->guessExtension() === 'jpeg' || $image->guessExtension() === 'png' || $image->guessExtension() === 'jpg' || $image->guessExtension() === 'webp') {
+                    if ($file->guessExtension() === 'pdf') {
+                        // Move the file to the directory where brochures are stored
+                        try {
+                            $image->move(
+                                $this->getParameter('offers'),
+                                $newFilename
+                            );
+                        } catch (FileException $e) {
+                            dd($e);
+                        }
 
-                    // Move the file to the directory where brochures are stored
-                    try {
-                        $image->move(
-                            $this->getParameter('offers'),
-                            $newFilename
-                        );
-                    } catch (FileException $e) {
-                        dd($e);
+                        // Move the file to the directory where brochures are stored
+                        try {
+                            $file->move(
+                                $this->getParameter('offersDesc'),
+                                $newFilenameDesc
+                            );
+                        } catch (FileException $e) {
+                            dd($e);
+                        }
+
+                        $offer
+                            ->setImage($newFilename)
+                            ->setFile($newFilenameDesc);
+
+                        $em->persist($offer);
+                        $em->flush();
+
+                        $this->addFlash('success', 1);
+
+                        $new_offers = $doctrine->getRepository(Offer::class)->findAll();
+
+                        return $this->render('admin/offers/index.html.twig', [
+                            'offers' => $new_offers,
+                            'create_form' => $create_form->createView(),
+                            'message' => 'Offre au post de "' . $offer->getTitle()  . '" enrégistrée dans la base de données avec succès'
+                        ]);
+                    } else {
+                        $this->addFlash('success', 0);
+                        return $this->render('admin/offers/index.html.twig', [
+                            'offers' => $offers,
+                            'create_form' => $create_form->createView(),
+                            'message' => 'Le fichier de description doit être au format .pdf'
+                        ]);
                     }
-
-                    // updates the 'brochureFilename' property to store the PDF file name
-                    // instead of its contents
-                    $offer
-                        ->setImage($newFilename);
-
-                    $em->persist($offer);
-                    $em->flush();
-
-                    $this->addFlash('success', 1);
-
-                    $new_offers = $doctrine->getRepository(Offer::class)->findAll();
-
-                    return $this->render('admin/offers/index.html.twig', [
-                        'offers' => $new_offers,
-                        'create_form' => $create_form->createView(),
-                        'message' => 'Offre au post de "' . $offer->getTitle()  . '" enrégistrée dans la base de données avec succès'
-                    ]);
                 } else {
                     $this->addFlash('success', 0);
                     return $this->render('admin/offers/index.html.twig', [

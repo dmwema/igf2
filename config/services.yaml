@@ -10,6 +10,7 @@ parameters:
   rapports: "%kernel.project_dir%/public/uploads/rapports"
   photos: "%kernel.project_dir%/public/uploads/photos"
   offers: "%kernel.project_dir%/public/uploads/offers"
+  offersDesc: "%kernel.project_dir%/public/uploads/offers/descs"
   cvs: "%kernel.project_dir%/public/uploads/cvs"
 
 services:
