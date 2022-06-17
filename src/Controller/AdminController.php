@@ -459,11 +459,44 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/presses", name="presses_admin")
      */
-    public function presses(ManagerRegistry $doctrine, EntityManagerInterface $em)
+    public function presses(ManagerRegistry $doctrine, EntityManagerInterface $em, Request $request)
     {
-        $presses = $doctrine->getRepository(Press::class)->findAll();
+        $create_form = $this->createFormBuilder()
+            ->add('url', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Lien'], 'label' => false])
+            ->add('description', TextareaType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Entrez la description'], 'label' => false])
+            ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-primary',], 'label' => 'Enrégistrer'])
+            ->setMethod('POST')
+            ->getForm();
 
-        return $this->render('admin/presses/index.html.twig', ['presses' => $presses]);
+        $presses = $doctrine->getRepository(Press::class)->findAll();
+        $create_form->handleRequest($request);
+
+        if ($create_form->isSubmitted() && $create_form->isValid()) {
+            $datas = $create_form->getData();
+            $press = new Press();
+
+            $press
+                ->setUrl($datas['url'])
+                ->setDescription($datas['description']);
+
+            $em->persist($press);
+            $em->flush();
+
+            $this->addFlash('success', 1);
+
+            $new_presses = $doctrine->getRepository(Press::class)->findAll();
+
+            return $this->render('admin/presses/index.html.twig', [
+                'presses' => $new_presses,
+                'create_form' => $create_form->createView(),
+                'message' => 'Vidéo de presse enrégistrée dans la base de données avec succès'
+            ]);
+        }
+
+        return $this->render('admin/presses/index.html.twig', [
+            'presses' => $presses,
+            'create_form' => $create_form->createView()
+        ]);
     }
 
     /**

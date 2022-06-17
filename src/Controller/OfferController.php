@@ -28,8 +28,7 @@ class OfferController extends AbstractController
      */
     public function index(ManagerRegistry $doctrine): Response
     {
-        $offers = [];
-        //$offers = $doctrine->getRepository(Offer::class)->findAll();
+        $offers = $doctrine->getRepository(Offer::class)->findAll();
 
         return $this->render('offer/index.html.twig', [
             'offers' => $offers,

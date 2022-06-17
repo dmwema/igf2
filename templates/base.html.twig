@@ -38,7 +38,11 @@
 			</div>
 		</div>
 		<div class="flash-news" style="margin-top:0">
-			<span>Brèves</span>
+			<span>
+				<span style="display:inline-block; padding: 0; width: 10px; margin-right: 5px">
+					<span class="flash-circle"></span>
+				</span>
+				Brèves</span>
 			<p>Amphithéâtre “Félix Antoine Tshisekedi”, inauguré ce mardi à l ‘ IGF PAR FELIX A.TSHISEKEDI lui même.</p>
 		</div>
 		<nav class="navbar main-nav navbar-expand-lg navbar-light bg-light" style="position: relative;">
@@ -161,34 +165,17 @@
 					class="row">
 
 					<!--Footer About-->
-					<div class="col-md-6 col-lg-3">
+					<div class="col-md-6 col-lg-4">
 						<div class="footer-about">
 							<h3>A propos</h3>
 							<p>
 								L’Inspection générale des finances dispose d’une compétence générale en matière de contrôle des finances et des biens publics.
 							</p>
-							<div class="footer-social">
-								<a href="">
-									<i class="fab fa-twitter"></i>
-								</a>
-								<a href="">
-									<i class="fab fa-facebook-f"></i>
-								</a>
-								<a href="">
-									<i class="fab fa-youtube"></i>
-								</a>
-								<a href="">
-									<i class="fab fa-instagram"></i>
-								</a>
-								<a href="">
-									<i class="fab fa-linkedin-in"></i>
-								</a>
-							</div>
 						</div>
 					</div>
 
 					<!--Contact Us-->
-					<div class="col-md-6 col-lg-3">
+					<div class="col-md-6 col-lg-4">
 						<div class="footer-contact">
 							<h3>Prendre contact</h3>
 							<p>
@@ -201,35 +188,36 @@
 								<i class="far fa-clock"></i>Lun - Ven, 8h - 18h</p>
 						</div>
 					</div>
-					<!--Footer Link-->
-					<div class="col-md-6 col-lg-3">
-						<div class="footer-links">
-							<h3>Liens utiles
-							</h3>
-							<a target="_blank" href="https://presidence.cd/">Présidence de la République</a>
-							<a target="_blank" href="http://senat.cd/">Senat</a>
-							<a target="_blank" href="http://www.assemblee-nationale.cd/">Assemblée Nationale</a>
-							<a target="_blank" href="https://www.primature.cd/">Primature</a>
-							<a target="_blank" href="http://www.bcc.cd/">Banque centrale du Congo</a>
-							<a target="_blank" href="https://budget.gouv.cd/">Ministère du budget</a>
-							<a target="_blank" href="http://minfinrdc.com/minfin/">Ministère des Finances</a>
-							<a target="_blank" href="https://www.dgi.gouv.cd/">DGI</a>
-							<a target="_blank" href="https://www.douane.gouv.cd/">DGDA</a>
-							<a target="_blank" href="https://www.investindrc.cd/">ANAPI</a>
-							<a target="_blank" href="https://guichetunique.cd/">GUCE</a>
-						</div>
-					</div>
-					<!--project Image-->
+					<!--Footer Link
+																																																																																																																																																																					<div class="col-md-6 col-lg-3">
+																																																																																																																																																																						<div class="footer-links">
+																																																																																																																																																																							<h3>Liens utiles
+																																																																																																																																																																							</h3>
+																																																																																																																																																																							<a target="_blank" href="https://presidence.cd/">Présidence de la République</a>
+																																																																																																																																																																							<a target="_blank" href="http://senat.cd/">Senat</a>
+																																																																																																																																																																							<a target="_blank" href="http://www.assemblee-nationale.cd/">Assemblée Nationale</a>
+																																																																																																																																																																							<a target="_blank" href="https://www.primature.cd/">Primature</a>
+																																																																																																																																																																							<a target="_blank" href="http://www.bcc.cd/">Banque centrale du Congo</a>
+																																																																																																																																																																							<a target="_blank" href="https://budget.gouv.cd/">Ministère du budget</a>
+																																																																																																																																																																							<a target="_blank" href="http://minfinrdc.com/minfin/">Ministère des Finances</a>
+																																																																																																																																																																							<a target="_blank" href="https://www.dgi.gouv.cd/">DGI</a>
+																																																																																																																																																																							<a target="_blank" href="https://www.douane.gouv.cd/">DGDA</a>
+																																																																																																																																																																							<a target="_blank" href="https://www.investindrc.cd/">ANAPI</a>
+																																																																																																																																																																							<a target="_blank" href="https://guichetunique.cd/">GUCE</a>
+																																																																																																																																																																						</div>
+																																																																																																																																																																					</div>
+																																																																																																																																																																					project Image-->
 
-					<div class="col-md-6 col-lg-3">
-						<div class="footer-project">
+
+					<div class="col-md-6 col-lg-4">
+						<div class="footer-contact">
 							<h3>Dernières publications</h3>
-							<a href=""><img src="{{ asset('images/bottom1.jpeg') }}" alt="Image"></a>
-							<a href=""><img src="{{ asset('images/bottom2.jpg') }}" alt="Image"></a>
-							<a href=""><img src="{{ asset('images/bottom2.jpg') }}" alt="Image"></a>
-							<a href=""><img src="{{ asset('images/bottom3.jpg') }}" alt="Image"></a>
-							<a href=""><img src="{{ asset('images/bottom4.jpg') }}" alt="Image"></a>
-							<a href=""><img src="{{ asset('images/bottom4.jpg') }}" alt="Image"></a>
+							<a href="#" style="margin-bottom:10px;text-decoration: none;
+																																																																																																																																    color: inherit;
+																																																																																																																																    display: inline-block;
+																																																																																																																																    padding: 10px 20px;
+																																																																																																																																    background-color: #fff;
+																																																																																																																																font-size: 15px;">{{ "ZA des Forces Armées Gombe mbe"|lower }}</a>
 						</div>
 					</div>
 
@@ -282,6 +270,8 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v13.0" nonce="ICWil1lx"></script>
 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
 		<script>
 			setTimeout(() => {
 $('.site-loader').fadeOut(500);
@@ -290,6 +280,18 @@ $('.site-loader').fadeOut(500);
 $(window).on('load', function () {
 $('.site-loader').fadeOut(500);
 });
+		</script>
+		<script type="text/javascript">
+			// jQuery counterUp
+$('[data-toggle="counterUp"]').counterUp({delay: 15, time: 1500});
+		</script>
+		<script type="text/javascript">
+			setInterval(() => {
+$('.flash-circle').fadeIn(500);
+
+$('.flash-circle').fadeOut(1000);
+
+}, 1000);
 		</script>
 	</body>
 </html>

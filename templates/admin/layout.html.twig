@@ -150,11 +150,22 @@ class="left-sidebar" data-sidebarbg="skin6"> <!-- Sidebar scroll-->
 					<span class="hide-menu">Rapports</span>
 				</a>
 			</li>
+			<li class="sidebar-item {% if app.request.get('_route') == 'rapports_admin' %} selected{% endif %}">
+				<a class="{% if app.request.get('_route') == 'rapports_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
+					<i class="fas fa-pen-square" aria-hidden="true"></i>
+					<span style="display:flex; justify-content: space-between; width:100%">
+						<span style="display:flex; justify-content: space-between; width:100%">
+							<span class="hide-menu" style="margin-left:5px">Dénoncements</span>
+							<span class="badge">2</span>
+						</span>
+					</span>
+				</a>
+			</li>
 			<li class="sidebar-item {% if app.request.get('_route') == 'downloads_admin' %} selected{% endif %}">
 				<a class="{% if app.request.get('_route') == 'downloads_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('downloads_admin') }}" aria-expanded="false">
 					<i class="fas fa-download" aria-hidden="true"></i>
 					<span style="display:flex; justify-content: space-between; width:100%">
-						<span class="hide-menu" style="margin-left:5px">Téléchargément</span>
+						<span class="hide-menu" style="margin-left:5px">Téléchargéments</span>
 						<span class="badge">+99</span>
 					</span>
 				</a>
@@ -168,7 +179,7 @@ class="left-sidebar" data-sidebarbg="skin6"> <!-- Sidebar scroll-->
 			<li class="sidebar-item {% if app.request.get('_route') == 'offers_admin' %} selected{% endif %}">
 				<a class="{% if app.request.get('_route') == 'offers_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('offers_admin') }}" aria-expanded="false">
 					<i class="fas fa-search" aria-hidden="true"></i>
-					<span class="hide-menu">Offres d'emploies</span>
+					<span class="hide-menu">Offres d'emploie</span>
 				</a>
 			</li>
 			<li class="sidebar-item {% if app.request.get('_route') == 'candidatures_admin' %} selected{% endif %}">
@@ -183,7 +194,7 @@ class="left-sidebar" data-sidebarbg="skin6"> <!-- Sidebar scroll-->
 			<li class="sidebar-item {% if app.request.get('_route') == 'presses_admin' %} selected{% endif %}">
 				<a class="{% if app.request.get('_route') == 'presses_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('presses_admin') }}" aria-expanded="false">
 					<i class="fas fa-video" aria-hidden="true"></i>
-					<span class="hide-menu">Presse</span>
+					<span class="hide-menu">Presses</span>
 				</a>
 			</li>
 			<li class="sidebar-item {% if app.request.get('_route') == 'users_admin' %} selected{% endif %}">

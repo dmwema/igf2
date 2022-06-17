@@ -9,33 +9,51 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6 texts">
-						<h3>EMPOIS</h3>
-						<p>Bienvenu(e) sur l’espace réserver pour les offres d’emplois à l’Inspection Géneral des Finaces, IGF en sigle.</p>
+						<h3 style="font-size:30px">EMPOIS</h3>
+						<p style="font-size:17px">Bienvenu(e) sur l’espace réserver pour les offres d’emplois à l’Inspection Géneral des Finaces, IGF en sigle.</p>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="container posts">
-			{% if offers|length > 0 %}
-				{% for offer in offers %}
-					<div class="postcontainer">
-						<a href="{{ path('offer_detail', {title: offer.title, id: offer.id}) }}" class="post">
-							<div class="post-img" style="background-image: url('images/post1.jpg');"></div>
-							<div class="post-text">
-								<h3 class="title">{{ offer.title }}</h3>
-								<p>
-									{{ offer.description }}
-								</p>
-								<hr/>
-								<small>{{ offer.getCreatedAt()|date('Y-m-d') }}</small>
-
+		<div class="container py-5 posts">
+			<div class="row">
+				{% if offers|length > 0 %}
+					{% for offer in offers %}
+						<div class="col-md-6">
+							<div class="offercontainer">
+								<div class="offer-img" style="background:linear-gradient(to bottom right, rgba(0,0,0,.4), rgba(109,0,0,.7)), url({{ asset('uploads/offers/' ~ offer.getImage()) }});">
+									<p>
+										<span class="desc">Nous récrutons au poste de</span><br/>
+										<span class="title">{{ offer.title }}</span><br/>
+										<a href="{{ path('offer_detail', {title: offer.title, id: offer.id}) }}">Postuler</a>
+									</p>
+								</div>
+								<div class="offer-text">
+									<div class="bottom">
+										<small>
+											<span>Publié le
+											</span>
+											{{ offer.getCreatedAt()|date('d-M-Y') }}</small>
+										<div class="links">
+											<a href="#" class="facebook bg-primary" title="Publier sur facebook">
+												<i class="fab fa-facebook-f"></i>
+											</a>
+											<a href="#" class="twitter bg-primary" title="Publier sur twitter">
+												<i class="fa-brands fa-twitter"></i>
+											</a>
+											<a href="#" class="whatsapp bg-primary" title="Publier sur whatsapp">
+												<i class="fa-brands fa-whatsapp"></i>
+											</a>
+										</div>
+									</div>
+								</div>
 							</div>
-						</a>
-					</div>
-				{% endfor %}
-			{% else %}
-				<p>Aucune offre d'emploie n'est disponible pour le moment</p>
-			{% endif %}
+						</div>
+					{% endfor %}
+				{% else %}
+					<p>Aucune offre d'emploie n'est disponible pour le moment</p>
+				{% endif %}
+			</div>
 		</div>
 	</div>
 {% endblock %}

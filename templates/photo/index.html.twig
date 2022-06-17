@@ -17,8 +17,8 @@
 					{% for photo in photos %}
 						<div class="col-sm-6 col-md-4">
 							<div class="thumbnail">
-								<a class="lightbox" href="{{ photo.path }}">
-									<img src="{{ photo.path }}" alt="Park">
+								<a class="lightbox" href="{{ asset('uploads/photos/' ~ photo.path) }}">
+									<img src="{{ asset('uploads/photos/' ~ photo.path) }}" alt="Park">
 								</a>
 								<div class="caption">
 									<p>{{ photo.description }}</p>

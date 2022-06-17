@@ -32,7 +32,34 @@
 			{% endif %}
 		</section>
 	</div>
-
+	<section class="counts-section">
+		<div class="bg-primary text-white py-5">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-6 text-center">
+						<i class="fas fa-users fa-lg" style="font-size: 2rem" aria-hidden="true"></i>
+						<h2 style="margin-top:7px" data-toggle="counterUp">{{ c_users }}</h2>
+						<h6 style="margin-top:7px">Utilisateurs</h6>
+					</div>
+					<div class="col-lg-3 col-6 text-center">
+						<i class="far fa-file-alt fa-lg" style="font-size: 2rem" aria-hidden="true"></i>
+						<h2 style="margin-top:7px" data-toggle="counterUp">{{ c_rapports }}</h2>
+						<h6 style="margin-top:7px">Rapports</h6>
+					</div>
+					<div class="col-lg-3 col-6 text-center">
+						<i class="fas fa-download  fa-lg" style="font-size: 2rem" aria-hidden="true"></i>
+						<h2 style="margin-top:7px" data-toggle="counterUp">{{ c_downloads }}</h2>
+						<h6 style="margin-top:7px">Téléchargéments</h6>
+					</div>
+					<div class="col-lg-3 col-6 text-center">
+						<i class="fas fa-search fa-lg" style="font-size: 2rem" aria-hidden="true"></i>
+						<h2 style="margin-top:7px" data-toggle="counterUp">{{ c_offers }}</h2>
+						<h6 style="margin-top:7px">Offres d'emploie</h6>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 	<div class="latest-posts container">
 		<h2 class="section-title">Dernières nouvelles</h2>
 		{% if posts|length > 0 %}
@@ -66,8 +93,8 @@
 												<div
 													class="post-img" style="background-image: url({{ asset('uploads/posts/' ~	 post.getImgPath()) }}); text-align:right">
 													<!--<p class="more-link">Voir plus
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							<i class="fa-solid fa-arrow-right"></i>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						</p>-->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														<i class="fa-solid fa-arrow-right"></i>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													</p>-->
 													<div class="overlay"></div>
 												</div>
 												<div class="post-text">
@@ -90,12 +117,12 @@
 	<div class="section gray logos">
 		<div class="container">
 			<section class="customer-logos slider">
-				<div class="slide"><img src="images/p1.jpeg"></div>
-				<div class="slide"><img src="images/p2.png"></div>
-				<div class="slide"><img src="images/p3.png"></div>
-				<div class="slide"><img src="images/p4.png"></div>
-				<div class="slide"><img src="images/p5.png"></div>
-				<div class="slide"><img src="images/p6.png"></div>
+				<a href="http://minfinrdc.com/minfin/" target="_blank" class="slide"><img src="images/p1.jpeg"></a>
+				<a href="https://www.dgi.gouv.cd/" target="_blank" class="slide"><img src="images/p2.png"></a>
+				<a href="https://presidence.cd/" target="_blank" class="slide"><img src="images/p3.png"></a>
+				<a href="http://www.assemblee-nationale.cd/" target="_blank" class="slide"><img src="images/p4.png"></a>
+				<a href="https://www.primature.cd/" target="_blank" class="slide"><img src="images/p5.png"></a>
+				<a href="http://senat.cd/" target="_blank" class="slide"><img src="images/p6.png"></a>
 			</section>
 		</div>
 	</div>
@@ -106,7 +133,7 @@
 				<div class="col-md-4 video-texts" style="display: flex; justify-content: center; text-align: right; flex-direction: column;">
 					<h2>Vulgarisation contre les antivaleurs.</h2>
 					<p class="media-desc">Voir toutes les vidéos en rapport avec l'inspection générale de finance de la République Démocratique du Congo.</p>
-					<a style="text-align:center" href="https://www.youtube.com/channel/UC1ZCoVkoGYZ4NC1p3cSBZQg/videos" class="media-link">Voir toutes nos vidéos</a>
+					<a style="text-align:center" target="_blank" href="https://www.youtube.com/channel/UC1ZCoVkoGYZ4NC1p3cSBZQg/videos" class="media-link">Voir toutes nos vidéos</a>
 				</div>
 				<div class="col-md-8 video-box" style="display: flex; justify-content: center;">
 					<iframe width="800" height="400" src="https://www.youtube.com/embed/XqIkplLck5M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -119,7 +146,7 @@
 			<h1 class="big-title">Nos Photos</h1>
 			<p class="media-desc">Voir toutes les photos en rapport avec l'inspection générale de finance de la République Démocratique du Congo.
 				<br>Activités, rencontres, articles, offres, et toute autre image relative.</p>
-			<a href="#" class="media-link">Voir toutes nos photos</a>
+			<a href="{{ path('photos') }}" class="media-link">Voir toutes nos photos</a>
 		</div>
 	</div>
 </div>

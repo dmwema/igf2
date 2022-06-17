@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Download;
+use App\Entity\Offer;
 use App\Entity\Post;
 use App\Entity\Rapport;
+use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,10 +19,18 @@ class WelcomeController extends AbstractController
      */
     public function index(ManagerRegistry $doctrine): Response
     {
+        $c_users = count($doctrine->getRepository(User::class)->findAll());
+        $c_rapports = count($doctrine->getRepository(Rapport::class)->findAll());
+        $c_downloads = count($doctrine->getRepository(Download::class)->findAll());
+        $c_offers = count($doctrine->getRepository(Offer::class)->findAll());
         $posts = $doctrine->getRepository(Post::class)->findAll();
         return $this->render('welcome/index.html.twig', [
             'controller_name' => 'WelcomeController',
-            'posts' => array_slice($posts, 0, 5)
+            'posts' => array_slice($posts, 0, 5),
+            'c_users' => $c_users,
+            'c_rapports' => $c_rapports,
+            'c_downloads' => $c_downloads,
+            'c_offers' => $c_offers,
         ]);
     }
     /**
