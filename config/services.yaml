@@ -8,6 +8,7 @@ parameters:
   app.mailer_dsn: "%env(MAILER_DSN)%"
   posts: "%kernel.project_dir%/public/uploads/posts"
   rapports: "%kernel.project_dir%/public/uploads/rapports"
+  photos: "%kernel.project_dir%/public/uploads/photos"
 
 services:
   # default configuration for services in *this* file

@@ -2,26 +2,86 @@
 {% block body %}
 
 	<div class="container-fluid">
-		<a class="btn btn-primary mb-4">
+		<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-4">
 			<i class="far fa-plus-square mr-4" aria-hidden="true"></i>
 			Enrégistrer une nouvelle photo
-		</a>
+		</button>
+		{% for success in app.flashes('success') %}
+			{% if success == 1 %}
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					<strong>Succès!</strong>
+					{{ message }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% elseif success == 0 %}
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					<strong>Échec!</strong>
+					{{ message }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% endif %}
+		{% endfor %}
 		<div class="row">
 			{% for photo in photos %}
 				<div class="col-lg-4 col-md-12">
 					<div class="white-box analytics-info">
-						<img style="width:100%; margin-bottom:20px" alt="photo" src="{{photo.path}}"/>
+						<img style="width:100%; margin-bottom:20px" alt="photo" src="{{asset('uploads/photos/' ~ photo.path)}}"/>
 						<p>{{ photo.description }}</p>
-						<button title="Modifier" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-info">
+						<a href="{{ path('edit_photo', {id: photo.id}) }}" title="Modifier" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-info">
 							<i class="fas fa-edit" aria-hidden="true"></i>
-						</button>
-						<button title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">
-							<i class="fas fa-trash-alt" aria-hidden="true"></i>
-						</button>
+						</a>
+						<form method="POST" style="display:inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette photo ? Cette action est irreversible.');" action="{{ path('delete_photo', {id: photo.id}) }}">
+							<button type="submit" title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">
+								<i class="fas fa-trash-alt" aria-hidden="true"></i>
+							</button>
+						</form>
 					</div>
 				</div>
 			{% endfor %}
 		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Enrégistrer une nouvelle photo</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					{{ form_start(create_form) }}
+					<div class="modal-body">
+						<img alt="preview" style="width:100%; display:none" id="image_prev" src=""/>
+
+						<div class="form-group">
+							{{ form_widget(create_form.path) }}
+						</div>
+						<div class="form-group">
+							{{ form_widget(create_form.description) }}
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+						{{ form_widget(create_form.submit) }}
+					</div>
+					{{ form_end(create_form) }}
+				</div>
+			</div>
+		</div>
 	</div>
 
+{% endblock %}
+
+{% block custom_scripts %}
+	<script>
+		var imgInp = document.querySelector('input[type="file"]')
+var blah = document.querySelector('#image_prev')
+
+imgInp.onchange = evt => {
+const [file] = imgInp.files
+if (file) {
+blah.style.display = "block";
+blah.src = URL.createObjectURL(file)
+}
+}
+	</script>
 {% endblock %}

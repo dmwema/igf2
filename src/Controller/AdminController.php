@@ -296,11 +296,77 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/photos", name="photos_admin")
      */
-    public function photos(ManagerRegistry $doctrine, EntityManagerInterface $em)
+    public function photos(ManagerRegistry $doctrine, EntityManagerInterface $em, Request $request, SluggerInterface $slugger)
     {
-        $photos = $doctrine->getRepository(Photo::class)->findAll();
 
-        return $this->render('admin/photos/index.html.twig', ['photos' => $photos]);
+        $create_form = $this->createFormBuilder()
+            ->add('path', FileType::class, ['attr' => ['class' => 'form-control'], 'label' => "Image"])
+            ->add('description', TextareaType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Entrez une description'], 'label' => false])
+            ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-primary',], 'label' => 'Enrégistrer'])
+            ->setMethod('POST')
+            ->getForm();
+
+        $photos = $doctrine->getRepository(Photo::class)->findAll();
+        $create_form->handleRequest($request);
+
+        if ($create_form->isSubmitted() && $create_form->isValid()) {
+            $datas = $create_form->getData();
+            $photo = new Photo();
+            $image = $create_form->get('path')->getData();
+
+            $photo
+                ->setDescription($datas['description']);
+
+            if ($image) {
+                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the image name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
+
+                if ($image->guessExtension() === 'jpeg' || $image->guessExtension() === 'png' || $image->guessExtension() === 'jpg' || $image->guessExtension() === 'webp') {
+
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $image->move(
+                            $this->getParameter('photos'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        dd($e);
+                    }
+
+                    // updates the 'brochureFilename' property to store the PDF file name
+                    // instead of its contents
+                    $photo
+                        ->setPath($newFilename);
+
+                    $em->persist($photo);
+                    $em->flush();
+
+                    $this->addFlash('success', 1);
+
+                    $new_photos = $doctrine->getRepository(Photo::class)->findAll();
+
+                    return $this->render('admin/photos/index.html.twig', [
+                        'photos' => $new_photos,
+                        'create_form' => $create_form->createView(),
+                        'message' => 'Image enrégistrée dans la base de données avec succès'
+                    ]);
+                } else {
+                    $this->addFlash('success', 0);
+                    return $this->render('admin/photos/index.html.twig', [
+                        'photos' => $photos,
+                        'create_form' => $create_form->createView(),
+                        'message' => 'L\'image doit être au format : .jpeg, .jpg, .png ou .webp'
+                    ]);
+                }
+            }
+        }
+
+        return $this->render('admin/photos/index.html.twig', [
+            'photos' => $photos,
+            'create_form' => $create_form->createView(),
+        ]);
     }
 
     /**
