@@ -6,6 +6,7 @@ use App\Repository\RapportRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass=RapportRepository::class)
@@ -39,8 +40,9 @@ class Rapport
      */
     private $created_at;
 
+
     /**
-     * @ORM\OneToMany(targetEntity=Download::class, mappedBy="rapport")
+     * @ORM\OneToMany(targetEntity=Download::class, mappedBy="rapport", cascade={"persist", "remove"})
      */
     private $downloads;
 
@@ -48,6 +50,7 @@ class Rapport
     {
         $this->users = new ArrayCollection();
         $this->downloads = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

@@ -71,11 +71,8 @@ class PostController extends AbstractController
     public function delete(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
     {
         $post = $doctrine->getRepository(Post::class)->find($id);
-        $title = $post->getTitle();
         $em->remove($post);
         $em->flush();
-
-        $posts = $doctrine->getRepository(Post::class)->findAll();
 
         return $this->redirectToRoute('posts_admin');
     }

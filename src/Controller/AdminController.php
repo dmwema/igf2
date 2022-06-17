@@ -132,11 +132,78 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/rapports", name="rapports_admin")
      */
-    public function rapports(ManagerRegistry $doctrine, EntityManagerInterface $em)
+    public function rapports(ManagerRegistry $doctrine, EntityManagerInterface $em, Request $request, SluggerInterface $slugger)
     {
-        $rapports = $doctrine->getRepository(Rapport::class)->findAll();
+        $create_form = $this->createFormBuilder()
+            ->add('title', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Titre du rapport'], 'label' => false])
+            ->add('description', TextareaType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Entrez une description'], 'label' => false])
+            ->add('file_path', FileType::class, ['attr' => ['class' => 'form-control'], 'label' => "Fichier"])
+            ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-primary',], 'label' => 'Enrégistrer'])
+            ->setMethod('POST')
+            ->getForm();
 
-        return $this->render('admin/rapports/index.html.twig', ['rapports' => $rapports]);
+        $rapports = $doctrine->getRepository(Rapport::class)->findAll();
+        $create_form->handleRequest($request);
+
+        if ($create_form->isSubmitted() && $create_form->isValid()) {
+            $datas = $create_form->getData();
+            $rapport = new Rapport();
+            $file = $create_form->get('file_path')->getData();
+
+            $rapport
+                ->setTitle($datas['title'])
+                ->setDescription($datas['description']);
+
+            if ($file) {
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+
+                if ($file->guessExtension() === 'pdf') {
+
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $file->move(
+                            $this->getParameter('rapports'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        dd($e);
+                    }
+
+                    // updates the 'brochureFilename' property to store the PDF file name
+                    // instead of its contents
+                    $rapport
+                        ->setFilePath($newFilename);
+
+                    $em->persist($rapport);
+                    $em->flush();
+
+                    $this->addFlash('success', 1);
+
+                    $new_rapports = $doctrine->getRepository(Rapport::class)->findAll();
+
+                    return $this->render('admin/rapports/index.html.twig', [
+                        'rapports' => $new_rapports,
+                        'create_form' => $create_form->createView(),
+                        'message' => 'Rapport "' . $rapport->getTitle()  . '" enrégistré dans la base de données avec succès'
+                    ]);
+                } else {
+                    $this->addFlash('success', 0);
+                    return $this->render('admin/rapports/index.html.twig', [
+                        'rapports' => $rapports,
+                        'create_form' => $create_form->createView(),
+                        'message' => 'Le rapport doit être au format .pdf'
+                    ]);
+                }
+            }
+        }
+
+        return $this->render('admin/rapports/index.html.twig', [
+            'rapports' => $rapports,
+            'create_form' => $create_form->createView()
+        ]);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\DownloadRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass=DownloadRepository::class)
@@ -19,12 +20,19 @@ class Download
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="downloads")
+     * @JoinColumn(onDelete="CASCADE")
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Rapport::class, inversedBy="downloads")
      * @ORM\JoinColumn(nullable=false)
+     * @JoinColumn(
+     *      name="rapport_id",
+     *      referencedColumnName="id",
+     *      onDelete="CASCADE",
+     *      nullable=false
+     * )
      */
     private $rapport;
 

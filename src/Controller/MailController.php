@@ -17,7 +17,7 @@ class MailController extends AbstractController
     /**
      * @Route("/mail/{email}/{rapport_id}", name="send_mail")
      */
-    public function send_mail(Swift_Mailer $mailer, $email, $rapport_id, ManagerRegistry $doctrine): Response
+    /*public function send_mail(Swift_Mailer $mailer, $email, $rapport_id, ManagerRegistry $doctrine): Response
     {
         $rapport = $doctrine->getRepository(Rapport::class)->find($rapport_id);
 
@@ -36,5 +36,5 @@ class MailController extends AbstractController
         $mailer->send($emails);
 
         return $this->render('rapport/mailsent.html.twig');
-    }
+    }*/
 }
