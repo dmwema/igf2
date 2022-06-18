@@ -16,6 +16,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 5px 0;
 }
 
 .topnav img {
@@ -30,13 +31,13 @@ body {
 }
 
 .topnav .toptitle {
-  font-size: 1rem;
+  font-size: 15px;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .topnav .toptitle span {
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .nav-item:last-child .nav-link {
@@ -174,7 +175,7 @@ a.post:hover .more-link i,
 .footer {
   position: relative;
   padding-top: 30px;
-  background: rgb(241, 241, 241) !important;
+  background: rgb(245, 245, 245) !important;
 }
 
 .footer p,
@@ -196,10 +197,10 @@ a.post:hover .more-link i,
 .footer .footer-links h3,
 .footer .footer-project h3 {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 17px;
   padding-bottom: 10px;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--dark-gray);
 }
 
@@ -240,6 +241,7 @@ a.post:hover .more-link i,
 
 .footer .footer-contact p {
   margin-bottom: 10px;
+  font-size: 15px;
   color: var(--dark-gray);
 }
 
@@ -262,6 +264,7 @@ a.post:hover .more-link i,
   padding-left: 15px;
   color: var(--dark-gray);
   display: block;
+  font-size: 15px;
 }
 
 .footer .footer-links a:last-child {
@@ -335,19 +338,21 @@ a.post:hover .more-link i,
 
 .footer .copyright {
   position: relative;
-  padding: 25px 0;
-  background: #000000;
+  padding: 10px 0;
+  background: #d4d4d4;
+  font-size: 15px;
 }
 
 .footer .copyright .copy-text p {
   margin: 0;
   font-weight: 400;
-  color: #fff;
+  color: #000;
 }
 
 .footer .copyright .copy-text p a {
   color: var(--red);
   text-decoration: none;
+  font-weight: bolder;
 }
 
 .footer .copyright .copy-text p a:hover {
@@ -398,6 +403,7 @@ a.post:hover .more-link i,
   background-image: url("../images/flag.png"),
     linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7));
   color: #fff;
+  background-size: cover;
 }
 
 .jumbotron h1 span {
@@ -781,11 +787,11 @@ a.post p {
   /* Text color */
   cursor: pointer;
   /* Add a mouse pointer on hover */
-  padding: 10px 15px;
+  padding: 6px 10px;
   /* Some padding */
-  border-radius: 10px;
+  border-radius: 4px;
   /* Rounded corners */
-  font-size: 14px;
+  font-size: 12px;
   /* Increase font size */
   opacity: 0.6;
 }
@@ -1165,12 +1171,11 @@ ul.timeline p {
   text-align: center;
 }
 
-nav.navbar.main-nav.fixed {
+.header_area.fixed {
   position: fixed !important;
   z-index: 199;
   top: 0;
   left: 0;
-  width: 100%;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
 }
 
@@ -1193,7 +1198,7 @@ nav.navbar.main-nav.fixed {
 }
 
 .big-title {
-  font-size: 3rem;
+  font-size: 2rem;
   text-transform: uppercase;
   font-weight: 900;
   margin-bottom: 30px;
@@ -1318,4 +1323,9 @@ a.media-link {
 
 .offercontainer .offer-text .bottom a.whatsapp {
   background-color: #25d366 !important;
+}
+
+.topnav img {
+  width: 50px;
+  height: auto;
 }

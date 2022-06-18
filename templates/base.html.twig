@@ -11,10 +11,12 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 		<link rel="stylesheet" href="{{ asset('styles/loader.css') }}">
-		<link rel="stylesheet" href="{{ asset('styles/css.css') }}">
+		<link rel="stylesheet" href="{{ asset('styles/styles.css') }}">
+		<link rel="stylesheet" href="{{ asset('styles/mega-menu.css') }}">
 		<link rel="stylesheet" href="{{ asset('styles/form.css') }}">
 		<link rel="stylesheet" href="{{ asset('styles/responsive.css') }}">
 		<link rel="stylesheet" href="{{ asset('styles/slide.css') }}">
+		<link rel="stylesheet" href="{{ asset('styles/scroll.css') }}">
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
 		<link
@@ -48,112 +50,128 @@
 		<div class="flash-news-datas" style="display:none">
 			{{ render(path('breves')) }}
 		</div>
-		<nav class="navbar main-nav navbar-expand-lg navbar-light bg-light" style="position: relative;">
-			<div class="container">
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-					<i class="fa-solid fa-bars"></i>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarScroll">
-					<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
-						<li class="nav-item {% if app.request.get('_route') == 'home' %} active{% endif %}">
-							<a class="nav-link" aria-current="page" href="{{ url('home') }}">Accueil</a>
-						</li>
-						<li class="nav-item has-children">
-							<a class="nav-link" href="#" role="button">
-								Apropos
-								<i class="fa-solid fa-chevron-down" style="margin-left: .5rem;"></i>
-							</a>
-							<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: absolute;">
-								<div class="container">
-									<div class="collapse navbar-collapse" id="navbarScroll">
-										<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
-											<li class="nav-item {% if app.request.get('_route') == 'attributions' %} active{% endif %}">
-												<a class="nav-link" href="{{ url('attributions') }}">Attributions</a>
-											</li>
-											<li class="nav-item {% if app.request.get('_route') == 'historique' %} active{% endif %}">
-												<a class="nav-link" href="{{ url('historique') }}">Historique</a>
-											</li>
-											<li class="nav-item {% if app.request.get('_route') == 'mission' %} active{% endif %}">
-												<a class="nav-link" href="{{ url('mission') }}">Mission</a>
-											</li>
-											<li class="nav-item {% if app.request.get('_route') == 'structuration' %} active{% endif %}">
-												<a class="nav-link" href="{{ url('structuration') }}">Structuration</a>
-											</li>
-											<li class="nav-item {% if app.request.get('_route') == 'emplois' %} active{% endif %}">
-												<a class="nav-link" href="{{ url('emplois') }}">Emplois</a>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</nav>
-						</li>
-						<li class="nav-item {% if app.request.get('_route') == 'actualites' %} active{% endif %}">
-							<a class="nav-link" href="{{ url('actualites') }}">Actualités</a>
-						</li>
-						<li class="nav-item has-children">
-							<a class="nav-link" href="#" role="button">
-								Medias
-								<i class="fa-solid fa-chevron-down" style="margin-left: .5rem;"></i>
-							</a>
-							<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: absolute;">
-								<div class="container">
-									<div class="collapse navbar-collapse" id="navbarScroll">
-										<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-											<li class="nav-item {% if app.request.get('_route') == 'photos' %} active{% endif %}">
-												<a class="nav-link" aria-current="page" href="{{ url('photos') }}">Photos</a>
-											</li>
-											<li class="nav-item">
-												<a class="nav-link" target="_blank" href="https://www.youtube.com/channel/UC1ZCoVkoGYZ4NC1p3cSBZQg/videos">Videos</a>
-											</li>
-											<li class="nav-item {% if app.request.get('_route') == 'press' %} active{% endif %}">
-												<a class="nav-link" href="{{ url('press') }}">Presse</a>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</nav>
-						</li>
-						<li class="nav-item has-children">
-							<a class="nav-link" href="#" role="button">
-								Ressources
-								<i class="fa-solid fa-chevron-down" style="margin-left: .5rem;"></i>
-							</a>
-							<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: absolute;">
-								<div class="container">
-									<div class="collapse navbar-collapse" id="navbarScroll">
-										<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-											<li class="nav-item {% if app.request.get('_route') == 'photos' %} active{% endif %}">
-												<a class="nav-link" aria-current="page" href="{{ url('rapports') }}">Rapports</a>
-											</li>
-											<li class="nav-item">
-												<a class="nav-link" href="#">Revues</a>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</nav>
-						</li>
-						<li class="nav-item {% if app.request.get('_route') == 'denoncer' %} active{% endif %}">
-							<a class="nav-link" href="{{ url('denoncer') }}">Dénoncer</a>
-						</li>
-						<li class="nav-item {% if app.request.get('_route') == 'contact' %} active{% endif %}">
-							<a class="nav-link" href="{{ url('contact') }}">Contact</a>
-						</li>
-						<li class="nav-item {% if app.request.get('_route') == 'emplois' %} active{% endif %}">
-							<div class="input-group">
-								<span class="input-group-prepend">
-									<div style="height:100%; border:1px solid #dee2e6 !important; border-right: 0 !important; background-color:#fff !important;" class="input-group-text bg-transparent border-right-0">
-										<i class="fa fa-search"></i>
-									</div>
-								</span>
-								<input style="border-left: 0 !important; padding-left: 0 !important" class="form-control py-2 border-left-0 border" type="search" placeholder="Rechercher" id="example-search-input">
-								<span class="input-group-append"></span>
+
+		<header class="header_area bg-primary">
+			<div class="main_header_area animated">
+				<div class="container">
+					<nav
+						id="navigation1" class="navigation">
+						<!-- Logo Area Start -->
+						<div class="nav-header">
+							<a class="nav-brand" href="#">
+								<strong>IGF</strong>
+								RDC</a>
+							<div class="nav-toggle"></div>
+						</div>
+						<!-- Search panel Start -->
+						<div class="nav-search">
+							<div class="nav-search-button">
+								<i class="nav-search-icon"></i>
 							</div>
-						</li>
-					</ul>
+							<form class="bg-primary">
+								<div class="nav-search-inner">
+									<input type="search" name="search" placeholder="Search Here">
+									<input name='max-results' type='hidden' value='6'>
+								</div>
+							</form>
+						</div>
+						<!-- Main Menus Wrapper -->
+						<div class="nav-menus-wrapper">
+							<ul class="nav-menu align-to-right">
+								<li class="{% if app.request.get('_route') == 'home' %} active{% endif %}">
+									<a href="{{ url('home') }}">Accueil</a>
+								</li>
+								<li>
+									<a href="#">Apropos</a>
+									<div class="megamenu-panel">
+										<div class="megamenu-lists">
+											<ul class="megamenu-list list-col-5">
+												<li class="megamenu-list-title {% if app.request.get('_route') == 'attributions' %} active{% endif %}">
+													<a href="{{ url('attributions') }}">Attributions</a>
+												</li>
+											</ul>
+											<ul class="megamenu-list list-col-5">
+												<li class="megamenu-list-title {% if app.request.get('_route') == 'historique' %} active{% endif %}">
+													<a href="{{ url('historique') }}">Historique</a>
+												</li>
+											</ul>
+											<ul class="megamenu-list list-col-5">
+												<li class="megamenu-list-title {% if app.request.get('_route') == 'mission' %} active{% endif %}">
+													<a href="{{ url('mission') }}">Mission</a>
+												</li>
+											</ul>
+											<ul class="megamenu-list list-col-5">
+												<li class="megamenu-list-title {% if app.request.get('_route') == 'structuration' %} active{% endif %}">
+													<a href="{{ url('structuration') }}">Structuration</a>
+												</li>
+											</ul>
+											<ul class="megamenu-list list-col-5">
+												<li class="megamenu-list-title {% if app.request.get('_route') == 'emplois' %} active{% endif %}">
+													<a href="{{ url('emplois') }}">Emplois</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</li>
+								<li class="{% if app.request.get('_route') == 'actualites' %} active{% endif %}">
+									<a href="{{ url('actualites') }}">Actualités</a>
+								</li>
+								<li>
+									<a href="#">Médias</a>
+									<div class="megamenu-panel">
+										<div class="megamenu-lists">
+											<ul class="megamenu-list list-col-3">
+												<li class="megamenu-list-title {% if app.request.get('_route') == 'photos' %} active{% endif %}">
+													<a href="{{ url('photos') }}">Photos</a>
+												</li>
+											</ul>
+											<ul class="megamenu-list list-col-3">
+												<li class="megamenu-list-title">
+													<a target="_blank" href="https://www.youtube.com/channel/UC1ZCoVkoGYZ4NC1p3cSBZQg/videos">Vidéos</a>
+												</li>
+											</ul>
+											<ul class="megamenu-list list-col-3">
+												<li class="megamenu-list-title {% if app.request.get('_route') == 'press' %} active{% endif %}">
+													<a href="{{ url('press') }}">Presses</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</li>
+								<li>
+									<a href="#">Ressources</a>
+									<div class="megamenu-panel">
+										<div class="megamenu-lists">
+											<ul class="megamenu-list list-col-3">
+												<li class="megamenu-list-title {% if app.request.get('_route') == 'rapports' %} active{% endif %}">
+													<a href="{{ url('rapports') }}">Rapports</a>
+												</li>
+											</ul>
+											<ul class="megamenu-list list-col-3">
+												<li class="megamenu-list-title">
+													<a href="#">Revues</a>
+												</li>
+											</ul>
+											<ul class="megamenu-list list-col-3">
+												<li class="megamenu-list-title">
+													<a href="#">publications</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</li>
+								<li class="{% if app.request.get('_route') == 'denoncer' %} active{% endif %}">
+									<a href="{{ url('denoncer') }}">Dénoncer</a>
+								</li>
+								<li class="{% if app.request.get('_route') == 'contact' %} active{% endif %}">
+									<a href="{{ url('contact') }}">Contact</a>
+								</li>
+							</ul>
+						</div>
+					</nav>
 				</div>
 			</div>
-		</nav>
+		</header>
 
 		{% block body %}{% endblock %}
 
@@ -213,20 +231,19 @@
 						<div class="col-md-6">
 							<div class="copy-text">
 								<p style="text-align:left">&copy;
-									<a href="#">INSPECTION GENERALE DES FINANCES</a>. Tout droit reservé</p>
+									<a href="#">Inspection Générale des Finances</a>. Tout droit reservé</p>
 							</div>
 						</div>
-						<!--Footer Menu-->
-
-						<div class="col-md-6">
-							<div class="copy-menu">
-								<a href="">Plan du site</a>
-								<a href="{{ url('mission') }}">A propos</a>
-								<a href="{{ url('actualites') }}">Actualités</a>
-								<a href="{{url('denoncer')}}">Dénoncer</a>
-								<a href="{{url('contact')}}">Contact</a>
-							</div>
-						</div>
+						<!--Footer Menu
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																<div class="col-md-6">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	<div class="copy-menu">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<a href="">Plan du site</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<a href="{{ url('mission') }}">A propos</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<a href="{{ url('actualites') }}">Actualités</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<a href="{{url('denoncer')}}">Dénoncer</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		<a href="{{url('contact')}}">Contact</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																</div>-->
 
 					</div>
 				</div>
@@ -250,6 +267,7 @@
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
+		<script src="{{ asset('js/mega-menu.js') }}"></script>
 		<script>
 			setTimeout(() => {
 $('.site-loader').fadeOut(500);

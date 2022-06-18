@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function (event) {
   var derniere_position_de_scroll_connue = 0;
   var ticking = false;
-  let nav = document.querySelector("nav.navbar.main-nav");
+  let nav = document.querySelector(".header_area");
   if (window.scrollY > 100) {
     nav.classList.add("fixed");
-    console.log("fixed");
+    console.log(nav.classList);
   } else {
     nav.classList.remove("fixed");
   }

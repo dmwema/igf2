@@ -55,7 +55,7 @@
 }
 
 .jumbotron:not(.small) {
-  height: calc(100vh - 80px - 120px);
+  height: calc(100vh - 70px - 36px - 59px);
 }
 
 a.post .overlay {
