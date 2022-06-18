@@ -7,6 +7,7 @@ use App\Entity\Breve;
 use App\Entity\Candidature;
 use App\Entity\Denoncement;
 use App\Entity\Download;
+use App\Entity\Message;
 use App\Entity\Offer;
 use App\Entity\Photo;
 use App\Entity\Post;
@@ -613,5 +614,25 @@ class AdminController extends AbstractController
         return $this->render('breve/_breves.html.twig', [
             'breves' => $breves
         ]);
+    }
+
+    /**
+     * @Route("/admin/messages", name="messages_admin")
+     */
+    public function messages(ManagerRegistry $doctrine, EntityManagerInterface $em)
+    {
+        $messages = $doctrine->getRepository(Message::class)->findAll();
+
+        return $this->render('admin/messages/index.html.twig', ['messages' => $messages]);
+    }
+
+    #[Route('/admin/message/delete/{id}', name: 'delete_message', methods: ['POST'])]
+    public function delete_messages(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
+    {
+        $message = $doctrine->getRepository(Message::class)->find($id);
+        $em->remove($message);
+        $em->flush();
+
+        return $this->redirectToRoute('messages_admin');
     }
 }

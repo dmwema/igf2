@@ -60,10 +60,12 @@ class OfferController extends AbstractController
             ->getForm();
 
         $candidature_form->handleRequest($request);
+        $message = '';
 
         if ($candidature_form->isSubmitted() && $candidature_form->isValid()) {
             $datas = $candidature_form->getData();
             $cv = $candidature_form->get('cv')->getData();
+
 
             $candidature = new Candidature();
             //dd($datas['naissance']);
@@ -107,16 +109,19 @@ class OfferController extends AbstractController
                     $em->persist($candidature);
                     $em->flush();
 
-                    $session->set('success', 'Votre demande a été enrégistrée avec succès');
+                    $message = 'Votre demande a été enrégistrée avec succès';
+                    $this->addFlash('success', 1);
                 } else {
-                    $session->set('fail', 'Le CV doit être au format .pdf');
+                    $message = 'Le CV doit être au format .pdf';
+                    $this->addFlash('success', 0);
                 }
             }
         }
 
         return $this->render('offer/detail.html.twig', [
             'offer' => $offer,
-            'candidature_form' => $candidature_form->createView()
+            'candidature_form' => $candidature_form->createView(),
+            'message' => $message
         ]);
     }
 
@@ -141,15 +146,18 @@ class OfferController extends AbstractController
             ->add('title', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Titre de l\'offre'], 'label' => false])
             ->add('description', TextareaType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Entrez une description'], 'label' => false])
             ->add('image', FileType::class, ['attr' => ['class' => 'form-control'], 'label' => "Image", 'data_class' => null, 'required' => true])
+            ->add('file', FileType::class, ['attr' => ['class' => 'form-control'], 'label' => "Fichier descriptif (description + critères)", 'data_class' => null, 'required' => true])
             ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-primary',], 'label' => 'Enrégistrer'])
             ->setMethod('POST')
             ->getForm();
 
+        $message = '';
         $edit_form->handleRequest($request);
 
         if ($edit_form->isSubmitted() && $edit_form->isValid()) {
             $datas = $edit_form->getData();
             $image = $edit_form->get('image')->getData();
+            $file = $edit_form->get('file')->getData();
 
             $offer
                 ->setTitle($datas->getTitle())
@@ -157,14 +165,57 @@ class OfferController extends AbstractController
                 ->setImage($old_img);
 
 
-            if ($image) {
+            if ($image && $file) {
                 $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
 
-                if ($image->guessExtension() === 'jpeg' || $image->guessExtension() === 'png' || $image->guessExtension() === 'jpg' || $image->guessExtension() === 'webp') {
+                $originalFilenameDesc = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilenameDesc = $slugger->slug($originalFilenameDesc);
+                $newFilenameDesc = $safeFilenameDesc . '-' . uniqid() . '.' . $file->guessExtension();
 
+                if ($image->guessExtension() === 'jpeg' || $image->guessExtension() === 'png' || $image->guessExtension() === 'jpg' || $image->guessExtension() === 'webp') {
+                    if ($file->guessExtension() === 'pdf') {
+                        // Move the file to the directory where brochures are stored
+                        try {
+                            $image->move(
+                                $this->getParameter('offers'),
+                                $newFilename
+                            );
+                        } catch (FileException $e) {
+                            dd($e);
+                        }
+
+                        // Move the file to the directory where brochures are stored
+                        try {
+                            $file->move(
+                                $this->getParameter('offersDesc'),
+                                $newFilenameDesc
+                            );
+                        } catch (FileException $e) {
+                            dd($e);
+                        }
+
+                        $offer
+                            ->setImage($newFilename)
+                            ->setFile($newFilenameDesc);
+
+                        $em->persist($offer);
+                        $em->flush();
+
+                        $this->addFlash('success', 1);
+
+                        $new_offers = $doctrine->getRepository(Offer::class)->findAll();
+
+                        return $this->render('admin/offers/index.html.twig', [
+                            'offers' => $new_offers,
+                            'create_form' => $edit_form->createView(),
+                            'message' => 'Offre au post de "' . $offer->getTitle()  . '" enrégistrée dans la base de données avec succès'
+                        ]);
+                    } else {
+                        $this->addFlash('success', 0);
+                    }
                     // Move the file to the directory where brochures are stored
                     try {
                         $image->move(
@@ -182,11 +233,6 @@ class OfferController extends AbstractController
                 } else {
                     $this->addFlash('success', 0);
                     $offers = $doctrine->getRepository(Offer::class)->findAll();
-                    return $this->render('admin/offers/edit.html.twig', [
-                        'offer' => $offer,
-                        'edit_form' => $edit_form->createView(),
-                        'message' => 'Vous devez importer l\'image au fomat : .jpeg, .jpg, .png ou .webp'
-                    ]);
                 }
             }
 

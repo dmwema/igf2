@@ -162,8 +162,8 @@
 					</div>
 					<h3 class="title">{{ offer.title }}
 					</h3>
-					<a href="#" class="downlod-btn">
-						<i class="fa-solid fa-download" style="margin-right: 5px"></i>Critères de sélection</a>
+					<a target="_blank" href="{{ asset('uploads/offers/descs/' ~ offer.getFile()) }}" class="downlod-btn">
+						<i class="fa-solid fa-download" style="margin-right: 5px"></i>Fichier descriptif et critères</a>
 					<hr style="margin:30px 0">
 					<div class="texts">
 						<p>{{ offer.description|lower }}</p>
@@ -178,13 +178,21 @@
 					</div>
 					<hr>
 
-					{% if app.session.has('success') %}
-						<div class="alert alert-success">{{ app.session.get('success') }}</div>
-					{% endif %}
-
-					{% if app.session.has('fail') %}
-						<div class="alert alert-danger">{{ app.session.get('fail') }}</div>
-					{% endif %}
+					{% for success in app.flashes('success') %}
+						{% if success == 1 %}
+							<div class="alert alert-success alert-dismissible fade show" role="alert">
+								<strong>Succès!</strong>
+								{{ message }}
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+						{% elseif success == 0 %}
+							<div class="alert alert-danger alert-dismissible fade show" role="alert">
+								<strong>Échec!</strong>
+								{{ message }}
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+						{% endif %}
+					{% endfor %}
 
 					<h3 class="title">Postuler</h3>
 					{{ form_start(candidature_form) }}

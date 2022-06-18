@@ -1,0 +1,47 @@
+{% extends 'admin/layout.html.twig' %}
+
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="white-box">
+					<h3 class="box-title">Messages</h3>
+					<p class="text-muted">{{ messages|length }}
+						Message(s) réçus(s)</p>
+					<div class="table-responsive"></div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			{% for message in messages %}
+				<div class="col-lg-6 col-md-12">
+					<div class="white-box analytics-info">
+						<h5 style="font-weight:700;display:flex; justify-content:space-between">{{ message.names }}
+							<small>
+								{{ message.getCreatedAt()|date('d-M-Y H:i') }}
+							</small>
+						</h5>
+						<p style="margin:0">
+							{{ message.email }}</p>
+						<hr/>
+						<small>
+							<strong>Message</strong>
+						</small>
+						<br/>
+						<p>{{ message.message }}</p>
+
+						<form method="POST" style="display:inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce message ? Cette action est irreversible.');" action="{{ path('delete_message', {id: message.id}) }}">
+							<button type="submit" title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">
+								<i class="fas fa-trash-alt" aria-hidden="true"></i>
+								Supprimer
+							</button>
+						</form>
+					</form>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>{% endblock %}

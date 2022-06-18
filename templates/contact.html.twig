@@ -42,35 +42,33 @@
 				<div class="col-md-1"></div>
 
 				<div class="col-md-6">
-					<form class="mb-5 contact-form" method="post" id="contactForm" name="contactForm">
-						<h4 style="font-size: 1.3rem;">Envoyer nous un message</h4>
-						<hr>
-						<div class="row">
-							<div class="col-md-12 form-group">
-								<label for="name" class="col-form-label">Name</label>
-								<input type="text" class="form-control" name="name" id="name">
+					{% for success in app.flashes('success') %}
+						{% if success == 1 %}
+							<div class="alert alert-success alert-dismissible fade show" role="alert">
+								<strong>Succès!</strong>
+								{{ message }}
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 form-group">
-								<label for="email" class="col-form-label">Email</label>
-								<input type="text" class="form-control" name="email" id="email">
+						{% elseif success == 0 %}
+							<div class="alert alert-danger alert-dismissible fade show" role="alert">
+								<strong>Échec!</strong>
+								{{ message }}
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 							</div>
-						</div>
+						{% endif %}
+					{% endfor %}
 
-						<div class="row">
-							<div class="col-md-12 form-group">
-								<label for="message" class="col-form-label">Message</label>
-								<textarea class="form-control" name="message" id="message" cols="30" rows="7"></textarea>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<input type="submit" value="Send Message" class="btn btn-primary rounded-0 py-2 px-4">
-								<span class="submitting"></span>
-							</div>
-						</div>
-					</form>
+					{{ form_start(create_form, { 'attr' : { 'class': 'mb-5 contact-form','id': 'contactForm' } }) }}
+					<div style="margin-bottom:15px" class="col-md-12 form-group">
+						{{ form_widget(create_form.names) }}
+					</div>
+					<div style="margin-bottom:15px" class="col-md-12 form-group">
+						{{ form_widget(create_form.email) }}
+					</div>
+					<div style="margin-bottom:15px" class="col-md-12 form-group">
+						{{ form_widget(create_form.message) }}
+					</div>
+					{{ form_end(create_form) }}
 
 				</div>
 			</div>
