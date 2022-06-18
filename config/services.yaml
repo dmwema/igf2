@@ -12,6 +12,7 @@ parameters:
   offers: "%kernel.project_dir%/public/uploads/offers"
   offersDesc: "%kernel.project_dir%/public/uploads/offers/descs"
   cvs: "%kernel.project_dir%/public/uploads/cvs"
+  denoncements: "%kernel.project_dir%/public/uploads/denoncements"
 
 services:
   # default configuration for services in *this* file

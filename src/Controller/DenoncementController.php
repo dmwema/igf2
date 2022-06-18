@@ -13,10 +13,12 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Constraints\Date;
 
 class DenoncementController extends AbstractController
@@ -24,7 +26,7 @@ class DenoncementController extends AbstractController
     /**
      * @Route("/denoncer", name="denoncer")
      */
-    public function index(ManagerRegistry $doctrine, Request $request, EntityManagerInterface $em, SessionInterface $session): Response
+    public function index(SluggerInterface $slugger, ManagerRegistry $doctrine, Request $request, EntityManagerInterface $em, SessionInterface $session): Response
     {
         $denoncement_form = $this->createFormBuilder()
             ->add('civilite', ChoiceType::class, ['attr' => ['class' => 'form-select'], 'label' => 'Civilité', 'choices' => [
@@ -46,12 +48,38 @@ class DenoncementController extends AbstractController
             ->setMethod('POST')
             ->getForm();
 
+        $message = '';
+
         $denoncement_form->handleRequest($request);
 
         if ($denoncement_form->isSubmitted() && $denoncement_form->isValid()) {
             $datas = $denoncement_form->getData();
+            $file = $denoncement_form->get('fichier')->getData();
+
+            //dd($file);
 
             $denoncement = new Denoncement();
+
+            if ($file) {
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+
+                $denoncement
+                    ->setFichier($newFilename);
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $file->move(
+                        $this->getParameter('denoncements'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    dd($e);
+                }
+            }
+
             $denoncement
                 ->setCivilite($datas['civilite'])
                 ->setNom($datas['nom'])
@@ -60,21 +88,20 @@ class DenoncementController extends AbstractController
                 ->setProfession($datas['profession'])
                 ->setPhone($datas['phone'])
                 ->setMotif($datas['motif'])
-                ->setFichier($datas['fichier'])
                 ->setCreatedAt(new \DateTimeImmutable());
+
 
             $em->persist($denoncement);
             $em->flush();
 
-            $session->set('success', 'Votre denoncement a été enrégistré avec succès');
+            $this->addFlash('success', 1);
 
-            return $this->render('denoncement/index.html.twig', [
-                'denoncement_form' => $denoncement_form->createView(),
-            ]);
+            $message = 'Votre denoncement a été enrégistré avec succès';
         }
 
         return $this->render('denoncement/index.html.twig', [
             'denoncement_form' => $denoncement_form->createView(),
+            'message' => $message
         ]);
     }
 }

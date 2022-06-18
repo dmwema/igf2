@@ -16,11 +16,21 @@
 			</div>
 		</div>
 		<div class="container denoncer" style="padding: 40px 0">
-			{% if app.session.has('success') %}
-				<div class="alert alert-success">{{ app.session.remove('success') }}</div>
-
-			{% endif %}
-
+			{% for success in app.flashes('success') %}
+				{% if success == 1 %}
+					<div class="alert alert-success alert-dismissible fade show" role="alert">
+						<strong>Succès!</strong>
+						{{ message }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				{% elseif success == 0 %}
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+						<strong>Échec!</strong>
+						{{ message }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				{% endif %}
+			{% endfor %}
 
 			<h3 class="title">Denoncer</h3>
 			{{ form_start(denoncement_form) }}
