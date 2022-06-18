@@ -12,6 +12,7 @@ use Swift_Mailer;
 use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -51,6 +52,11 @@ class RapportController extends AbstractController
             ->add('lastname', TextType::class, ['attr' => ['class' => 'form-input', 'placeholder' => 'Votre nom'], 'label' => false])
             ->add('email', EmailType::class, ['attr' => ['class' => 'form-input', 'placeholder' => 'Votre adresse mail'], 'label' => false])
             ->add('newsletter', CheckboxType::class, ['attr' => ['class' => 'form-check'], 'label' => "Recevoir des emails", 'required' => false])
+            ->add('civilite', ChoiceType::class, ['attr' => ['class' => 'form-select'], 'label' => 'Civilité', 'choices' => [
+                'Mr' => 'Mr',
+                'Mme' => 'Mme',
+                'Mlle' => 'Mlle',
+            ]])
             ->add('submit', SubmitType::class, ['attr' => ['class' => 'form-submit',], 'label' => 'Télécharger'])
             ->setMethod('POST')
             ->getForm();
@@ -68,6 +74,7 @@ class RapportController extends AbstractController
                 $current_user = new User();
                 $current_user
                     ->setFirstname($datas['lastname'])
+                    ->setCivilite($datas['civilite'])
                     ->setLastname($datas['firstname'])
                     ->setEmail($datas['email']);
 

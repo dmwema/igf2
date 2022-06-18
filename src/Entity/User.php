@@ -47,6 +47,11 @@ class User
      */
     private $downloads;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $civilite;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -132,6 +137,18 @@ class User
                 $download->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCivilite(): ?string
+    {
+        return $this->civilite;
+    }
+
+    public function setCivilite(string $civilite): self
+    {
+        $this->civilite = $civilite;
 
         return $this;
     }

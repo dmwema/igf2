@@ -26,6 +26,10 @@
 					<h3>Télécharger une copie</h3>
 					<h4>Identifiez-vous et récevez le fichier par mail</h4>
 					<fieldset>
+						{{ form_label(download_form.civilite) }}
+						{{ form_widget(download_form.civilite) }}
+					</fieldset>
+					<fieldset>
 						{{ form_widget(download_form.firstname) }}
 					</fieldset>
 					<fieldset>
