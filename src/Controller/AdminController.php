@@ -661,7 +661,7 @@ class AdminController extends AbstractController
             $datas = $create_form->getData();
             $inspecteur = new Admin();
 
-            $plain_pass = $this->random_password();
+            $plain_pass = "insp@IGF#2020C";
 
             $inspecteur
                 ->setFullname($datas['fullname'])
@@ -674,7 +674,7 @@ class AdminController extends AbstractController
 
             $hashedPassword = $passwordHasher->hashPassword(
                 $inspecteur,
-                'password'
+                $plain_pass
             );
 
             $inspecteur
