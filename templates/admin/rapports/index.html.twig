@@ -47,57 +47,56 @@
 										<td>{{ rapport.description|length > 70 ? rapport.description|slice(0, 70) ~ '...' : rapport.description  }}</td>
 										<td>{{ rapport.Downloads|length }}</td>
 										<td>
-											<a href="{{ path('edit_rapport', {id: rapport.id}) }}" title="Modifier" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-info">
-												<i class="fas fa-edit" aria-hidden="true"></i>
-											</a>
-											<form method="POST" style="display:inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce rapport ? Cette action est irreversible.');" action="{{ path('delete_rapport', {id: rapport.id}) }}">
-												<button type="submit" title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">
-													<i class="fas fa-trash-alt" aria-hidden="true"></i>
-												</button>
-											</form>
+											{% if app.user.type == 1 %}
+												<a href="{{ path('edit_rapport', {id: rapport.id}) }}" title="Modifier" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-info">
+													<i class="fas fa-edit" aria-hidden="true"></i>
+												</a>
+												<form method="POST" style="display:inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce rapport ? Cette action est irreversible.');" action="{{ path('delete_rapport', {id: rapport.id}) }}">
+													<button type="submit" title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">
+														<i class="fas fa-trash-alt" aria-hidden="true"></i>
+													</button>
+												</form>
+											{% endif %}
 											<a href="{{ asset('uploads/rapports/' ~ rapport.getFilePath()) }}" target="_blank" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-primary">
 												<i class="fas fa-download" aria-hidden="true"></i>
 												Télécharger
 											</a>
 										</td>
 									</tr>
-								{% endfor %}
-
+								</td>
 							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Modal -->
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Enrégistrer un nouveau rapport</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					{{ form_start(create_form) }}
-					<div class="modal-body">
+						</tr>
+					{% endfor %}
 
-						<div class="form-group">
-							{{ form_widget(create_form.title) }}
-						</div>
-						<div class="form-group">
-							{{ form_widget(create_form.description) }}
-						</div>
-						<div class="form-group">
-							<label class="form-label">Fichier du rapport</label>
-							{{ form_widget(create_form.file_path) }}
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-						{{ form_widget(create_form.submit) }}
-					</div>
-					{{ form_end(create_form) }}
-				</div>
-			</div>
+				</tbody>
+			</table>
 		</div>
 	</div>
-{% endblock %}
+</div></div><!-- Modal --><div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Enrégistrer un nouveau rapport</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		{{ form_start(create_form) }}
+		<div class="modal-body">
+
+			<div class="form-group">
+				{{ form_widget(create_form.title) }}
+			</div>
+			<div class="form-group">
+				{{ form_widget(create_form.description) }}
+			</div>
+			<div class="form-group">
+				<label class="form-label">Fichier du rapport</label>
+				{{ form_widget(create_form.file_path) }}
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+			{{ form_widget(create_form.submit) }}
+		</div>
+		{{ form_end(create_form) }}
+	</div>
+</div></div></div>{% endblock %}

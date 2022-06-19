@@ -29,7 +29,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -641,7 +641,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/inspecteurs", name="inspecteurs_admin")
      */
-    public function inspecteurs(ManagerRegistry $doctrine, EntityManagerInterface $em, Request $request, Swift_Mailer $mailer)
+    public function inspecteurs(ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $em, Request $request, Swift_Mailer $mailer)
     {
         $inspecteurs = $doctrine->getRepository(Admin::class)->findBy(['type' => 2]);
         $create_form = $this->createFormBuilder()
@@ -657,20 +657,28 @@ class AdminController extends AbstractController
 
         $message = '';
 
-
         if ($create_form->isSubmitted() && $create_form->isValid()) {
             $datas = $create_form->getData();
             $inspecteur = new Admin();
+
+            $plain_pass = $this->random_password();
 
             $inspecteur
                 ->setFullname($datas['fullname'])
                 ->setType(2)
                 ->setEmail($datas['email'])
                 ->setPoste($datas['poste'])
-                ->setPassword($this->random_password())
                 ->setRoles(["ROLE_USER"])
                 ->setEmail($datas['email'])
                 ->setPhone($datas['phone']);
+
+            $hashedPassword = $passwordHasher->hashPassword(
+                $inspecteur,
+                $plain_pass
+            );
+
+            $inspecteur
+                ->setPassword($hashedPassword);
 
             //send mail
             $emails = (new Swift_Message('Nouveau Mot de passe'))
@@ -680,7 +688,7 @@ class AdminController extends AbstractController
                     $this->renderView(
                         // templates/emails/registration.html.twig
                         'mail/password.html.twig',
-                        ['inspecteur' => $inspecteur]
+                        ['inspecteur' => $inspecteur, 'password' => $plain_pass]
                     ),
                     'text/html'
                 );
@@ -728,7 +736,7 @@ class AdminController extends AbstractController
         $characterListLength2 = mb_strlen($characters2, '8bit') - 1;
         $characterListLength3 = mb_strlen($maj, '8bit') - 1;
 
-        for ($i = 0; $i < 4; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $password .= $characters[random_int(0, $characterListLength)];
         }
 
@@ -736,7 +744,7 @@ class AdminController extends AbstractController
 
         $characterListLength = mb_strlen($characters, '8bit') - 1;
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $password .= $characters2[random_int(0, $characterListLength2)];
         }
 
