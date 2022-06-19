@@ -16,6 +16,8 @@ use App\Entity\Rapport;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Swift_Mailer;
+use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -634,5 +636,113 @@ class AdminController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('messages_admin');
+    }
+
+    /**
+     * @Route("/admin/inspecteurs", name="inspecteurs_admin")
+     */
+    public function inspecteurs(ManagerRegistry $doctrine, EntityManagerInterface $em, Request $request, Swift_Mailer $mailer)
+    {
+        $inspecteurs = $doctrine->getRepository(Admin::class)->findBy(['type' => 2]);
+        $create_form = $this->createFormBuilder()
+            ->add('fullname', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Nom complet'], 'label' => false])
+            ->add('email', EmailType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Adresse mail'], 'label' => false])
+            ->add('poste', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Poste Occupé'], 'label' => false])
+            ->add('phone', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Téléphone'], 'label' => false])
+            ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-primary',], 'label' => 'Enrégistrer'])
+            ->setMethod('POST')
+            ->getForm();
+
+        $create_form->handleRequest($request);
+
+        $message = '';
+
+
+        if ($create_form->isSubmitted() && $create_form->isValid()) {
+            $datas = $create_form->getData();
+            $inspecteur = new Admin();
+
+            $inspecteur
+                ->setFullname($datas['fullname'])
+                ->setType(2)
+                ->setEmail($datas['email'])
+                ->setPoste($datas['poste'])
+                ->setPassword($this->random_password())
+                ->setRoles(["ROLE_USER"])
+                ->setEmail($datas['email'])
+                ->setPhone($datas['phone']);
+
+            //send mail
+            $emails = (new Swift_Message('Nouveau Mot de passe'))
+                ->setFrom('noreply@igf.gouv.cd', 'IGF RDC')
+                ->setTo($inspecteur->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        // templates/emails/registration.html.twig
+                        'mail/password.html.twig',
+                        ['inspecteur' => $inspecteur]
+                    ),
+                    'text/html'
+                );
+
+            $mailer->send($emails);
+
+            $em->persist($inspecteur);
+            $em->flush();
+
+            $this->addFlash('success', 1);
+            $message = 'Inspecteur enrégistré dans la base de données avec succès';
+
+            $inspecteurs = $doctrine->getRepository(Admin::class)->findBy(['type' => 2]);
+        }
+
+        return $this->render('admin/inspecteurs/index.html.twig', [
+            'inspecteurs' => $inspecteurs,
+            'create_form' => $create_form->createView(),
+            'message' => $message
+        ]);
+    }
+
+    #[Route('/admin/inspecteurs/delete/{id}', name: 'delete_inspecteur', methods: ['POST'])]
+    public function delete_inspecteurs(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
+    {
+        $inspecteur = $doctrine->getRepository(Admin::class)->find($id);
+        $em->remove($inspecteur);
+        $em->flush();
+
+        return $this->redirectToRoute('inspecteurs_admin');
+    }
+
+
+    function random_password()
+    {
+        //A list of characters that can be used in our
+        //random password.
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $characters2 = '0123456789';
+        $maj = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        //Create a blank string.
+        $password = '';
+
+        $characterListLength = mb_strlen($characters, '8bit') - 1;
+        $characterListLength2 = mb_strlen($characters2, '8bit') - 1;
+        $characterListLength3 = mb_strlen($maj, '8bit') - 1;
+
+        for ($i = 0; $i < 4; $i++) {
+            $password .= $characters[random_int(0, $characterListLength)];
+        }
+
+        $password .= '@';
+
+        $characterListLength = mb_strlen($characters, '8bit') - 1;
+
+        for ($i = 0; $i < 5; $i++) {
+            $password .= $characters2[random_int(0, $characterListLength2)];
+        }
+
+        $password .= '#';
+        $password .= $maj[random_int(0, $characterListLength3)];
+
+        return $password;
     }
 }
