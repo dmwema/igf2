@@ -1,0 +1,118 @@
+{% extends 'admin/layout.html.twig' %}
+
+
+{% block body %}
+	<div class="container-fluid">
+		<!-- ============================================================== -->
+		<!-- Start Page Content -->
+		<!-- ============================================================== -->
+		<!-- Row -->
+			<div
+			class="row"> <!-- Column -->
+			<div class="col-lg-4 col-xlg-3 col-md-12">
+				<div class="white-box">
+					{% if app.user.image != '' %}
+						<div class="user-bg">
+							<img width="100%" alt="user" src="{{ 'uploads/admins/' ~ app.user.image }}">
+							<div class="overlay-box">
+								<div class="user-content">
+									<a href="javascript:void(0)"><img src="{{ 'uploads/admins/' ~ app.user.image }}" class="thumb-lg img-circle" alt="img"></a>
+									<h4 class="text-white mt-2">{{ app.user.Fullname }}</h4>
+									<h5 class="text-white mt-2">{{ app.user.poste }}</h5>
+								</div>
+							</div>
+						</div>
+					{% endif %}
+					<div class="user-btm-box {% if app.user.image != '' %}mt-5{% endif %} d-md-flex">
+						<div class="text-center">
+							<h4>Aucun article publiés</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Column -->
+			<!-- Column -->
+			<div class="col-lg-8 col-xlg-9 col-md-12">
+				<div class="card">
+					<div class="card-body">
+						{{ form_start(update_form, {'class': 'form-horizontal form-material'}) }}
+						<div class="form-group mb-4">
+							<label class="col-md-12 p-0">Nom complet</label>
+							<div class="col-md-12 border-bottom p-0">
+								{{ form_widget(update_form.fullname) }}
+							</div>
+						</div>
+						<div class="form-group mb-4">
+							<label for="example-email" class="col-md-12 p-0">Email</label>
+							<div class="col-md-12 border-bottom p-0">
+								{{ form_widget(update_form.email) }}
+							</div>
+						</div>
+						<div class="form-group mb-4">
+							<label class="col-md-12 p-0">Numéro de téléphone</label>
+							<div class="col-md-12 border-bottom p-0">
+								{{ form_widget(update_form.phone) }}
+							</div>
+						</div>
+						<div class="form-group mb-4">
+							<label class="col-md-12 p-0">Votre Photo</label>
+							<div class="col-md-12 border-bottom p-0">
+								{{ form_widget(update_form.image) }}
+							</div>
+						</div>
+						<div class="form-group mb-4">
+							<div class="col-sm-12">
+								{{ form_widget(update_form.submit) }}
+							</div>
+						</div>
+						{{ form_end(update_form) }}
+					</div>
+				</div>
+
+				<div class="card">
+					<div class="card-body">
+						<h4 class="mb-4">Modifier le mot de passe</h4>
+						<form class="form-horizontal form-material">
+							<div class="form-group mb-4">
+								<label class="col-md-12 p-0">Mot de passe actuel</label>
+								<div class="col-md-12 border-bottom p-0">
+									<input type="password" value="" class="form-control p-0 border-0">
+								</div>
+							</div>
+							<div class="form-group mb-4">
+								<label class="col-md-12 p-0">Nouveau mot de passe</label>
+								<div class="col-md-12 border-bottom p-0">
+									<input type="password" value="" class="form-control p-0 border-0">
+								</div>
+							</div>
+							<div class="form-group mb-4">
+								<label class="col-md-12 p-0">Confirmer le mot de passe</label>
+								<div class="col-md-12 border-bottom p-0">
+									<input type="password" value="" class="form-control p-0 border-0">
+								</div>
+							</div>
+							<div class="form-group mb-4">
+								<div class="col-sm-12">
+									<button class="btn btn-success">Update Profile</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</>
+			</div>
+
+			<!-- Column -->
+		</div>
+		<!-- Row -->
+	<!-- ============================================================== -->
+		<!-- End PAge Content -->
+		<!-- ============================================================== -->
+		<!-- ============================================================== -->
+		<!-- Right sidebar -->
+		<!-- ============================================================== -->
+		<!-- .right-sidebar -->
+		<!-- ============================================================== -->
+		<!-- End Right sidebar -->
+		<!-- ============================================================== -->
+	</div>
+{% endblock %}

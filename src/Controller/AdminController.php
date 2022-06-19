@@ -31,6 +31,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AdminController extends AbstractController
@@ -719,6 +720,20 @@ class AdminController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('inspecteurs_admin');
+    }
+
+    #[Route('/admin/config', name: 'config_admin', methods: ['POST', 'GET'])]
+    public function config(UserInterface $user, ManagerRegistry $doctrine, EntityManagerInterface $em): Response
+    {
+        $update_form = $this->createFormBuilder($user)
+            ->add('fullname', TextType::class, ['attr' => ['class' => 'form-control p-0 border-0', 'placeholder' => 'Nom complet'], 'label' => false])
+            ->add('email', EmailType::class, ['attr' => ['class' => 'form-control p-0 border-0', 'placeholder' => 'Adresse mail'], 'label' => false])
+            ->add('phone', TextType::class, ['attr' => ['class' => 'form-control p-0 border-0', 'placeholder' => 'Téléphone'], 'label' => false])
+            ->add('image', FileType::class, ['attr' => ['class' => 'form-control p-0 border-0'], 'label' => false, 'required' => false])
+            ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-success',], 'label' => 'Mettre à jour'])
+            ->setMethod('POST')
+            ->getForm();
+        return $this->render('admin/config.html.twig', ['update_form' => $update_form->createView()]);
     }
 
 

@@ -241,6 +241,13 @@ class="left-sidebar" data-sidebarbg="skin6"> <!-- Sidebar scroll-->
 					<span class="hide-menu">Rapports</span>
 				</a>
 			</li>
+			<hr/>
+			<li class="sidebar-item {% if app.request.get('_route') == 'config_admin' %} selected{% endif %}">
+				<a class="{% if app.request.get('_route') == 'config_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('config_admin') }}" aria-expanded="false">
+					<i class="fas fa-cog" aria-hidden="true"></i>
+					<span class="hide-menu">Parametres</span>
+				</a>
+			</li>
 			<li class="text-center p-20 upgrade-btn">
 				<a target="_blank" style="padding:10px 20px; width: 100%" href="https://igf.gouv.cd" class="btn btn-danger text-white" target="_blank">
 					<span style="margin-right:5px">Voir le site</span>
