@@ -674,7 +674,7 @@ class AdminController extends AbstractController
 
             $hashedPassword = $passwordHasher->hashPassword(
                 $inspecteur,
-                $plain_pass
+                'password'
             );
 
             $inspecteur
