@@ -26,7 +26,8 @@
 										<td>{{ loop.index }}</td>
 										<td>{{ download.getUser().civilite ~ " " ~ download.getUser().firstname ~ " " ~ download.getUser().lastname ~ ", " ~ download.getUser().email ~ " " ~ download.getUser().phone }}</td>
 										<td>{{ download.getRapport().title|length > 50 ? download.getRapport().title|lower|slice(0, 50) ~ '...'  : download.getRapport().title|lower  }}</td>
-										<td>{{ download.date|date('d-m-Y') }}</td>
+										<td>
+											{{ download.date|date('d-m-Y à H:m') }}</td>
 										<td>
 											<form method="POST" style="display:inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette information de téléchargément ? Cette action est irreversible.');" action="{{ path('delete_download', {id: download.id}) }}">
 												<button type="submit" title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">

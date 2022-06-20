@@ -45,6 +45,10 @@ class DownloadRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAll()
+    {
+        return $this->findBy(array(), array('date' => 'DESC'));
+    }
 
     // /**
     //  * @return Download[] Returns an array of Download objects
