@@ -235,15 +235,15 @@
 							</div>
 						</div>
 						<!--Footer Menu
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								<div class="col-md-6">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									<div class="copy-menu">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										<a href="">Plan du site</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										<a href="{{ url('mission') }}">A propos</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										<a href="{{ url('actualites') }}">Actualités</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										<a href="{{url('denoncer')}}">Dénoncer</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										<a href="{{url('contact')}}">Contact</a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									</div>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								</div>-->
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										<div class="col-md-6">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											<div class="copy-menu">
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												<a href="">Plan du site</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												<a href="{{ url('mission') }}">A propos</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												<a href="{{ url('actualites') }}">Actualités</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												<a href="{{url('denoncer')}}">Dénoncer</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												<a href="{{url('contact')}}">Contact</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										</div>-->
 
 					</div>
 				</div>
@@ -264,9 +264,6 @@
 		<script src="{{ asset('js/stiky.js') }}"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 		<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v13.0" nonce="ICWil1lx"></script>
-
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
 		<script src="{{ asset('js/mega-menu.js') }}"></script>
 		<script>
 			setTimeout(() => {
@@ -279,7 +276,30 @@ $('.site-loader').fadeOut(500);
 		</script>
 		<script type="text/javascript">
 			// jQuery counterUp
-$('[data-toggle="counterUp"]').counterUp({delay: 15, time: 1500});
+var a = 0;
+$(window).scroll(function () {
+var oTop = $("#counter-box").offset().top - window.innerHeight;
+if (a == 0 && $(window).scrollTop() > oTop) {
+$(".counter").each(function () {
+var $this = $(this),
+countTo = $this.attr("data-number");
+$({countNum: $this.text()}).animate({
+countNum: countTo
+}, {
+duration: 3500,
+easing: "swing",
+step: function () { // $this.text(Math.ceil(this.countNum));
+$this.text(Math.ceil(this.countNum).toLocaleString("en"));
+},
+complete: function () {
+$this.text(Math.ceil(this.countNum).toLocaleString("en"));
+// alert('finished');
+}
+});
+});
+a = 1;
+}
+});
 		</script>
 		<script type="text/javascript">
 			setInterval(() => {

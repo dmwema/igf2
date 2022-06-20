@@ -109,7 +109,7 @@
 							<h2 style="font-size: 20px; font-weight: 700; margin: 2;">INSPECTION GENERALE DES FINANCES</h2>
 							<hr style="padding: 0;margin: 0;border-color: #FBFBFB;">
 							<h3 style="font-size: 26px; font-weight: 500; margin: 2;">{{ rapport.title }}</h3>
-							<img src="https://igf.gouv.cd/wp-content/uploads/2021/03/logo.png" width="150" height="120" style="display: block; border: 0px; margin : 30px 20px 20px 20px; height: auto !important"/>
+							<img src="https://igf.gouv.cd/images/logo.png" width="150" height="120" style="display: block; border: 0px; margin : 30px 20px 20px 20px; height: auto !important"/>
 						</td>
 					</tr>
 				</table>
@@ -131,7 +131,7 @@
 										<table border="0" cellspacing="0" cellpadding="0">
 											<tr>
 												<td align="center" style="border-radius: 4px;" bgcolor="#E42323">
-													<a href="{{ asset('uploads/rapports/' ~ rapport.getFilePath()) }}" target="_blank" style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 20px; display: inline-block;">
+													<a href="{{ 'https://igf.gouv.cd/uploads/rapports/' ~ rapport.getFilePath() }}" target="_blank" style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 20px; display: inline-block;">
 														<i class="fa-solid fa-download" style="margin-right: 5px"></i>
 														Télécharger</a>
 												</td>
@@ -159,7 +159,7 @@
 						<td bgcolor="#c9d2f5" align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
 							<h2 style="font-size: 20px; font-weight: 400; color: #111111; margin: 0;">Vous voulez beaucoup plus de nos rapports ?</h2>
 							<p style="margin: 0;">
-								<a href="{{ path('rapports') }}" target="_blank" style="color: #242424;">
+								<a href="https://igf.gouv.cd/rapports" target="_blank" style="color: #242424;">
 									Voir tous les rapports</a>
 							</p>
 						</td>

@@ -51,6 +51,7 @@ class RapportController extends AbstractController
             ->add('firstname', TextType::class, ['attr' => ['class' => 'form-input', 'placeholder' => 'Votre prenom'], 'label' => false])
             ->add('lastname', TextType::class, ['attr' => ['class' => 'form-input', 'placeholder' => 'Votre nom'], 'label' => false])
             ->add('email', EmailType::class, ['attr' => ['class' => 'form-input', 'placeholder' => 'Votre adresse mail'], 'label' => false])
+            ->add('phone', TextType::class, ['attr' => ['class' => 'form-input', 'placeholder' => 'Votre numéro de téléphone'], 'label' => false])
             ->add('newsletter', CheckboxType::class, ['attr' => ['class' => 'form-check'], 'label' => "Recevoir des emails", 'required' => false])
             ->add('civilite', ChoiceType::class, ['attr' => ['class' => 'form-select'], 'label' => 'Civilité', 'choices' => [
                 'Mr' => 'Mr',
@@ -77,6 +78,7 @@ class RapportController extends AbstractController
                     ->setCivilite($datas['civilite'])
                     ->setLastname($datas['firstname'])
                     ->setEmail($datas['email'])
+                    ->setPhone($datas['phone'])
                     ->setSeen(0);
 
                 $em->persist($current_user);
@@ -137,7 +139,7 @@ class RapportController extends AbstractController
     }
 
     /**
-     * @Route("/admin/rapports/delete/{id}", name="delete_rapport", methods={"POST", "GET"})
+     * @Route("/admin/rapports/{id}", name="edit_rapport", methods={"POST", "GET"})
      */
     public function edit(ManagerRegistry $doctrine, $id, EntityManagerInterface $em, Request $request, SluggerInterface $slugger): Response
     {
