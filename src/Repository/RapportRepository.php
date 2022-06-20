@@ -45,6 +45,11 @@ class RapportRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAll()
+    {
+        return $this->findBy(array(), array('created_at' => 'DESC'));
+    }
+
     // /**
     //  * @return Rapport[] Returns an array of Rapport objects
     //  */

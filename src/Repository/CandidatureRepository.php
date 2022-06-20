@@ -21,6 +21,11 @@ class CandidatureRepository extends ServiceEntityRepository
         parent::__construct($registry, Candidature::class);
     }
 
+    public function findAll()
+    {
+        return $this->findBy(array(), array('created_at' => 'DESC'));
+    }
+
     /**
      * @throws ORMException
      * @throws OptimisticLockException

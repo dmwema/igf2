@@ -19,6 +19,11 @@
 			{% for denoncement in denoncements %}
 				<div class="col-lg-6 col-md-12">
 					<div class="white-box analytics-info">
+						<small>
+							<strong>Le
+								{{ denoncement.getCreatedAt()|date('d-m-Y à H:i') }}</strong>
+						</small>
+						<hr/>
 						<h5 style="font-weight:700">{{ denoncement.civilite ~ " " ~ denoncement.nom ~ " " ~  denoncement.prenom ~ " (" ~ (denoncement.email) ~ ")" }}</h5>
 						<p style="margin:0">Proféssion :
 							{{ denoncement.profession }}</p>
@@ -30,7 +35,6 @@
 						</small>
 						<br/>
 						<p>{{ denoncement.motif }}</p>
-
 						<form method="POST" style="display:inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce denoncement ? Cette action est irreversible.');" action="{{ path('delete_denoncement', {id: denoncement.id}) }}">
 							<button type="submit" title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">
 								<i class="fas fa-trash-alt" aria-hidden="true"></i>

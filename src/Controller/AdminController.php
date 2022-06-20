@@ -316,7 +316,7 @@ class AdminController extends AbstractController
 
         $create_form = $this->createFormBuilder()
             ->add('path', FileType::class, ['attr' => ['class' => 'form-control'], 'label' => "Image"])
-            ->add('description', TextareaType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Entrez une description'], 'label' => false])
+            ->add('description', TextareaType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Entrez une description'], 'label' => false, 'required' => false])
             ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-primary',], 'label' => 'Enrégistrer'])
             ->setMethod('POST')
             ->getForm();

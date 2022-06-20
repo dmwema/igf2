@@ -45,6 +45,11 @@ class OfferRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAll()
+    {
+        return $this->findBy(array(), array('created_at' => 'DESC'));
+    }
+
     // /**
     //  * @return Offer[] Returns an array of Offer objects
     //  */

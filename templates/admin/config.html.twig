@@ -38,21 +38,23 @@
 							</div>
 						</div>
 					{% endif %}
-					<div class="user-btm-box {% if app.user.image != '' %}mt-5{% endif %} d-md-flex">
-						<div class="text-center">
-							<h4>
-								{% if app.user.articles|length == 0 %}
-									Aucun article publié
-								{% elseif app.user.articles|length < 2 %}
-									{{ app.user.articles|length }}
-									article publié
-								{% else %}
-									{{ app.user.articles|length }}
-									articles publiés
-								{% endif %}
-							</h4>
+					{% if app.user.type == 2 %}
+						<div class="user-btm-box {% if app.user.image != '' %}mt-5{% endif %} d-md-flex">
+							<div class="text-center">
+								<h4>
+									{% if app.user.articles|length == 0 %}
+										Aucun article publié
+									{% elseif app.user.articles|length < 2 %}
+										{{ app.user.articles|length }}
+										article publié
+									{% else %}
+										{{ app.user.articles|length }}
+										articles publiés
+									{% endif %}
+								</h4>
+							</div>
 						</div>
-					</div>
+					{% endif %}
 				</div>
 			</div>
 			<!-- Column -->

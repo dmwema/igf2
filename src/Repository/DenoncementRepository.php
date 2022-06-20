@@ -45,6 +45,11 @@ class DenoncementRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAll()
+    {
+        return $this->findBy(array(), array('created_at' => 'DESC'));
+    }
+
     // /**
     //  * @return Denoncement[] Returns an array of Denoncement objects
     //  */
