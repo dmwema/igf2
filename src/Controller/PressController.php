@@ -11,7 +11,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PressController extends AbstractController
 {
-    #[Route('/press', name: 'press')]
+    /**
+     * @Route("/press", name="press")
+     */
     public function index(ManagerRegistry $doctrine): Response
     {
         $presses = $doctrine->getRepository(Press::class)->findAll();
@@ -20,7 +22,9 @@ class PressController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/presses/delete/{id}', name: 'delete_press', methods: ['POST'])]
+    /**
+     * @Route("/admin/presses/delete/{id}", name="delete_press", methods={"POST"})
+     */
     public function delete(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
     {
         $press = $doctrine->getRepository(Press::class)->find($id);

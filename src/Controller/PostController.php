@@ -67,7 +67,9 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/posts/delete/{id}', name: 'delete_post', methods: ['POST'])]
+    /**
+     * @Route("/admin/posts/delete/{id}", name="delete_post", methods={"POST"})
+     */
     public function delete(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
     {
         $post = $doctrine->getRepository(Post::class)->find($id);
@@ -77,7 +79,9 @@ class PostController extends AbstractController
         return $this->redirectToRoute('posts_admin');
     }
 
-    #[Route('/admin/posts/{id}', name: 'edit_post', methods: ['GET', 'POST'])]
+    /**
+     * @Route("/admin/posts/{id}", name="edit_post", methods={"POST", "GET"})
+     */
     public function edit(ManagerRegistry $doctrine, $id, EntityManagerInterface $em, Request $request, SluggerInterface $slugger): Response
     {
         $post = $doctrine->getRepository(Post::class)->find($id);
@@ -159,7 +163,9 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/rececntscl/posts/', name: 'recent_post')]
+    /**
+     * @Route("/rececntscl/posts/", name="recent_post")
+     */
     public function recentes(ManagerRegistry $doctrine): Response
     {
         $posts = $doctrine->getRepository(Post::class)->findAll();

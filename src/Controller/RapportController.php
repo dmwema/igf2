@@ -124,7 +124,9 @@ class RapportController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/rapports/delete/{id}', name: 'delete_rapport', methods: ['POST'])]
+    /**
+     * @Route("/admin/rapports/delete/{id}", name="delete_rapport", methods={"POST"})
+     */
     public function delete(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
     {
         $rapport = $doctrine->getRepository(Rapport::class)->find($id);
@@ -134,7 +136,9 @@ class RapportController extends AbstractController
         return $this->redirectToRoute('rapports_admin');
     }
 
-    #[Route('/admin/rapports/{id}', name: 'edit_rapport', methods: ['GET', 'POST'])]
+    /**
+     * @Route("/admin/rapports/delete/{id}", name="delete_rapport", methods={"POST", "GET"})
+     */
     public function edit(ManagerRegistry $doctrine, $id, EntityManagerInterface $em, Request $request, SluggerInterface $slugger): Response
     {
         $rapport = $doctrine->getRepository(Rapport::class)->find($id);
@@ -211,8 +215,9 @@ class RapportController extends AbstractController
         ]);
     }
 
-
-    #[Route('/admin/downloads/delete/{id}', name: 'delete_download', methods: ['POST'])]
+    /**
+     * @Route("/admin/downloads/delete/{id}", name="delete_download", methods={"POST"})
+     */
     public function delete_download(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
     {
         $download = $doctrine->getRepository(Download::class)->find($id);

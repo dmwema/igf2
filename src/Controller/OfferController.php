@@ -125,7 +125,9 @@ class OfferController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/offers/delete/{id}', name: 'delete_offer', methods: ['POST'])]
+    /**
+     * @Route("/admin/offers/delete/{id}", name="delete_offer", methods={"POST"})
+     */
     public function delete(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
     {
         $offer = $doctrine->getRepository(Offer::class)->find($id);
@@ -135,7 +137,9 @@ class OfferController extends AbstractController
         return $this->redirectToRoute('offers_admin');
     }
 
-    #[Route('/admin/offers/{id}', name: 'edit_offer', methods: ['GET', 'POST'])]
+    /**
+     * @Route("/admin/offers/{id}", name="delete_offer", methods={"POST"})
+     */
     public function edit(ManagerRegistry $doctrine, $id, EntityManagerInterface $em, Request $request, SluggerInterface $slugger): Response
     {
         $offer = $doctrine->getRepository(Offer::class)->find($id);

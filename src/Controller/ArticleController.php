@@ -10,7 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
 {
-    #[Route('/article', name: 'article')]
+    /**
+     * @Route("/article", name="article")
+     */
     public function index(ManagerRegistry $doctrine): Response
     {
         $posts = $doctrine->getRepository(Article::class)->findAll();

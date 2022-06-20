@@ -21,7 +21,9 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/users/delete/{id}', name: 'delete_user', methods: ['POST'])]
+    /**
+     * @Route("/admin/users/delete/{id}", name="delete_user", methods: {"POST"})
+     */
     public function delete(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
     {
         $user = $doctrine->getRepository(User::class)->find($id);

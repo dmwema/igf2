@@ -29,7 +29,9 @@ class PhotoController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/photos/delete/{id}', name: 'delete_photo', methods: ['POST'])]
+    /**
+     * @Route("/admin/photos/delete/{id}", name="delete_photo", methods={"POST"})
+     */
     public function delete(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
     {
         $photo = $doctrine->getRepository(Photo::class)->find($id);
@@ -39,7 +41,9 @@ class PhotoController extends AbstractController
         return $this->redirectToRoute('photos_admin');
     }
 
-    #[Route('/admin/photos/{id}', name: 'edit_photo', methods: ['GET', 'POST'])]
+    /**
+     * @Route("/admin/photos/{id}", name="edit_photo", methods={"POST", "GET"})
+     */
     public function edit(ManagerRegistry $doctrine, $id, EntityManagerInterface $em, Request $request, SluggerInterface $slugger): Response
     {
         $photo = $doctrine->getRepository(Photo::class)->find($id);

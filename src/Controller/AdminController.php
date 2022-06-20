@@ -574,7 +574,9 @@ class AdminController extends AbstractController
         return $this->render('admin/denoncements/index.html.twig', ['denoncements' => $denoncements]);
     }
 
-    #[Route('/admin/denoncements/delete/{id}', name: 'delete_denoncement', methods: ['POST'])]
+    /**
+     * @Route("/admin/denoncements/delete/{id}", name="delete_denoncement", methods={"POST"})
+     */
     public function delete(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
     {
         $denoncement = $doctrine->getRepository(Denoncement::class)->find($id);
@@ -625,7 +627,9 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/breves/delete/{id}', name: 'delete_breve', methods: ['POST'])]
+    /**
+     * @Route("/admin/breves/delete/{id}", name="delete_breve", methods={"POST"})
+     */
     public function delete_breves(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
     {
         $breve = $doctrine->getRepository(Breve::class)->find($id);
@@ -635,7 +639,9 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('breves_admin');
     }
 
-    #[Route('/brevescalculus/breves/', name: 'breves')]
+    /**
+     * @Route("/brevescalculus/breves", name="breves")
+     */
     public function breves_all(ManagerRegistry $doctrine): Response
     {
         $breves = $doctrine->getRepository(Breve::class)->findAll();
@@ -660,7 +666,9 @@ class AdminController extends AbstractController
         return $this->render('admin/messages/index.html.twig', ['messages' => $messages]);
     }
 
-    #[Route('/admin/message/delete/{id}', name: 'delete_message', methods: ['POST'])]
+    /**
+     * @Route("/admin/message/delete/{id}", name="delete_message", methods={"POST"})
+     */
     public function delete_messages(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
     {
         $message = $doctrine->getRepository(Message::class)->find($id);
@@ -743,7 +751,9 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/inspecteurs/delete/{id}', name: 'delete_inspecteur', methods: ['POST'])]
+    /**
+     * @Route("/admin/inspecteurs/delete/{id}", name="delete_inspecteur", methods={"POST"})
+     */
     public function delete_inspecteurs(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
     {
         $inspecteur = $doctrine->getRepository(Admin::class)->find($id);
@@ -753,7 +763,9 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('inspecteurs_admin');
     }
 
-    #[Route('/admin/config', name: 'config_admin', methods: ['POST', 'GET'])]
+    /**
+     * @Route("/admin/config", name="config_admin", methods={"POST", "GET"})
+     */
     public function config(SluggerInterface $slugger, UserInterface $user, ManagerRegistry $doctrine, EntityManagerInterface $em): Response
     {
         $update_form = $this->createFormBuilder($user)
@@ -911,7 +923,9 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/statscalculus/stats/', name: 'stats')]
+    /**
+     * @Route("/statscalculus/stats/", name="stats")
+     */
     public function stats(ManagerRegistry $doctrine): Response
     {
         $downloads = count($doctrine->getRepository(Download::class)->findBy(['seen' => 0]));
