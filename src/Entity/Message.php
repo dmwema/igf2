@@ -37,6 +37,11 @@ class Message
      */
     private $created_at;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $seen;
+
     public function __construct()
     {
         $this->created_at = new \DateTimeImmutable();
@@ -91,6 +96,18 @@ class Message
     public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function isSeen(): ?bool
+    {
+        return $this->seen;
+    }
+
+    public function setSeen(bool $seen): self
+    {
+        $this->seen = $seen;
 
         return $this;
     }

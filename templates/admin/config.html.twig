@@ -9,6 +9,21 @@
 		<!-- Row -->
 			<div
 			class="row"> <!-- Column -->
+			{% for success in app.flashes('success') %}
+				{% if success == 1 %}
+					<div class="alert alert-success alert-dismissible fade show" role="alert">
+						<strong>Succès!</strong>
+						{{ message }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				{% elseif success == 0 %}
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+						<strong>Échec!</strong>
+						{{ message }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				{% endif %}
+			{% endfor %}
 			<div class="col-lg-4 col-xlg-3 col-md-12">
 				<div class="white-box">
 					{% if app.user.image != '' %}
@@ -25,7 +40,17 @@
 					{% endif %}
 					<div class="user-btm-box {% if app.user.image != '' %}mt-5{% endif %} d-md-flex">
 						<div class="text-center">
-							<h4>Aucun article publiés</h4>
+							<h4>
+								{% if app.user.articles|length == 0 %}
+									Aucun article publié
+								{% elseif app.user.articles|length < 2 %}
+									{{ app.user.articles|length }}
+									article publié
+								{% else %}
+									{{ app.user.articles|length }}
+									articles publiés
+								{% endif %}
+							</h4>
 						</div>
 					</div>
 				</div>
@@ -72,31 +97,31 @@
 				<div class="card">
 					<div class="card-body">
 						<h4 class="mb-4">Modifier le mot de passe</h4>
-						<form class="form-horizontal form-material">
-							<div class="form-group mb-4">
-								<label class="col-md-12 p-0">Mot de passe actuel</label>
-								<div class="col-md-12 border-bottom p-0">
-									<input type="password" value="" class="form-control p-0 border-0">
-								</div>
+						{{ form_start(password_form, {'class': 'form-horizontal form-material'}) }}
+						<div class="form-group mb-4">
+							<label class="col-md-12 p-0">Ancien mot de passe</label>
+							<div class="col-md-12 border-bottom p-0">
+								{{ form_widget(password_form.password1) }}
 							</div>
-							<div class="form-group mb-4">
-								<label class="col-md-12 p-0">Nouveau mot de passe</label>
-								<div class="col-md-12 border-bottom p-0">
-									<input type="password" value="" class="form-control p-0 border-0">
-								</div>
+						</div>
+						<div class="form-group mb-4">
+							<label for="example-email" class="col-md-12 p-0">Nouveau mot de passe</label>
+							<div class="col-md-12 border-bottom p-0">
+								{{ form_widget(password_form.password2) }}
 							</div>
-							<div class="form-group mb-4">
-								<label class="col-md-12 p-0">Confirmer le mot de passe</label>
-								<div class="col-md-12 border-bottom p-0">
-									<input type="password" value="" class="form-control p-0 border-0">
-								</div>
+						</div>
+						<div class="form-group mb-4">
+							<label class="col-md-12 p-0">Confirmer le nouveau mot de passe</label>
+							<div class="col-md-12 border-bottom p-0">
+								{{ form_widget(password_form.password3) }}
 							</div>
-							<div class="form-group mb-4">
-								<div class="col-sm-12">
-									<button class="btn btn-success">Update Profile</button>
-								</div>
+						</div>
+						<div class="form-group mb-4">
+							<div class="col-sm-12">
+								{{ form_widget(password_form.submit) }}
 							</div>
-						</form>
+						</div>
+						{{ form_end(password_form) }}
 					</div>
 				</>
 			</div>

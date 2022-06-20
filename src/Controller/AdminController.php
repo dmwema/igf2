@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Admin;
+use App\Entity\Article;
 use App\Entity\Breve;
 use App\Entity\Candidature;
 use App\Entity\Denoncement;
@@ -298,6 +299,12 @@ class AdminController extends AbstractController
     {
         $downloads = $doctrine->getRepository(Download::class)->findAll();
 
+        foreach ($downloads as $download) {
+            $download->setSeen(1);
+            $em->persist($download);
+            $em->flush();
+        }
+
         return $this->render('admin/downloads/index.html.twig', ['downloads' => $downloads]);
     }
 
@@ -483,6 +490,12 @@ class AdminController extends AbstractController
     {
         $candidatures = $doctrine->getRepository(Candidature::class)->findAll();
 
+        foreach ($candidatures as $candidature) {
+            $candidature->setSeen(1);
+            $em->persist($candidature);
+            $em->flush();
+        }
+
         return $this->render('admin/candidatures/index.html.twig', ['candidatures' => $candidatures]);
     }
 
@@ -536,6 +549,12 @@ class AdminController extends AbstractController
     {
         $users = $doctrine->getRepository(User::class)->findAll();
 
+        foreach ($users as $user) {
+            $user->setSeen(1);
+            $em->persist($user);
+            $em->flush();
+        }
+
         return $this->render('admin/users/index.html.twig', ['users' => $users]);
     }
 
@@ -545,6 +564,12 @@ class AdminController extends AbstractController
     public function denoncements(ManagerRegistry $doctrine, EntityManagerInterface $em)
     {
         $denoncements = $doctrine->getRepository(Denoncement::class)->findAll();
+
+        foreach ($denoncements as $denoncement) {
+            $denoncement->setSeen(1);
+            $em->persist($denoncement);
+            $em->flush();
+        }
 
         return $this->render('admin/denoncements/index.html.twig', ['denoncements' => $denoncements]);
     }
@@ -626,6 +651,12 @@ class AdminController extends AbstractController
     {
         $messages = $doctrine->getRepository(Message::class)->findAll();
 
+        foreach ($messages as $message) {
+            $message->setSeen(1);
+            $em->persist($message);
+            $em->flush();
+        }
+
         return $this->render('admin/messages/index.html.twig', ['messages' => $messages]);
     }
 
@@ -662,7 +693,7 @@ class AdminController extends AbstractController
             $datas = $create_form->getData();
             $inspecteur = new Admin();
 
-            $plain_pass = "insp@IGF#2020C";
+            $plain_pass = "insp@IGF#2022C";
 
             $inspecteur
                 ->setFullname($datas['fullname'])
@@ -723,7 +754,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/config', name: 'config_admin', methods: ['POST', 'GET'])]
-    public function config(UserInterface $user, ManagerRegistry $doctrine, EntityManagerInterface $em): Response
+    public function config(SluggerInterface $slugger, UserInterface $user, ManagerRegistry $doctrine, EntityManagerInterface $em): Response
     {
         $update_form = $this->createFormBuilder($user)
             ->add('fullname', TextType::class, ['attr' => ['class' => 'form-control p-0 border-0', 'placeholder' => 'Nom complet'], 'label' => false])
@@ -733,9 +764,172 @@ class AdminController extends AbstractController
             ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-success',], 'label' => 'Mettre à jour'])
             ->setMethod('POST')
             ->getForm();
-        return $this->render('admin/config.html.twig', ['update_form' => $update_form->createView()]);
+
+        $password_form = $this->createFormBuilder()
+            ->add('password1', PasswordType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Ancien mot de passe'], 'label' => false])
+            ->add('password2', PasswordType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Nouveau mot de passe'], 'label' => false])
+            ->add('password3', PasswordType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Confirmer le nouveau mot de passe'], 'label' => false])
+            ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-success',], 'label' => 'Mettre à jour'])
+            ->setMethod('POST')
+            ->getForm();
+
+        $message = '';
+
+
+        if ($password_form->isSubmitted() && $password_form->isValid()) {
+            dd('ok');
+        }
+
+        if ($update_form->isSubmitted() && $update_form->isValid()) {
+            $datas = $update_form->getData();
+            $image = $update_form->get('image')->getData();
+
+            $admin = $doctrine->getRepository(Admin::class)->find($user->id);
+            $admin
+                ->setFullname($datas['fullname'])
+                ->setEmail($datas['email'])
+                ->setPhone($datas['phone']);
+
+            if ($image) {
+                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
+
+                if ($image->guessExtension() === 'jpeg' || $image->guessExtension() === 'png' || $image->guessExtension() === 'jpg' || $image->guessExtension() === 'webp') {
+
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $image->move(
+                            $this->getParameter('admins'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        dd($e);
+                    }
+
+                    // updates the 'brochureFilename' property to store the PDF file name
+                    // instead of its contents
+                    $admin
+                        ->setImage($newFilename);
+                } else {
+                    $message = 'Vous devez importer comme image de profil une image au fomat : .jpeg, .jpg, .png ou .webp';
+                    $this->addFlash('success', 0);
+                }
+            }
+
+            $em->persist($admin);
+            $em->flush();
+
+            $this->addFlash('success', 1);
+
+            $message = 'Profil mis à jour avec succès';
+        }
+
+        return $this->render('admin/config.html.twig', [
+            'update_form' => $update_form->createView(),
+            'password_form' => $password_form->createView(),
+            'message' => $message
+        ]);
     }
 
+    /**
+     * @Route("/admin/articles", name="articles_admin")
+     */
+    public function articles(UserInterface $user, ManagerRegistry $doctrine, EntityManagerInterface $em, Request $request, SluggerInterface $slugger)
+    {
+        $create_form = $this->createFormBuilder()
+            ->add('title', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Titre de l\'article'], 'label' => false])
+            ->add('content', TextareaType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Entrez le contenu'], 'label' => false])
+            ->add('image', FileType::class, ['attr' => ['class' => 'form-control'], 'label' => "Image à la une", 'required' => false])
+            ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-primary',], 'label' => 'Enrégistrer et publier'])
+            ->setMethod('POST')
+            ->getForm();
+
+        $articles = $doctrine->getRepository(Article::class)->findBy(['admin' => $user->getId()]);
+        $create_form->handleRequest($request);
+
+        if ($create_form->isSubmitted() && $create_form->isValid()) {
+            $datas = $create_form->getData();
+            $article = new Article();
+            $image = $create_form->get('image')->getData();
+
+            $article
+                ->setTitle($datas['title'])
+                ->setAdmin($user)
+                ->setContent($datas['content']);
+
+            if ($image) {
+                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $image->guessExtension();
+
+                if ($image->guessExtension() === 'jpeg' || $image->guessExtension() === 'png' || $image->guessExtension() === 'jpg' || $image->guessExtension() === 'webp') {
+
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $image->move(
+                            $this->getParameter('articles'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        dd($e);
+                    }
+
+                    // updates the 'brochureFilename' property to store the PDF file name
+                    // instead of its contents
+                    $article
+                        ->setImage($newFilename);
+                } else {
+                    $this->addFlash('success', 0);
+                    return $this->render('admin/articles/index.html.twig', [
+                        'articles' => $articles,
+                        'create_form' => $create_form->createView(),
+                        'message' => 'Vous devez importer comme image à la une une image au fomat : .jpeg, .jpg, .png ou .webp'
+                    ]);
+                }
+            }
+
+            $em->persist($article);
+            $em->flush();
+
+            $this->addFlash('success', 1);
+
+            $new_articles = $doctrine->getRepository(Article::class)->findBy(['admin' => $user->getId()]);
+
+            return $this->render('admin/articles/index.html.twig', [
+                'articles' => $new_articles,
+                'create_form' => $create_form->createView(),
+                'message' => 'Article "' . $article->getTitle()  . '" enrégistrée dans la base de données et publiée avec succès'
+            ]);
+        }
+
+        return $this->render('admin/articles/index.html.twig', [
+            'articles' => $articles,
+            'create_form' => $create_form->createView()
+        ]);
+    }
+
+    #[Route('/statscalculus/stats/', name: 'stats')]
+    public function stats(ManagerRegistry $doctrine): Response
+    {
+        $downloads = count($doctrine->getRepository(Download::class)->findBy(['seen' => 0]));
+        $denoncements = count($doctrine->getRepository(Denoncement::class)->findBy(['seen' => 0]));
+        $candidatures = count($doctrine->getRepository(Candidature::class)->findBy(['seen' => 0]));
+        $users = count($doctrine->getRepository(User::class)->findBy(['seen' => 0]));
+        $messages = count($doctrine->getRepository(Message::class)->findBy(['seen' => 0]));
+
+        return $this->render('stats/_stats.html.twig', [
+            'stats' => [
+                'downloads' => $downloads > 99 ? "+99" : $downloads,
+                'denoncements' => $denoncements > 99 ? "+99" : $denoncements,
+                'candidatures' => $candidatures > 99 ? "+99" : $candidatures,
+                'users' => $users > 99 ? "+99" : $users,
+                'messages' => $messages > 99 ? "+99" : $messages,
+            ]
+        ]);
+    }
 
     function random_password()
     {

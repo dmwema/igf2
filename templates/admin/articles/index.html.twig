@@ -1,0 +1,109 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block body %}
+	<div class="container-fluid">
+		<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-4">
+			<i class="far fa-plus-square mr-4" aria-hidden="true"></i>
+			Enrégistrer un nouvel article
+		</button>
+
+		{% for success in app.flashes('success') %}
+			{% if success == 1 %}
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					<strong>Succès!</strong>
+					{{ message }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% elseif success == 0 %}
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					<strong>Échec!</strong>
+					{{ message }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% endif %}
+		{% endfor %}
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="white-box">
+					<h3 class="box-title">Actualités</h3>
+					<p class="text-muted">{{ articles|length }}
+						articles(s) créés</p>
+					<div class="table-responsive">
+						<table class="table text-nowrap">
+							<thead>
+								<tr>
+									<th class="border-top-0">#</th>
+									<th class="border-top-0">Image</th>
+									<th class="border-top-0">Titre</th>
+									<th class="border-top-0">Contenu</th>
+									<th class="border-top-0">Date de publication</th>
+									<th class="border-top-0">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for article in articles %}
+									<tr>
+										<td>{{ loop.index }}</td>
+										<td>
+											{% if article.image != '' %}
+												<img style="width:80px; height:auto" alt="article" src="{{ asset('uploads/articles/' ~ article.getImage()) }}"/>
+											{% endif %}
+										</td>
+										<td>{{ article.title|length > 40 ? article.title|lower|slice(0, 40) ~ '...'  : article.title|lower  }}</td>
+										<td>{{ article.content|length > 40 ? article.content|lower|slice(0, 40) ~ '...' : article.content|lower  }}</td>
+										<td>{{ article.getCreatedAt() |date('d-m-Y') }}</td>
+										<td>
+											<a href="#" title="Modifier" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-info">
+												<i class="fas fa-edit" aria-hidden="true"></i>
+											</a>
+											<form method="POST" style="display:inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet article ? Cette action est irreversible.');" action="#">
+												<button type="submit" title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">
+													<i class="fas fa-trash-alt" aria-hidden="true"></i>
+												</button>
+											</form>
+											<a href="#" target="_blank" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-primary">
+												<i class="fas fa-eye" aria-hidden="true"></i>
+												Voir l'article
+											</a>
+										</td>
+									</tr>
+								{% endfor %}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Enrégistrer une nouvelle actualité</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					{{ form_start(create_form) }}
+					<div class="modal-body">
+						<div class="form-group">
+							{{ form_widget(create_form.title) }}
+						</div>
+						<div class="form-group">
+							{{ form_widget(create_form.content) }}
+						</div>
+						<div class="form-group">
+							<label class="form-label">Image à la une</label>
+							{{ form_widget(create_form.image) }}
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+						{{ form_widget(create_form.submit) }}
+					</div>
+					{{ form_end(create_form) }}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -61,7 +61,7 @@
 						<!-- Logo -->
 						<!-- ============================================================== -->
 							<a
-							class="navbar-brand" href="dashboard.html"> <!-- Logo icon -->
+							class="navbar-brand" href="{{ url('admin') }}"> <!-- Logo icon -->
 							<b
 								class="logo-icon"><!-- Dark Logo icon -->
 							</b>
@@ -125,139 +125,11 @@
 </html></header><!-- ============================================================== --><!-- End Topbar header --><!-- ============================================================== --><!-- ============================================================== --><!-- Left Sidebar - style you can find in sidebar.scss  --><!-- ============================================================== -->
 <aside
 class="left-sidebar" data-sidebarbg="skin6"> <!-- Sidebar scroll-->
-<div
-	class="scroll-sidebar">
-	<!-- Sidebar navigation-->
-	<nav class="sidebar-nav">
-		<ul
-			id="sidebarnav">
-			<!-- User Profile-->
-			<li class="sidebar-item pt-2 {% if app.request.get('_route') == 'admin' %} selected{% endif %}">
-				<a class="{% if app.request.get('_route') == 'admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('admin') }}" aria-expanded="false">
-					<i class=" fas fa-chart-bar" aria-hidden="true"></i>
-					<span class="hide-menu">Tableau de bord</span>
-				</a>
-			</li>
-			{% if app.user.type == 2 %}
-				<li class="sidebar-item {% if app.request.get('_route') == 'posts_admin' %} selected{% endif %}">
-					<a class="{% if app.request.get('_route') == 'posts_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('posts_admin') }}" aria-expanded="false">
-						<i class="fas fa-newspaper" aria-hidden="true"></i>
-						<span class="hide-menu">Articles</span>
-					</a>
-				</li>
-			{% endif %}
-			{% if app.user.type == 1 %}
-				<li class="sidebar-item {% if app.request.get('_route') == 'posts_admin' %} selected{% endif %}">
-					<a class="{% if app.request.get('_route') == 'posts_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('posts_admin') }}" aria-expanded="false">
-						<i class="fas fa-newspaper" aria-hidden="true"></i>
-						<span class="hide-menu">Actualités</span>
-					</a>
-				</li>
-				<li class="sidebar-item {% if app.request.get('_route') == 'breves_admin' %} selected{% endif %}">
-					<a class="{% if app.request.get('_route') == 'breves_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('breves_admin') }}" aria-expanded="false">
-						<i class="fa fa-info-circle" aria-hidden="true"></i>
-						<span class="hide-menu">Brèves</span>
-					</a>
-				</li>
-				<li class="sidebar-item {% if app.request.get('_route') == 'downloads_admin' %} selected{% endif %}">
-					<a class="{% if app.request.get('_route') == 'downloads_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('downloads_admin') }}" aria-expanded="false">
-						<i class="fas fa-download" aria-hidden="true"></i>
-						<span style="display:flex; justify-content: space-between; width:100%">
-							<span class="hide-menu" style="margin-left:5px">Téléchargéments</span>
-							<span class="badge">+99</span>
-						</span>
-					</a>
-				</li>
-				<li class="sidebar-item {% if app.request.get('_route') == 'photos_admin' %} selected{% endif %}">
-					<a class="{% if app.request.get('_route') == 'photos_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('photos_admin') }}" aria-expanded="false">
-						<i class="fas fa-file-image" aria-hidden="true"></i>
-						<span class="hide-menu">Photos</span>
-					</a>
-				</li>
-				<li class="sidebar-item {% if app.request.get('_route') == 'presses_admin' %} selected{% endif %}">
-					<a class="{% if app.request.get('_route') == 'presses_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('presses_admin') }}" aria-expanded="false">
-						<i class="fas fa-video" aria-hidden="true"></i>
-						<span class="hide-menu">Presses</span>
-					</a>
-				</li>
-				<li class="sidebar-item {% if app.request.get('_route') == 'denoncements_admin' %} selected{% endif %}">
-					<a class="{% if app.request.get('_route') == 'denoncements_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('denoncements_admin') }}" aria-expanded="false">
-						<i class="fas fa-pen-square" aria-hidden="true"></i>
-						<span style="display:flex; justify-content: space-between; width:100%">
-							<span style="display:flex; justify-content: space-between; width:100%">
-								<span class="hide-menu" style="margin-left:5px">Dénoncements</span>
-								<span class="badge">2</span>
-							</span>
-						</span>
-					</a>
-				</li>
-				<li class="sidebar-item {% if app.request.get('_route') == 'offers_admin' %} selected{% endif %}">
-					<a class="{% if app.request.get('_route') == 'offers_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('offers_admin') }}" aria-expanded="false">
-						<i class="fas fa-search" aria-hidden="true"></i>
-						<span class="hide-menu">Offres d'emploie</span>
-					</a>
-				</li>
-				<li class="sidebar-item {% if app.request.get('_route') == 'candidatures_admin' %} selected{% endif %}">
-					<a class="{% if app.request.get('_route') == 'candidatures_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('candidatures_admin') }}" aria-expanded="false">
-						<i class="fas fa-file-alt" aria-hidden="true"></i>
-						<span style="display:flex; justify-content: space-between; width:100%">
-							<span class="hide-menu" style="margin-left:5px">Candidatures</span>
-							<span class="badge">1</span>
-						</span>
-					</a>
-				</li>
-				<li class="sidebar-item {% if app.request.get('_route') == 'users_admin' %} selected{% endif %}">
-					<a class="{% if app.request.get('_route') == 'users_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('users_admin') }}" aria-expanded="false">
-						<i class="fas fa-users" aria-hidden="true"></i>
-						<span style="display:flex; justify-content: space-between; width:100%">
-							<span style="display:flex; justify-content: space-between; width:100%">
-								<span class="hide-menu" style="margin-left:5px">Utilisateurs</span>
-								<span class="badge">13</span>
-							</span>
-						</span>
-					</a>
-				</li>
-				<li class="sidebar-item {% if app.request.get('_route') == 'inspecteurs_admin' %} selected{% endif %}">
-					<a class="{% if app.request.get('_route') == 'inspecteurs_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('inspecteurs_admin') }}" aria-expanded="false">
-						<i class="fas fa-user" aria-hidden="true"></i>
-						<span class="hide-menu">Inspecteurs</span>
-					</a>
-				</li>
-				<li class="sidebar-item {% if app.request.get('_route') == 'messages_admin' %} selected{% endif %}">
-					<a class="{% if app.request.get('_route') == 'messages_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('messages_admin') }}" aria-expanded="false">
-						<i class="fas fa-envelope" aria-hidden="true"></i>
-						<span style="display:flex; justify-content: space-between; width:100%">
-							<span style="display:flex; justify-content: space-between; width:100%">
-								<span class="hide-menu" style="margin-left:5px">Message</span>
-								<span class="badge">13</span>
-							</span>
-						</span>
-					</a>
-				</li>
-			{% endif %}
-			<li class="sidebar-item {% if app.request.get('_route') == 'rapports_admin' %} selected{% endif %}">
-				<a class="{% if app.request.get('_route') == 'rapports_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('rapports_admin') }}" aria-expanded="false">
-					<i class="fas fa-file-pdf" aria-hidden="true"></i>
-					<span class="hide-menu">Rapports</span>
-				</a>
-			</li>
-			<hr/>
-			<li class="sidebar-item {% if app.request.get('_route') == 'config_admin' %} selected{% endif %}">
-				<a class="{% if app.request.get('_route') == 'config_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('config_admin') }}" aria-expanded="false">
-					<i class="fas fa-cog" aria-hidden="true"></i>
-					<span class="hide-menu">Parametres</span>
-				</a>
-			</li>
-			<li class="text-center p-20 upgrade-btn">
-				<a target="_blank" style="padding:10px 20px; width: 100%" href="https://igf.gouv.cd" class="btn btn-danger text-white" target="_blank">
-					<span style="margin-right:5px">Voir le site</span>
-					<i class="fas fa-arrow-right" aria-hidden="true"></i>
-				</a>
-			</li>
-		</ul>
+<div class="scroll-sidebar">
 
-	</nav>
-	<!-- End Sidebar navigation -->
+
+	{{ render(path('stats')) }}
+
 </div></aside><div class="page-wrapper">
 <div class="page-breadcrumb bg-white">
 	<div class="row align-items-center">

@@ -52,6 +52,11 @@ class User
      */
     private $civilite;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $seen;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -149,6 +154,18 @@ class User
     public function setCivilite(string $civilite): self
     {
         $this->civilite = $civilite;
+
+        return $this;
+    }
+
+    public function isSeen(): ?bool
+    {
+        return $this->seen;
+    }
+
+    public function setSeen(bool $seen): self
+    {
+        $this->seen = $seen;
 
         return $this;
     }

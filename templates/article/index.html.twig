@@ -4,49 +4,107 @@
 {% endblock %}
 {% block body %}
 	<style>
-		.post {
-			margin-bottom: 50px;
-			padding-bottom: 50px;
-			border-bottom: 1px solid #eee;
-			text-align: center;
-		}
-		blockquote {
-			font-weight: 100;
-			font-size: 2rem;
-			max-width: 600px;
-			line-height: 1.4;
-			position: relative;
-			margin: auto;
-			padding: 0.5rem;
+
+		.wrapper {
 			display: flex;
-			align-items: center;
+			flex-wrap: wrap;
 			justify-content: center;
 		}
 
-		blockquote:before,
-		blockquote:after {
+		.card {
+			overflow: hidden;
+			box-shadow: 0 1px 15px #d7dfe2;
+			background: white;
+			border-radius: 0.5rem;
+			position: relative;
+			margin: 1rem;
+			transition: 250ms all ease-in-out;
+			cursor: pointer;
+			width: 45%;
+		}
+
+		.card:hover {
+			transform: scale(1.05);
+			box-shadow: 0 2px 40px #d7dfe2;
+		}
+
+		.banner-img {
 			position: absolute;
-			color: #f1efe6;
-			font-size: 8rem;
-			width: 4rem;
-			height: 4rem;
+			object-fit: cover;
+			height: 14rem;
+			width: 100%;
 		}
 
-		blockquote:before {
-			content: '“';
-			left: -5rem;
-			top: -2rem;
+		.category-tag {
+			font-size: 0.8rem;
+			font-weight: bold;
+			color: white;
+			background: red;
+			padding: 0.5rem 1.3rem 0.5rem 1rem;
+			text-transform: uppercase;
+			position: absolute;
+			z-index: 1;
+			top: 1rem;
+			border-radius: 0 2rem 2rem 0;
 		}
 
-		blockquote:after {
-			content: '”';
-			right: -5rem;
-			bottom: 1rem;
+		.popular {
+			background: #ef257a;
 		}
 
-		cite {
-			line-height: 3;
-			text-align: left;
+		.technology {
+			background: #651fff;
+		}
+
+		.psychology {
+			background: #e85808;
+		}
+
+		.card-body {
+			margin: 15rem 1rem 1rem;
+		}
+
+		.blog-hashtag {
+			font-size: 0.9rem;
+			font-weight: 500;
+			color: #4d97b2;
+		}
+
+		.blog-title {
+			line-height: 2rem;
+			font-size: 1.5rem;
+			margin: 1rem 0 0.5rem;
+		}
+
+		.blog-description {
+			color: #616b74;
+			font-size: 0.9rem;
+		}
+
+		.card-profile {
+			display: flex;
+			margin-top: 2rem;
+			align-items: center;
+		}
+
+		.profile-img {
+			width: 60px;
+			height: 60px;
+			object-fit: cover;
+			border-radius: 50%;
+		}
+
+		.card-profile-info {
+			margin-left: 1rem;
+		}
+
+		.profile-name {
+			font-size: 1rem;
+		}
+
+		.profile-followers {
+			color: #616b74;
+			font-size: 0.9rem;
 		}
 	</style>
 
@@ -55,31 +113,45 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6 texts">
-						<h3>Articles</h3>
+						<h3>Publications</h3>
+						<p style="font-size:17px">Tous les articles publiés par les inspecteurs de l'Inspection Générale des Finances.</p>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="container" style="padding: 50px 0;">
-			<div class="post">
-				<blockquote style="font-size:18px">The man who comes back through the door in the wall will never be quite the same as the man who went out.</blockquote>
-				<cite>Jules Alingete</cite>
-			</div>
-			<div class="post">
-				<blockquote style="font-size:18px">The man who comes back through the door in the wall will never be quite the same as the man who went out.</blockquote>
-				<cite>Jules Alingete</cite>
-			</div>
-			<div class="post">
-				<blockquote style="font-size:18px">The man who comes back through the door in the wall will never be quite the same as the man who went out.</blockquote>
-				<cite>Jules Alingete</cite>
-			</div>
-			<div class="post">
-				<blockquote style="font-size:18px">The man who comes back through the door in the wall will never be quite the same as the man who went out.</blockquote>
-				<cite>Jules Alingete</cite>
-			</div>
-			<div class="post">
-				<blockquote style="font-size:18px">The man who comes back through the door in the wall will never be quite the same as the man who went out.</blockquote>
-				<cite>Jules Alingete</cite>
+			<div class="wrapper">
+				{% for article in articles %}
+
+					<div class="card">
+						<div class="card-banner">
+							{% if article.admin.image != "" %}
+								<img class="banner-img" src={{ 'uploads/admins/' ~ article.admin.image }} alt=''>
+							{% else %}
+								<img class="banner-img" src={{ asset('images/default-article.jpg') }} alt=''>
+							{% endif %}
+						</div>
+						<div class="card-body">
+							<p class="blog-hashtag">{{ article.getCreatedAt()|date('d-M-Y à h:i') }}</p>
+							<h2 class="blog-title">{{ article.title }}</h2>
+							<p class="blog-description">{{ article.content }}</p>
+
+							<div class="card-profile">
+								{% if article.admin.image != "" %}
+									<img class="profile-img" src={{ article.admin.image }} alt=''>
+								{% else %}
+									<img class="profile-img" src={{ asset('images/default-profile.jpeg') }} alt=''>
+								{% endif %}
+
+								<div class="card-profile-info">
+									<h3 class="profile-name" style="margin:0">{{ article.admin.fullname }}</h3>
+									<p class="profile-followers" style="margin:0">{{article.admin.poste}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+
 			</div>
 		</div>
 	</div>

@@ -47,6 +47,11 @@ class Download
      */
     private $date;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $seen;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -84,6 +89,18 @@ class Download
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function isSeen(): ?bool
+    {
+        return $this->seen;
+    }
+
+    public function setSeen(bool $seen): self
+    {
+        $this->seen = $seen;
 
         return $this;
     }

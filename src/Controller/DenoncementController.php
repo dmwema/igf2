@@ -88,6 +88,7 @@ class DenoncementController extends AbstractController
                 ->setProfession($datas['profession'])
                 ->setPhone($datas['phone'])
                 ->setMotif($datas['motif'])
+                ->setSeen(0)
                 ->setCreatedAt(new \DateTimeImmutable());
 
 

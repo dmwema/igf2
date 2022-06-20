@@ -75,6 +75,7 @@ class WelcomeController extends AbstractController
             $message
                 ->setNames($datas['names'])
                 ->setEmail($datas['email'])
+                ->setSeen(0)
                 ->setMessage($datas['message']);
 
             $em->persist($message);

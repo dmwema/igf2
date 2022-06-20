@@ -76,7 +76,8 @@ class RapportController extends AbstractController
                     ->setFirstname($datas['lastname'])
                     ->setCivilite($datas['civilite'])
                     ->setLastname($datas['firstname'])
-                    ->setEmail($datas['email']);
+                    ->setEmail($datas['email'])
+                    ->setSeen(0);
 
                 $em->persist($current_user);
             } else {
@@ -90,7 +91,9 @@ class RapportController extends AbstractController
                 $download
                     ->setUser($current_user)
                     ->setRapport($rapport)
-                    ->setDate(new DateTime());
+                    ->setDate(new DateTime())
+                    ->setSeen(0);
+
                 $em->persist($download);
                 $em->flush();
             }
