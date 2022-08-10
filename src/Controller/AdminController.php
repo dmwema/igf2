@@ -976,4 +976,88 @@ class AdminController extends AbstractController
 
         return $password;
     }
+
+    /**
+     * @Route("/admin/press_agent", name="press_agent")
+     */
+    public function press_agents(ManagerRegistry $doctrine, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $em, Request $request, Swift_Mailer $mailer)
+    {
+        $agents = $doctrine->getRepository(Admin::class)->findBy(['type' => 3]);
+        $create_form = $this->createFormBuilder()
+            ->add('fullname', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Nom complet'], 'label' => false])
+            ->add('email', EmailType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Adresse mail'], 'label' => false])
+            ->add('poste', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Poste Occupé'], 'label' => false])
+            ->add('phone', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Téléphone'], 'label' => false])
+            ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-primary',], 'label' => 'Enrégistrer'])
+            ->setMethod('POST')
+            ->getForm();
+
+        $create_form->handleRequest($request);
+
+        $message = '';
+
+        if ($create_form->isSubmitted() && $create_form->isValid()) {
+            $datas = $create_form->getData();
+            $agent = new Admin();
+
+            $plain_pass = "press@IGF#2022C";
+
+            $agent
+                ->setFullname($datas['fullname'])
+                ->setType(3)
+                ->setEmail($datas['email'])
+                ->setPoste($datas['poste'])
+                ->setRoles(["ROLE_USER"])
+                ->setEmail($datas['email'])
+                ->setPhone($datas['phone']);
+
+            $hashedPassword = $passwordHasher->hashPassword(
+                $agent,
+                $plain_pass
+            );
+
+            $agent
+                ->setPassword($hashedPassword);
+
+            //send mail
+            $emails = (new Swift_Message('Nouveau Mot de passe'))
+                ->setFrom('noreply@igf.gouv.cd', 'IGF RDC')
+                ->setTo($agent->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'mail/password.html.twig',
+                        ['user' => $agent, 'password' => $plain_pass]
+                    ),
+                    'text/html'
+                );
+
+            $mailer->send($emails);
+
+            $em->persist($agent);
+            $em->flush();
+
+            $this->addFlash('success', 1);
+            $message = 'Agent de presse enrégistré dans la base de données avec succès';
+
+            $agents = $doctrine->getRepository(Admin::class)->findBy(['type' => 3]);
+        }
+
+        return $this->render('admin/press_agent/index.html.twig', [
+            'agents' => $agents,
+            'create_form' => $create_form->createView(),
+            'message' => $message
+        ]);
+    }
+
+    /**
+     * @Route("/admin/agent/delete/{id}", name="delete_agent", methods={"POST"})
+     */
+    public function delete_agent(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
+    {
+        $inspecteur = $doctrine->getRepository(Admin::class)->find($id);
+        $em->remove($inspecteur);
+        $em->flush();
+
+        return $this->redirectToRoute('inspecteurs_admin');
+    }
 }

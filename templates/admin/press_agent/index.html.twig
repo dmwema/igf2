@@ -1,0 +1,107 @@
+{% extends 'admin/layout.html.twig' %}
+
+
+{% block body %}
+	<div class="container-fluid">
+		<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-4">
+			<i class="far fa-plus-square mr-4" aria-hidden="true"></i>
+			Enrégistrer un agent de presse
+		</button>
+		{% for success in app.flashes('success') %}
+			{% if success == 1 %}
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					<strong>Succès!</strong>
+					{{ message }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% elseif success == 0 %}
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					<strong>Échec!</strong>
+					{{ message }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% endif %}
+		{% endfor %}
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="white-box">
+					<h3 class="box-title">Agents de presse</h3>
+					<p class="text-muted">{{ agents|length }}
+						A(s) enrégistré(s)</p>
+					<div class="table-responsive">
+						<table class="table text-nowrap">
+							<thead>
+								<tr>
+									<th class="border-top-0">#</th>
+									<th class="border-top-0">Nom complet</th>
+									<th class="border-top-0">Poste</th>
+									<th class="border-top-0">Email</th>
+									<th class="border-top-0">Téléphone</th>
+									<th class="border-top-0">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for agent in agents %}
+									{{ agent.fullname }}
+									<tr>
+										<td>{{ loop.index }}</td>
+										<td>{{ agent.fullname  }}</td>
+										<td>{{ agent.poste  }}</td>
+										<td>{{ agent.email  }}</td>
+										<td>{{ agent.phone  }}</td>
+										<td>
+											<form method="POST" style="display:inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irreversible.');" action="{{ path('delete_agent', {id: agent.id}) }}">
+												<button type="submit" title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">
+													<i class="fas fa-trash-alt" aria-hidden="true"></i>
+												</button>
+											</form>
+										</td>
+									</tr>
+								{% endfor %}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Enrégistrer une nouvelle offre d'emploie</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					{{ form_start(create_form) }}
+					<div class="modal-body">
+						<img alt="preview" style="width:100%; display:none" id="image_prev" src=""/>
+						<div class="form-group">
+							<label>Nom complet</label>
+							{{ form_widget(create_form.fullname) }}
+						</div>
+						<div class="form-group">
+							<label>Poste occupé à l'IGF</label>
+							{{ form_widget(create_form.poste) }}
+						</div>
+						<div class="form-group">
+							<label>Adresse mail</label>
+							{{ form_widget(create_form.email) }}
+						</div>
+						<div class="form-group">
+							<label>Numéro de téléphone</label>
+							{{ form_widget(create_form.phone) }}
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+						{{ form_widget(create_form.submit) }}
+					</div>
+					{{ form_end(create_form) }}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

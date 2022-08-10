@@ -104,6 +104,12 @@
 					<span class="hide-menu">Inspecteurs</span>
 				</a>
 			</li>
+			<li class="sidebar-item {% if app.request.get('_route') == 'press_agent' %} selected{% endif %}">
+				<a class="{% if app.request.get('_route') == 'press_agent' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('press_agent') }}" aria-expanded="false">
+					<i class="fas fa-user" aria-hidden="true"></i>
+					<span class="hide-menu">Agent de presse</span>
+				</a>
+			</li>
 			<li class="sidebar-item {% if app.request.get('_route') == 'messages_admin' %} selected{% endif %}">
 				<a class="{% if app.request.get('_route') == 'messages_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('messages_admin') }}" aria-expanded="false">
 					<i class="fas fa-envelope" aria-hidden="true"></i>
