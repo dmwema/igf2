@@ -1054,10 +1054,10 @@ class AdminController extends AbstractController
      */
     public function delete_agent(ManagerRegistry $doctrine, $id, EntityManagerInterface $em): Response
     {
-        $inspecteur = $doctrine->getRepository(Admin::class)->find($id);
-        $em->remove($inspecteur);
+        $agent = $doctrine->getRepository(Admin::class)->find($id);
+        $em->remove($agent);
         $em->flush();
 
-        return $this->redirectToRoute('inspecteurs_admin');
+        return $this->redirectToRoute('press_agent');
     }
 }

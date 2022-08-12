@@ -17,7 +17,7 @@
 				</a>
 			</li>
 		{% endif %}
-		{% if app.user.type == 1 %}
+		{% if app.user.type != 2 %}
 			<li class="sidebar-item {% if app.request.get('_route') == 'posts_admin' %} selected{% endif %}">
 				<a class="{% if app.request.get('_route') == 'posts_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('posts_admin') }}" aria-expanded="false">
 					<i class="fas fa-newspaper" aria-hidden="true"></i>
@@ -30,6 +30,27 @@
 					<span class="hide-menu">Brèves</span>
 				</a>
 			</li>
+			<li class="sidebar-item {% if app.request.get('_route') == 'photos_admin' %} selected{% endif %}">
+				<a class="{% if app.request.get('_route') == 'photos_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('photos_admin') }}" aria-expanded="false">
+					<i class="fas fa-file-image" aria-hidden="true"></i>
+					<span class="hide-menu">Photos</span>
+				</a>
+			</li>
+			<li class="sidebar-item {% if app.request.get('_route') == 'presses_admin' %} selected{% endif %}">
+				<a class="{% if app.request.get('_route') == 'presses_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('presses_admin') }}" aria-expanded="false">
+					<i class="fas fa-video" aria-hidden="true"></i>
+					<span class="hide-menu">Presses</span>
+				</a>
+			</li>
+			<li class="sidebar-item {% if app.request.get('_route') == 'rapports_admin' %} selected{% endif %}">
+				<a class="{% if app.request.get('_route') == 'rapports_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('rapports_admin') }}" aria-expanded="false">
+					<i class="fas fa-file-pdf" aria-hidden="true"></i>
+					<span class="hide-menu">Rapports</span>
+				</a>
+			</li>
+		{% endif %}
+		{% if app.user.type == 1 %}
+
 			<li class="sidebar-item {% if app.request.get('_route') == 'downloads_admin' %} selected{% endif %}">
 				<a class="{% if app.request.get('_route') == 'downloads_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('downloads_admin') }}" aria-expanded="false">
 					<i class="fas fa-download" aria-hidden="true"></i>
@@ -41,18 +62,6 @@
 							{% endif %}
 						{% endif %}
 					</span>
-				</a>
-			</li>
-			<li class="sidebar-item {% if app.request.get('_route') == 'photos_admin' %} selected{% endif %}">
-				<a class="{% if app.request.get('_route') == 'photos_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('photos_admin') }}" aria-expanded="false">
-					<i class="fas fa-file-image" aria-hidden="true"></i>
-					<span class="hide-menu">Photos</span>
-				</a>
-			</li>
-			<li class="sidebar-item {% if app.request.get('_route') == 'presses_admin' %} selected{% endif %}">
-				<a class="{% if app.request.get('_route') == 'presses_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('presses_admin') }}" aria-expanded="false">
-					<i class="fas fa-video" aria-hidden="true"></i>
-					<span class="hide-menu">Presses</span>
 				</a>
 			</li>
 			<li class="sidebar-item {% if app.request.get('_route') == 'denoncements_admin' %} selected{% endif %}">
@@ -124,12 +133,6 @@
 				</a>
 			</li>
 		{% endif %}
-		<li class="sidebar-item {% if app.request.get('_route') == 'rapports_admin' %} selected{% endif %}">
-			<a class="{% if app.request.get('_route') == 'rapports_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('rapports_admin') }}" aria-expanded="false">
-				<i class="fas fa-file-pdf" aria-hidden="true"></i>
-				<span class="hide-menu">Rapports</span>
-			</a>
-		</li>
 		<hr/>
 		<li class="sidebar-item {% if app.request.get('_route') == 'config_admin' %} selected{% endif %}">
 			<a class="{% if app.request.get('_route') == 'config_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('config_admin') }}" aria-expanded="false">
