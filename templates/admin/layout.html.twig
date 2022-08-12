@@ -71,8 +71,11 @@
 								{% if app.user.type == 2 %}
 									| Inspecteurs
 								{% endif %}
+								{% if app.user.type == 3 %}
+									| Agent de presse
+								{% endif %}
 								{% if app.user.type == 1 %}
-									| administrateur
+									| Administrateur
 								{% endif %}
 
 							</strong>

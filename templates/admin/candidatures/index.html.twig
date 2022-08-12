@@ -16,6 +16,7 @@
 									<th class="border-top-0">#</th>
 									<th class="border-top-0">Poste</th>
 									<th class="border-top-0">Demandeur</th>
+									<th class="border-top-0">Fillière</th>
 									<th class="border-top-0">Bio</th>
 									<th class="border-top-0">Actions</th>
 								</tr>
@@ -26,6 +27,7 @@
 										<td>{{ loop.index }}</td>
 										<td>{{ candidature.getOffer().title|length > 70 ? candidature.getOffer().title|lower|slice(0, 70) ~ '...'  : candidature.getOffer().title|lower  }}</td>
 										<td>{{ candidature.nom ~ " " ~ candidature.postnom ~ " " ~ candidature.prenom ~ " (" ~  candidature.ville ~ ") " ~ candidature.email ~ " " ~ candidature.phone}}</td>
+										<td>{{ candidature.branch}}</td>
 										<td>{{ candidature.bio|length > 70 ? candidature.bio|lower|slice(0, 70) ~ '...'  : candidature.bio|lower  }}</td>
 										<td>
 											<button title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">

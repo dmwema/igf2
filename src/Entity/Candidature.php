@@ -91,6 +91,11 @@ class Candidature
      */
     private $seen;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $branch;
+
     public function getOffer(): ?Offer
     {
         return $this->offer;
@@ -248,6 +253,18 @@ class Candidature
     public function setSeen(bool $seen): self
     {
         $this->seen = $seen;
+
+        return $this;
+    }
+
+    public function getBranch(): ?string
+    {
+        return $this->branch;
+    }
+
+    public function setBranch(string $branch): self
+    {
+        $this->branch = $branch;
 
         return $this;
     }

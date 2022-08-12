@@ -47,9 +47,6 @@
 										<td>{{ offer.description|length > 70 ? offer.description|lower|slice(0, 70) ~ '...'  : offer.description|lower  }}</td>
 										<td>{{ offer.getCandidatures()|length }}</td>
 										<td>
-											<a href="{{ path('edit_offer', {id: offer.id}) }}" title="Modifier" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-info">
-												<i class="fas fa-edit" aria-hidden="true"></i>
-											</a>
 											<form method="POST" style="display:inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette photo ? Cette action est irreversible.');" action="{{ path('delete_offer', {id: offer.id}) }}">
 												<button type="submit" title="Supprimer" style="color:#fff;padding: 0.275rem 0.45rem;" type="button" class="btn btn-danger">
 													<i class="fas fa-trash-alt" aria-hidden="true"></i>

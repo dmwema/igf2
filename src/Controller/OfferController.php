@@ -47,6 +47,7 @@ class OfferController extends AbstractController
             ->add('nom', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Votre nom'], 'label' => 'Nom'])
             ->add('postnom', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Votre postnom'], 'label' => 'Postnom'])
             ->add('email', EmailType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Votre adresse mail'], 'label' => 'Adresse mail'])
+            ->add('branch', TextType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Votre fillière'], 'label' => 'Fillière'])
             ->add('naissance', DateType::class, ['attr' => [
                 'class' => 'birth_select', 'placeholder' => 'Votre date de naissance'
             ], 'label' => 'Date de naissance', 'input' => 'datetime_immutable',])
@@ -77,6 +78,7 @@ class OfferController extends AbstractController
                 ->setVille($datas['ville'])
                 ->setAdresse($datas['adresse'])
                 ->setEmail($datas['email'])
+                ->setBranch($datas['branch'])
                 ->setPhone($datas['phone'])
                 ->setOffer($offer)
                 ->setBio($datas['bio'])

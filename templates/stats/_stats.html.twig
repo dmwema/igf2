@@ -50,7 +50,6 @@
 			</li>
 		{% endif %}
 		{% if app.user.type == 1 %}
-
 			<li class="sidebar-item {% if app.request.get('_route') == 'downloads_admin' %} selected{% endif %}">
 				<a class="{% if app.request.get('_route') == 'downloads_admin' %} active{% endif %} sidebar-link waves-effect waves-dark sidebar-link" href="{{ url('downloads_admin') }}" aria-expanded="false">
 					<i class="fas fa-download" aria-hidden="true"></i>
